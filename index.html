@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manoj S | Data Analyst & AI Engineer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{inter:['Inter','sans-serif']},colors:{dark:{950:'#0a1628'},neon:{blue:'#3b82f6',purple:'#8b5cf6',cyan:'#06b6d4',green:'#10b981'}}}}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#060b18;color:#e2e8f0;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a1628}
+::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#2563eb}
+#three-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+.gradient-border{position:relative;background:linear-gradient(135deg,#0d1b2a 0%,#1a1a2e 50%,#16213e 100%);border:1px solid rgba(59,130,246,0.15);transform-style:preserve-3d;perspective:1000px}
+.gradient-border::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(6,182,212,0.2),rgba(139,92,246,0.3));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none}
+.grid-bg{background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:60px 60px}
+.hero-gradient{background:radial-gradient(ellipse at 30% 20%,rgba(59,130,246,0.12) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(139,92,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(6,182,212,0.05) 0%,transparent 70%)}
+.card-3d{transition:transform 0.4s cubic-bezier(0.4,0,0.2,1),box-shadow 0.4s;transform-style:preserve-3d}
+.card-3d:hover{box-shadow:0 20px 40px rgba(59,130,246,0.15),0 0 30px rgba(59,130,246,0.1)}
+.card-3d .card-glow{opacity:0;transition:opacity 0.4s;position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:0 0 30px rgba(59,130,246,0.15)}
+.card-3d:hover .card-glow{opacity:1}
+.skill-icon{transition:all 0.3s;transform-style:preserve-3d}
+.skill-icon:hover{transform:scale(1.1) rotateY(15deg) rotateX(-10deg);filter:drop-shadow(0 0 12px rgba(59,130,246,0.6))}
+.nav-link{position:relative;transition:color 0.3s}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.nav-link:hover,.nav-link.active{color:#60a5fa}
+.pulse-dot{animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.typing-cursor::after{content:'|';animation:blink 1s infinite;color:#3b82f6}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.float-3d{animation:float3d 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes float3d{0%,100%{transform:translateY(0px) rotateY(0deg) rotateX(0deg)}25%{transform:translateY(-12px) rotateY(5deg) rotateX(3deg)}50%{transform:translateY(-8px) rotateY(-3deg) rotateX(-2deg)}75%{transform:translateY(-14px) rotateY(2deg) rotateX(4deg)}}
+.orbit{animation:orbit 20s linear infinite;transform-style:preserve-3d}
+@keyframes orbit{0%{transform:rotate(0deg) translateX(140px) rotate(0deg)}100%{transform:rotate(360deg) translateX(140px) rotate(-360deg)}}
+.orbit-reverse{animation:orbit-r 25s linear infinite}
+@keyframes orbit-r{0%{transform:rotate(0deg) translateX(110px) rotate(0deg)}100%{transform:rotate(-360deg) translateX(110px) rotate(360deg)}}
+.insight-bar{animation:grow-width 2s ease-out forwards;transform-origin:left}
+@keyframes grow-width{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.stat-number{font-variant-numeric:tabular-nums}
+.tag{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#93c5fd}
+.tag-purple{background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);color:#c4b5fd}
+.tag-cyan{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);color:#67e8f9}
+.tag-green{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#6ee7b7}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,0.3),rgba(6,182,212,0.3),transparent)}
+.timeline-line{background:linear-gradient(180deg,#3b82f6,#8b5cf6,#06b6d4)}
+.mobile-menu{transform:translateX(100%);transition:transform 0.3s ease}
+.mobile-menu.open{transform:translateX(0)}
+html{scroll-behavior:smooth}
+.project-img-overlay{background:linear-gradient(180deg,transparent 40%,rgba(6,11,24,0.95) 100%)}
+.shimmer{position:relative;overflow:hidden}
+.shimmer::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+.hex-float{animation:hex-float 8s ease-in-out infinite}
+@keyframes hex-float{0%,100%{transform:translateY(0) rotateZ(0deg)}33%{transform:translateY(-20px) rotateZ(60deg)}66%{transform:translateY(10px) rotateZ(-30deg)}}
+.content-layer{position:relative;z-index:1}
+@media(max-width:768px){.orbit,.orbit-reverse{display:none}}
+
+/* ===== ROBOT POPUP ===== */
+.robot-popup-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+.robot-popup-overlay.active{opacity:1;pointer-events:all}
+
+.robot-popup{position:relative;display:flex;flex-direction:column;align-items:center;transform:scale(0.3) translateY(80px) rotateX(25deg);transition:transform 0.7s cubic-bezier(0.34,1.56,0.64,1),opacity 0.5s;opacity:0;transform-style:preserve-3d;perspective:800px}
+.robot-popup-overlay.active .robot-popup{transform:scale(1) translateY(0) rotateX(0deg);opacity:1}
+
+/* Robot Body */
+.robot-container{position:relative;width:180px;height:220px;margin-bottom:-10px}
+.robot-antenna{position:absolute;top:0;left:50%;transform:translateX(-50%);width:4px;height:28px;background:linear-gradient(180deg,#3b82f6,#1e40af);border-radius:2px;z-index:2}
+.robot-antenna::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:#3b82f6;box-shadow:0 0 12px #3b82f6,0 0 24px rgba(59,130,246,0.5);animation:antenna-pulse 1.5s ease-in-out infinite}
+@keyframes antenna-pulse{0%,100%{box-shadow:0 0 12px #3b82f6,0 0 24px rgba(59,130,246,0.5);transform:translateX(-50%) scale(1)}50%{box-shadow:0 0 20px #06b6d4,0 0 40px rgba(6,182,212,0.6);transform:translateX(-50%) scale(1.3)}}
+
+.robot-head{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:120px;height:90px;background:linear-gradient(180deg,#1e293b,#0f172a);border:2px solid rgba(59,130,246,0.3);border-radius:20px 20px 16px 16px;box-shadow:0 0 20px rgba(59,130,246,0.1),inset 0 1px 0 rgba(255,255,255,0.05);overflow:hidden;z-index:1}
+.robot-head::before{content:'';position:absolute;top:0;left:0;right:0;height:20px;background:linear-gradient(180deg,rgba(59,130,246,0.08),transparent);border-radius:18px 18px 0 0}
+
+.robot-eye{position:absolute;top:32px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#0a1628,#060b18);border:2px solid rgba(59,130,246,0.4);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.robot-eye-left{left:18px}
+.robot-eye-right{right:18px}
+.robot-pupil{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#60a5fa,#3b82f6);box-shadow:0 0 8px #3b82f6,0 0 16px rgba(59,130,246,0.5);animation:eye-look 4s ease-in-out infinite}
+.robot-pupil::after{content:'';position:absolute;top:2px;left:2px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.8)}
+@keyframes eye-look{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(3px) translateY(-1px)}50%{transform:translateX(-2px) translateY(1px)}75%{transform:translateX(2px) translateY(2px)}}
+
+.robot-mouth{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:40px;height:10px;display:flex;gap:3px;justify-content:center}
+.robot-mouth-bar{width:4px;height:100%;border-radius:2px;background:linear-gradient(180deg,#3b82f6,#1d4ed8);animation:mouth-eq 0.8s ease-in-out infinite alternate}
+.robot-mouth-bar:nth-child(1){animation-delay:0s}
+.robot-mouth-bar:nth-child(2){animation-delay:0.1s}
+.robot-mouth-bar:nth-child(3){animation-delay:0.2s}
+.robot-mouth-bar:nth-child(4){animation-delay:0.15s}
+.robot-mouth-bar:nth-child(5){animation-delay:0.05s}
+.robot-mouth-bar:nth-child(6){animation-delay:0.25s}
+.robot-mouth-bar:nth-child(7){animation-delay:0.12s}
+@keyframes mouth-eq{0%{height:3px;background:#1d4ed8}100%{height:10px;background:#3b82f6}}
+
+.robot-ear{position:absolute;top:45px;width:12px;height:24px;border-radius:4px;border:2px solid rgba(59,130,246,0.3);z-index:0}
+.robot-ear-left{left:-8px;background:linear-gradient(180deg,#1e293b,#0f172a);border-radius:4px 0 0 4px}
+.robot-ear-right{right:-8px;background:linear-gradient(180deg,#1e293b,#0f172a);border-radius:0 4px 4px 0}
+
+.robot-neck{position:absolute;top:118px;left:50%;transform:translateX(-50%);width:30px;height:14px;background:linear-gradient(180deg,#334155,#1e293b);border-radius:0 0 4px 4px;border:1px solid rgba(59,130,246,0.15);border-top:none;z-index:0}
+
+.robot-body{position:absolute;top:130px;left:50%;transform:translateX(-50%);width:110px;height:80px;background:linear-gradient(180deg,#1e293b,#0f172a);border:2px solid rgba(59,130,246,0.25);border-radius:12px;box-shadow:0 0 20px rgba(59,130,246,0.08),inset 0 1px 0 rgba(255,255,255,0.03);overflow:hidden}
+.robot-body::before{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:1px solid rgba(59,130,246,0.1);border-radius:8px}
+
+.robot-chest-light{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,#10b981,#059669);border:2px solid rgba(16,185,129,0.4);box-shadow:0 0 10px rgba(16,185,129,0.5),0 0 20px rgba(16,185,129,0.2);animation:chest-glow 2s ease-in-out infinite}
+@keyframes chest-glow{0%,100%{box-shadow:0 0 10px rgba(16,185,129,0.5),0 0 20px rgba(16,185,129,0.2)}50%{box-shadow:0 0 15px rgba(6,182,212,0.6),0 0 30px rgba(6,182,212,0.3)}}
+
+.robot-arm{position:absolute;top:138px;width:18px;height:50px;border-radius:8px;border:2px solid rgba(59,130,246,0.2)}
+.robot-arm-left{left:-14px;background:linear-gradient(180deg,#1e293b,#0f172a);border-radius:8px 0 0 8px;animation:arm-wave 3s ease-in-out infinite;transform-origin:top center}
+.robot-arm-right{right:-14px;background:linear-gradient(180deg,#1e293b,#0f172a);border-radius:0 8px 8px 0;animation:arm-wave 3s ease-in-out infinite 1.5s;transform-origin:top center}
+@keyframes arm-wave{0%,100%{transform:rotate(5deg)}50%{transform:rotate(-8deg)}}
+
+.robot-hand{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#334155,#1e293b);border:2px solid rgba(59,130,246,0.25)}
+
+/* Chat Bubble */
+.robot-bubble{position:relative;margin-top:10px;background:linear-gradient(135deg,#0d1b2a,#16213e);border:1px solid rgba(59,130,246,0.3);border-radius:20px;padding:18px 28px;max-width:340px;text-align:center;box-shadow:0 8px 32px rgba(59,130,246,0.15),0 0 0 1px rgba(59,130,246,0.1);transform:translateY(20px);opacity:0;transition:all 0.5s ease 0.4s}
+.robot-popup-overlay.active .robot-bubble{transform:translateY(0);opacity:1}
+.robot-bubble::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:12px solid rgba(59,130,246,0.3)}
+.robot-bubble::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #0d1b2a}
+
+.robot-bubble-text{font-size:15px;font-weight:600;color:#e2e8f0;line-height:1.6}
+.robot-bubble-text span{background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+.robot-bubble-sub{font-size:11px;color:#64748b;margin-top:6px}
+
+.robot-close-btn{margin-top:16px;padding:10px 32px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:white;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 15px rgba(59,130,246,0.3);transform:translateY(20px);opacity:0;transition:all 0.5s ease 0.6s}
+.robot-popup-overlay.active .robot-close-btn{transform:translateY(0);opacity:1}
+.robot-close-btn:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 6px 20px rgba(59,130,246,0.4)}
+.robot-close-btn:active{transform:scale(0.98)}
+
+/* Floating particles around robot */
+.robot-particle{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none}
+.robot-particle:nth-child(1){top:20%;left:10%;background:#3b82f6;animation:rp-float 3s ease-in-out infinite}
+.robot-particle:nth-child(2){top:60%;right:5%;background:#8b5cf6;animation:rp-float 4s ease-in-out infinite 0.5s}
+.robot-particle:nth-child(3){bottom:20%;left:15%;background:#06b6d4;animation:rp-float 3.5s ease-in-out infinite 1s}
+.robot-particle:nth-child(4){top:30%;right:12%;background:#10b981;animation:rp-float 4.5s ease-in-out infinite 1.5s}
+.robot-particle:nth-child(5){bottom:30%;right:18%;background:#60a5fa;animation:rp-float 3.8s ease-in-out infinite 0.8s}
+@keyframes rp-float{0%,100%{opacity:0.3;transform:translateY(0) scale(1)}50%{opacity:0.8;transform:translateY(-15px) scale(1.5)}}
+
+/* Robot shadow */
+.robot-shadow{width:120px;height:16px;border-radius:50%;background:radial-gradient(ellipse,rgba(59,130,246,0.15),transparent);margin-top:-5px;animation:shadow-pulse 3s ease-in-out infinite}
+@keyframes shadow-pulse{0%,100%{transform:scaleX(1);opacity:0.6}50%{transform:scaleX(0.8);opacity:0.3}}
+
+/* Typing dots in bubble */
+.typing-dots{display:inline-flex;gap:4px;align-items:center;margin-left:4px;vertical-align:middle}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:typing-dot 1.4s ease-in-out infinite}
+.typing-dots span:nth-child(2){animation-delay:0.2s}
+.typing-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes typing-dot{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-6px);opacity:1}}
+/* ===== SOCIAL ICONS ===== */
+.social-icon{width:2.25rem;height:2.25rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.3);transition:all 0.3s ease}
+.social-icon:hover{transform:scale(1.15) translateY(-4px) rotate(5deg)}
+.social-linkedin{color:#0A66C2;box-shadow:0 0 10px #0A66C2,0 0 25px rgba(10,102,194,0.5)}
+.social-linkedin:hover{box-shadow:0 0 20px #0A66C2,0 0 40px rgba(10,102,194,0.7)}
+.social-github{color:#ffffff;box-shadow:0 0 10px #ffffff,0 0 25px rgba(255,255,255,0.3)}
+.social-github:hover{box-shadow:0 0 20px #ffffff,0 0 40px rgba(255,255,255,0.5)}
+.social-whatsapp{color:#25D366;box-shadow:0 0 10px #25D366,0 0 25px rgba(37,211,102,0.5)}
+.social-whatsapp:hover{box-shadow:0 0 20px #25D366,0 0 40px rgba(37,211,102,0.7)}
+.social-gmail{color:#EA4335;box-shadow:0 0 10px #EA4335,0 0 25px rgba(234,67,53,0.5)}
+.social-gmail:hover{box-shadow:0 0 20px #EA4335,0 0 40px rgba(234,67,53,0.7)}
+
+/* ===== HERO STATS ===== */
+.stat-card{padding:1.25rem 1.5rem;border-radius:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.15);box-shadow:0 0 20px rgba(59,130,246,0.08);transition:all 0.3s ease}
+.stat-card:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 0 30px rgba(59,130,246,0.2),0 0 15px rgba(139,92,246,0.1)}
+.stat-number{font-weight:800}
+.stat-number-gradient{font-weight:800;background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ===== PROJECT IMAGE MODAL ===== */
+.project-img-container{cursor:zoom-in}
+.project-img-container img{transition:transform 0.3s ease}
+.project-img-container:hover img{transform:scale(1.05)}
+.project-img-container::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.45);opacity:0;transition:opacity 0.3s ease;pointer-events:none;z-index:1}
+.project-img-container:hover::after{opacity:1}
+.project-img-expand{position:absolute;top:1rem;right:1rem;z-index:20;width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.2);backdrop-filter:blur(8px);opacity:0;transition:opacity 0.3s ease;pointer-events:none}
+.project-img-container:hover .project-img-expand{opacity:1;pointer-events:auto}
+.project-modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity 0.25s ease}
+.project-modal.active{opacity:1;pointer-events:auto}
+.project-modal-img{max-width:95vw;max-height:90vh;object-fit:contain;border-radius:1rem;box-shadow:0 0 40px rgba(59,130,246,0.5),0 0 80px rgba(139,92,246,0.25);transform:scale(0.9);transition:transform 0.25s ease}
+.project-modal.active .project-modal-img{transform:scale(1)}
+.project-modal-close{position:absolute;top:1rem;right:1rem;z-index:70;width:2.5rem;height:2.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.3);transition:all 0.3s ease}
+.project-modal-close:hover{background:rgba(59,130,246,0.25);border-color:rgba(59,130,246,0.5);transform:scale(1.1)}
+@media(min-width:640px){.project-modal-img{max-width:85vw}}
+@media(min-width:1024px){.project-modal-img{max-width:90vw}}
+
+/* ===== COLLAPSIBLE PROJECT CARDS ===== */
+.project-card{max-height:450px;transition:max-height 0.5s ease,transform 0.4s cubic-bezier(0.4,0,0.2,1),box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
+.project-card.expanded{max-height:1200px}
+.project-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(59,130,246,0.2),0 0 40px rgba(59,130,246,0.25)}
+.project-card-img{height:220px;transition:transform 0.3s ease}
+.project-card-img img{transition:transform 0.3s ease}
+.project-card-img:hover img{transform:scale(1.05)}
+@media(min-width:640px){.project-card-img{height:250px}}
+@media(min-width:1024px){.project-card-img{height:320px}}
+.project-card-toggle{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;border-radius:9999px;border:1px solid rgba(59,130,246,0.5);background:rgba(59,130,246,0.08);color:#60a5fa;font-size:0.75rem;font-weight:500;line-height:1;transition:all 0.3s ease;box-shadow:0 0 15px rgba(59,130,246,0.15);cursor:pointer;margin-top:0.75rem}
+.project-card-toggle:hover{background:rgba(59,130,246,0.2);box-shadow:0 0 22px rgba(59,130,246,0.35);transform:translateY(-2px)}
+.project-card-toggle .toggle-icon{display:inline-block}
+.project-card-details{max-height:0;opacity:0;overflow:hidden;transition:max-height 0.5s ease,opacity 0.35s ease,margin-top 0.35s ease}
+.project-card.expanded .project-card-details{max-height:900px;opacity:1;margin-top:1rem}
+
+/* ===== CERTIFICATION CARDS ===== */
+.cert-card{background:linear-gradient(135deg,rgba(13,27,42,0.8),rgba(22,33,62,0.8));border:1px solid rgba(59,130,246,0.25);border-radius:1rem;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 20px rgba(59,130,246,0.08)}
+.cert-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(6,182,212,0.2),rgba(139,92,246,0.3));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:0.6;transition:opacity 0.4s}
+.cert-card:hover{transform:translateY(-8px) scale(1.08);box-shadow:0 20px 40px rgba(59,130,246,0.2),0 0 50px rgba(59,130,246,0.35)}
+.cert-card:hover::before{opacity:1}
+
+/* ===== CERTIFICATION ICONS ===== */
+.cert-icon{width:4.5rem;height:4.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;position:relative;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);z-index:1}
+.cert-icon::before{content:'';position:absolute;inset:-6px;border-radius:9999px;z-index:-1;filter:blur(10px);opacity:0.6;animation:certIconPulse 3s ease-in-out infinite}
+.cert-icon.blue{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);box-shadow:0 0 20px rgba(59,130,246,0.15)}
+.cert-icon.blue::before{background:linear-gradient(135deg,rgba(59,130,246,0.7),rgba(6,182,212,0.5))}
+.cert-icon.purple{background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);box-shadow:0 0 20px rgba(139,92,246,0.15)}
+.cert-icon.purple::before{background:linear-gradient(135deg,rgba(139,92,246,0.7),rgba(59,130,246,0.5))}
+.cert-icon.cyan{background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);box-shadow:0 0 20px rgba(6,182,212,0.15)}
+.cert-icon.cyan::before{background:linear-gradient(135deg,rgba(6,182,212,0.7),rgba(59,130,246,0.5))}
+.cert-icon-float{animation:certIconFloat 3s ease-in-out infinite}
+.cert-card:hover .cert-icon{transform:scale(1.12)}
+.cert-card:hover .cert-icon.blue{box-shadow:0 0 35px rgba(59,130,246,0.45)}
+.cert-card:hover .cert-icon.purple{box-shadow:0 0 35px rgba(139,92,246,0.45)}
+.cert-card:hover .cert-icon.cyan{box-shadow:0 0 35px rgba(6,182,212,0.45)}
+@keyframes certIconPulse{0%,100%{opacity:0.5;transform:scale(0.95)}50%{opacity:0.9;transform:scale(1.08)}}
+@keyframes certIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ===== ABOUT ME ===== */
+#about{background:#050816;position:relative;overflow:hidden}
+.about-grid{background-image:linear-gradient(rgba(59,130,246,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.05) 1px,transparent 1px);background-size:40px 40px}
+.about-hologram{position:relative;width:280px;height:280px;animation:brainFloat 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes brainFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.brain-core{position:absolute;top:50px;left:50%;width:170px;height:130px;transform:translateX(-50%);transform-style:preserve-3d;animation:brainRotate 7s linear infinite, brainPulse 4s ease-in-out infinite}
+.brain-core svg{width:100%;height:100%;overflow:visible}
+@keyframes brainRotate{0%{transform:translateX(-50%) rotateY(0deg)}100%{transform:translateX(-50%) rotateY(360deg)}}
+@keyframes brainPulse{0%,100%{filter:drop-shadow(0 0 18px rgba(59,130,246,0.6))}50%{filter:drop-shadow(0 0 32px rgba(139,92,246,0.9))}}
+.holo-platform{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:180px;height:44px;border-radius:100%;background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(139,92,246,0.25));border:1px solid rgba(59,130,246,0.4);box-shadow:0 0 30px rgba(59,130,246,0.25),0 25px 40px rgba(0,0,0,0.5)}
+.holo-shadow{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:180px;height:44px;border-radius:100%;background:rgba(0,0,0,0.5);filter:blur(12px)}
+.holo-ring{position:absolute;left:50%;top:76%;transform:translate(-50%,-50%) rotateX(70deg);border-radius:50%;border-style:solid;transform-style:preserve-3d}
+.holo-ring-1{width:240px;height:70px;border-width:2px;border-color:rgba(59,130,246,0.4);box-shadow:0 0 20px rgba(59,130,246,0.3), inset 0 0 15px rgba(59,130,246,0.1);animation:ringSpin 10s linear infinite}
+.holo-ring-2{width:190px;height:55px;border-width:2px;border-color:rgba(139,92,246,0.4);box-shadow:0 0 20px rgba(139,92,246,0.3), inset 0 0 15px rgba(139,92,246,0.1);animation:ringSpin 14s linear infinite reverse}
+.holo-ring-3{width:290px;height:85px;border-width:1px;border-style:dashed;border-color:rgba(6,182,212,0.35);box-shadow:0 0 20px rgba(6,182,212,0.2);animation:ringSpin 18s linear infinite}
+@keyframes ringSpin{0%{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(360deg)}}
+.holo-beams{position:absolute;inset:0;pointer-events:none}
+.holo-beam{animation:beamPulse 2s ease-in-out infinite}
+@keyframes beamPulse{0%,100%{opacity:0.25}50%{opacity:0.7}}
+.holo-particle{position:absolute;width:3px;height:3px;border-radius:9999px;background:#60a5fa;box-shadow:0 0 10px #60a5fa;animation:particleRise 5s linear infinite}
+@keyframes particleRise{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(-100px) scale(0.4);opacity:0}}
+.about-orbit-icon{position:absolute;left:50%;top:50%;width:0;height:0;animation:orbit var(--duration,12s) linear infinite;transform-style:preserve-3d}
+.about-orbit-icon .glass-icon{position:absolute;left:0;top:0;transform:translate(-50%,-50%);transform-origin:center}
+.about-orbit-icon .glass-icon:hover{transform:translate(-50%,-50%) scale(1.15)}
+@keyframes orbit{0%{transform:rotate(0deg) translateX(var(--radius,120px)) rotate(0deg)}100%{transform:rotate(360deg) translateX(var(--radius,120px)) rotate(-360deg)}}
+.glass-icon{background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.2);backdrop-filter:blur(8px);box-shadow:0 0 15px rgba(59,130,246,0.15);transition:all 0.3s ease}
+.glass-icon:hover{transform:scale(1.15);box-shadow:0 0 25px rgba(59,130,246,0.4),0 0 10px rgba(139,92,246,0.3)}
+.about-btn{position:relative;overflow:hidden;transition:all 0.3s ease}
+.about-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#3b82f6,#8b5cf6);opacity:0;transition:opacity 0.3s ease;z-index:-1;border-radius:inherit}
+.about-btn:hover::before{opacity:1}
+.about-btn:hover{color:#fff;border-color:transparent;box-shadow:0 0 25px rgba(59,130,246,0.5),0 0 40px rgba(139,92,246,0.25)}
+.feature-check{width:1.5rem;height:1.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(59,130,246,0.15);box-shadow:0 0 10px rgba(59,130,246,0.35);color:#60a5fa}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+.fade-up.is-visible{opacity:1;transform:translateY(0)}
+.slide-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+.slide-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+.slide-left.is-visible,.slide-right.is-visible{opacity:1;transform:translateX(0)}
+.delay-100{transition-delay:0.1s}
+.delay-200{transition-delay:0.2s}
+.delay-300{transition-delay:0.3s}
+
+/* ===== CONTACT SECTION ===== */
+.contact-glass-card{background:rgba(13,27,42,0.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(59,130,246,0.25);border-radius:24px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1),box-shadow 0.4s;box-shadow:0 0 24px rgba(59,130,246,0.08),0 0 0 1px rgba(59,130,246,0.1)}
+.contact-glass-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.55),rgba(6,182,212,0.3),rgba(139,92,246,0.4));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:0.85;transition:opacity 0.4s}
+.contact-glass-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(59,130,246,0.22),0 0 50px rgba(59,130,246,0.18),0 0 0 1px rgba(59,130,246,0.3)}
+.contact-glass-card:hover::before{opacity:1}
+.contact-card-icon{width:3rem;height:3rem;border-radius:0.875rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:contactIconFloat 4s ease-in-out infinite}
+.contact-card-icon.gmail{background:rgba(234,67,53,0.12);border:1px solid rgba(234,67,53,0.3);box-shadow:0 0 16px rgba(234,67,53,0.15)}
+.contact-card-icon.whatsapp{background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);box-shadow:0 0 16px rgba(37,211,102,0.15)}
+.contact-card-icon.linkedin{background:rgba(10,102,194,0.12);border:1px solid rgba(10,102,194,0.3);box-shadow:0 0 16px rgba(10,102,194,0.15)}
+.contact-card-icon.github{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);box-shadow:0 0 16px rgba(255,255,255,0.1)}
+.contact-card-icon.location{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);box-shadow:0 0 16px rgba(59,130,246,0.15)}
+.contact-action-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.4rem 1.1rem;border-radius:9999px;font-size:0.7rem;font-weight:600;letter-spacing:0.02em;transition:all 0.3s ease;cursor:pointer;text-decoration:none}
+.contact-action-btn.gmail{border:1px solid rgba(234,67,53,0.45);background:rgba(234,67,53,0.1);color:#f87171;box-shadow:0 0 12px rgba(234,67,53,0.12)}
+.contact-action-btn.gmail:hover{background:rgba(234,67,53,0.22);box-shadow:0 0 22px rgba(234,67,53,0.3);transform:translateY(-2px);color:#fff}
+.contact-action-btn.whatsapp{border:1px solid rgba(37,211,102,0.45);background:rgba(37,211,102,0.1);color:#4ade80;box-shadow:0 0 12px rgba(37,211,102,0.12)}
+.contact-action-btn.whatsapp:hover{background:rgba(37,211,102,0.22);box-shadow:0 0 22px rgba(37,211,102,0.3);transform:translateY(-2px);color:#fff}
+.contact-action-btn.linkedin{border:1px solid rgba(10,102,194,0.45);background:rgba(10,102,194,0.1);color:#60a5fa;box-shadow:0 0 12px rgba(10,102,194,0.12)}
+.contact-action-btn.linkedin:hover{background:rgba(10,102,194,0.22);box-shadow:0 0 22px rgba(10,102,194,0.3);transform:translateY(-2px);color:#fff}
+.contact-action-btn.github{border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:#e2e8f0;box-shadow:0 0 12px rgba(255,255,255,0.06)}
+.contact-action-btn.github:hover{background:rgba(255,255,255,0.15);box-shadow:0 0 22px rgba(255,255,255,0.2);transform:translateY(-2px);color:#fff}
+.contact-social-icon{width:3rem;height:3rem;border-radius:0.875rem;display:flex;align-items:center;justify-content:center;transition:all 0.35s ease;text-decoration:none}
+.contact-social-icon.si-linkedin{background:rgba(10,102,194,0.1);border:1px solid rgba(10,102,194,0.3);color:#0A66C2;box-shadow:0 0 12px rgba(10,102,194,0.15)}
+.contact-social-icon.si-linkedin:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 0 28px rgba(10,102,194,0.55),0 0 50px rgba(10,102,194,0.2);border-color:rgba(10,102,194,0.7)}
+.contact-social-icon.si-github{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);color:#fff;box-shadow:0 0 12px rgba(255,255,255,0.08)}
+.contact-social-icon.si-github:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 0 28px rgba(255,255,255,0.35),0 0 50px rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.5)}
+.contact-social-icon.si-whatsapp{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);color:#25D366;box-shadow:0 0 12px rgba(37,211,102,0.15)}
+.contact-social-icon.si-whatsapp:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 0 28px rgba(37,211,102,0.55),0 0 50px rgba(37,211,102,0.2);border-color:rgba(37,211,102,0.7)}
+.contact-social-icon.si-gmail{background:rgba(234,67,53,0.1);border:1px solid rgba(234,67,53,0.3);color:#EA4335;box-shadow:0 0 12px rgba(234,67,53,0.15)}
+.contact-social-icon.si-gmail:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 0 28px rgba(234,67,53,0.55),0 0 50px rgba(234,67,53,0.2);border-color:rgba(234,67,53,0.7)}
+.contact-right-panel{background:rgba(13,27,42,0.45);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(59,130,246,0.2);border-radius:24px;overflow:hidden;position:relative;box-shadow:0 0 40px rgba(59,130,246,0.08)}
+.contact-right-panel::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(139,92,246,0.3),rgba(6,182,212,0.25));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none}
+.contact-ai-scene{position:relative;width:100%;display:flex;align-items:center;justify-content:center;padding:2.5rem 2rem 1.5rem;min-height:260px}
+.contact-ai-orb{position:relative;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 38% 35%,rgba(59,130,246,0.35),rgba(139,92,246,0.25) 55%,rgba(6,182,212,0.15) 80%,transparent);border:2px solid rgba(59,130,246,0.3);box-shadow:0 0 60px rgba(59,130,246,0.25),0 0 120px rgba(139,92,246,0.12),inset 0 0 40px rgba(59,130,246,0.08);animation:contactOrbFloat 5s ease-in-out infinite}
+.contact-ai-orb-inner{position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(139,92,246,0.3);background:radial-gradient(circle at 40% 38%,rgba(139,92,246,0.2),rgba(6,182,212,0.1),transparent);animation:contactOrbFloat 7s ease-in-out infinite reverse}
+.contact-ai-orb-core{position:absolute;inset:36px;border-radius:50%;background:radial-gradient(circle at 40% 38%,rgba(59,130,246,0.6),rgba(139,92,246,0.4),rgba(6,182,212,0.3));box-shadow:0 0 30px rgba(59,130,246,0.5),inset 0 0 20px rgba(255,255,255,0.05);animation:coreGlow 3s ease-in-out infinite}
+.contact-orbit-ring{position:absolute;inset:0;border-radius:50%;border-style:solid;transform-origin:center}
+.contact-orbit-ring-1{inset:-28px;border-width:1px;border-color:rgba(59,130,246,0.25);animation:contactRingSpin 12s linear infinite}
+.contact-orbit-ring-2{inset:-52px;border-width:1px;border-color:rgba(139,92,246,0.2);border-style:dashed;animation:contactRingSpin 18s linear infinite reverse}
+.contact-float-dot{position:absolute;width:10px;height:10px;border-radius:50%;box-shadow:0 0 10px currentColor;animation:contactDotFloat 3s ease-in-out infinite}
+.contact-float-dot.d1{top:-40px;left:50%;background:#3b82f6;color:#3b82f6;animation-delay:0s}
+.contact-float-dot.d2{right:-42px;top:50%;background:#8b5cf6;color:#8b5cf6;animation-delay:0.8s}
+.contact-float-dot.d3{bottom:-40px;left:50%;background:#06b6d4;color:#06b6d4;animation-delay:1.6s}
+.contact-float-dot.d4{left:-42px;top:50%;background:#10b981;color:#10b981;animation-delay:2.4s}
+.contact-icon-chip{position:absolute;padding:0.35rem 0.75rem;border-radius:9999px;font-size:0.65rem;font-weight:700;letter-spacing:0.05em;backdrop-filter:blur(10px);animation:contactChipFloat 4s ease-in-out infinite}
+.contact-icon-chip.chip-ai{top:1.5rem;right:1.5rem;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.35);color:#c4b5fd;animation-delay:0s}
+.contact-icon-chip.chip-py{bottom:1.5rem;left:1.5rem;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.35);color:#93c5fd;animation-delay:1.2s}
+.contact-icon-chip.chip-ml{top:42%;left:0.75rem;background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);color:#67e8f9;animation-delay:0.6s}
+.contact-cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.75rem;border-radius:12px;font-size:0.875rem;font-weight:600;transition:all 0.3s ease;text-decoration:none;cursor:pointer}
+.contact-cta-btn.primary{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 20px rgba(59,130,246,0.35);border:none}
+.contact-cta-btn.primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 30px rgba(59,130,246,0.5),0 0 40px rgba(59,130,246,0.2)}
+.contact-cta-btn.secondary{background:rgba(139,92,246,0.1);color:#c4b5fd;border:1px solid rgba(139,92,246,0.4);box-shadow:0 0 16px rgba(139,92,246,0.1)}
+.contact-cta-btn.secondary:hover{background:rgba(139,92,246,0.22);transform:translateY(-3px) scale(1.03);box-shadow:0 8px 30px rgba(139,92,246,0.35),0 0 40px rgba(139,92,246,0.15);color:#fff;border-color:rgba(139,92,246,0.7)}
+.avail-badge{display:inline-flex;align-items:center;gap:0.35rem;padding:0.3rem 0.8rem;border-radius:9999px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#34d399;font-size:0.7rem;font-weight:600}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px rgba(16,185,129,0.8);animation:pulse-dot 2s infinite}
+@keyframes contactIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes contactFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes contactOrbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.02)}}
+@keyframes contactRingSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes contactDotFloat{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+@keyframes contactChipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes coreGlow{0%,100%{box-shadow:0 0 30px rgba(59,130,246,0.5),inset 0 0 20px rgba(255,255,255,0.05)}50%{box-shadow:0 0 50px rgba(139,92,246,0.7),inset 0 0 30px rgba(255,255,255,0.08)}}
+
+/* ===== EXPERIENCE ILLUSTRATION ===== */
+.exp-illustration{position:relative;width:100%;max-width:600px;aspect-ratio:16/9;border-radius:1.5rem;overflow:hidden;background:linear-gradient(135deg,#050816 0%,#0a1628 100%);box-shadow:0 0 40px rgba(59,130,246,0.1),0 25px 50px rgba(0,0,0,0.4)}
+.exp-illustration .exp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.07) 1px,transparent 1px);background-size:32px 32px}
+.exp-vol{position:absolute;border-radius:9999px;filter:blur(50px);opacity:0.22}
+.exp-mountain{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:72%;background:linear-gradient(180deg,rgba(139,92,246,0.45) 0%,rgba(59,130,246,0.35) 60%,rgba(6,182,212,0.25) 100%);clip-path:polygon(50% 0%,0% 100%,100% 100%);filter:drop-shadow(0 0 25px rgba(59,130,246,0.4))}
+.exp-mountain::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent 40%);clip-path:polygon(50% 0%,0% 100%,100% 100%)}
+.exp-path{position:absolute;inset:0;pointer-events:none}
+.exp-path svg{width:100%;height:100%;overflow:visible}
+.exp-path path{fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(6,182,212,0.8))}
+.exp-arrow{position:absolute;top:22%;left:50%;transform:translateX(-50%);color:#60a5fa;filter:drop-shadow(0 0 18px rgba(59,130,246,0.9));animation:expArrow 3s ease-in-out infinite}
+@keyframes expArrow{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+.exp-float-icon{position:absolute;animation:expFloat 5s ease-in-out infinite}
+@keyframes expFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.exp-particle{position:absolute;width:3px;height:3px;border-radius:9999px;background:#60a5fa;box-shadow:0 0 10px #60a5fa;opacity:0;animation:particle 8s linear infinite}
+@keyframes particle{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:0.7}90%{opacity:0.7}100%{transform:translateY(-120px) scale(0);opacity:0}}
+.exp-circuit{position:absolute;pointer-events:none;opacity:0.25}
+
+/* ===== AI COMMAND CENTER ===== */
+.ai-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3b82f6;box-shadow:0 0 8px #3b82f6;animation:pulse-dot 2s infinite;flex-shrink:0}
+.ai-refresh-btn{display:inline-flex;align-items:center;gap:5px;padding:0.3rem 0.85rem;border-radius:9999px;font-size:0.7rem;font-weight:600;color:#60a5fa;border:1px solid rgba(59,130,246,0.3);background:rgba(59,130,246,0.07);cursor:pointer;transition:all 0.3s;letter-spacing:0.03em}
+.ai-refresh-btn:hover{background:rgba(59,130,246,0.18);box-shadow:0 0 16px rgba(59,130,246,0.3);color:#fff}
+.ai-refresh-btn.spinning iconify-icon{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Metric cards */
+.ai-metric-card{background:rgba(13,22,42,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(59,130,246,0.18);border-radius:18px;padding:1rem 0.9rem;display:flex;flex-direction:column;gap:0.4rem;position:relative;overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease;box-shadow:0 0 18px rgba(59,130,246,0.06)}
+.ai-metric-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(139,92,246,0.25),rgba(6,182,212,0.2));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:0.7;transition:opacity 0.35s}
+.ai-metric-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(59,130,246,0.18),0 0 30px rgba(59,130,246,0.12)}
+.ai-metric-card:hover::before{opacity:1}
+.ai-metric-icon{width:2.4rem;height:2.4rem;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;border:1px solid;flex-shrink:0;margin-bottom:0.25rem}
+.ai-metric-label{font-size:0.65rem;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.06em}
+.ai-metric-value{font-size:1.25rem;font-weight:800;color:#fff;line-height:1.1}
+.ai-metric-sub{font-size:0.6rem;color:#475569}
+.ai-metric-bar-wrap{width:100%;height:3px;border-radius:9999px;background:rgba(255,255,255,0.06);margin-top:0.3rem;overflow:hidden}
+.ai-metric-bar{height:100%;border-radius:9999px;width:0;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+
+/* Accordion widget cards */
+.ai-accordion-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(max-width:767px){.ai-accordion-grid{grid-template-columns:1fr}}
+.ai-widget{background:rgba(13,22,42,0.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(59,130,246,0.18);border-radius:20px;overflow:hidden;position:relative;transition:box-shadow 0.35s ease,transform 0.35s ease;box-shadow:0 0 20px rgba(59,130,246,0.06)}
+.ai-widget::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.45),rgba(139,92,246,0.25),rgba(6,182,212,0.2));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;opacity:0.6;transition:opacity 0.35s}
+.ai-widget:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(59,130,246,0.16),0 0 40px rgba(59,130,246,0.1)}
+.ai-widget:hover::before{opacity:1}
+.ai-widget-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none;gap:0.75rem}
+.ai-widget-header:hover .ai-widget-title{color:#93c5fd}
+.ai-widget-left{display:flex;align-items:center;gap:0.6rem;flex:1;min-width:0}
+.ai-widget-icon{width:2rem;height:2rem;border-radius:0.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid}
+.ai-widget-title{font-size:0.8rem;font-weight:700;color:#e2e8f0;letter-spacing:0.01em;transition:color 0.2s}
+.ai-widget-right{display:flex;align-items:center;gap:0.6rem;flex-shrink:0}
+.ai-widget-chevron{width:1.5rem;height:1.5rem;border-radius:50%;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;transition:transform 0.4s ease,background 0.3s;flex-shrink:0}
+.ai-widget.open .ai-widget-chevron{transform:rotate(180deg);background:rgba(59,130,246,0.22);border-color:rgba(59,130,246,0.5)}
+.ai-widget-preview{padding:0 1.25rem 0.75rem;border-top:1px solid rgba(59,130,246,0.1)}
+.ai-widget-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1),opacity 0.35s ease;opacity:0}
+.ai-widget.open .ai-widget-body{opacity:1}
+.ai-widget-body-inner{padding:0.75rem 1.25rem 1.25rem;border-top:1px solid rgba(59,130,246,0.12)}
+.ai-view-more-btn{display:flex;align-items:center;justify-content:center;gap:0.35rem;width:100%;padding:0.45rem 0;font-size:0.7rem;font-weight:600;color:#60a5fa;letter-spacing:0.04em;cursor:pointer;border:none;background:none;transition:color 0.2s;margin-top:0.5rem}
+.ai-view-more-btn:hover{color:#93c5fd}
+
+/* Live pill badges */
+.ai-live-pill{display:inline-flex;align-items:center;gap:4px;padding:0.2rem 0.55rem;border-radius:9999px;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;white-space:nowrap}
+.ai-live-pill.green{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#34d399}
+.ai-live-pill.cyan{background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);color:#22d3ee}
+.ai-live-pill::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:pulse-dot 2s infinite}
+
+/* Widget inner components */
+.ai-model-row{display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.ai-model-row:last-child{border-bottom:none}
+.ai-model-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px currentColor}
+.ai-model-tag{display:inline-block;padding:0.15rem 0.5rem;border-radius:9999px;font-size:0.6rem;font-weight:600}
+.ai-model-tag.blue{background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.25)}
+.ai-model-tag.purple{background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.25)}
+.ai-model-tag.cyan{background:rgba(6,182,212,0.15);color:#67e8f9;border:1px solid rgba(6,182,212,0.25)}
+.ai-model-tag.green{background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.25)}
+.ai-repo-row{display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.ai-repo-row:last-child{border-bottom:none}
+.ai-paper-row{display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.ai-paper-row:last-child{border-bottom:none}
+.ai-paper-btn{display:inline-flex;align-items:center;padding:0.25rem 0.6rem;border-radius:6px;font-size:0.6rem;font-weight:700;background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);text-decoration:none;transition:all 0.25s;margin-top:2px}
+.ai-paper-btn:hover{background:rgba(59,130,246,0.28);color:#fff;box-shadow:0 0 12px rgba(59,130,246,0.35)}
+.ai-status-row{display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.ai-status-row:last-child{border-bottom:none}
+.ai-status-name{font-size:0.75rem;font-weight:600;color:#cbd5e1;width:6rem;flex-shrink:0}
+.ai-status-bar-wrap{flex:1;height:4px;border-radius:9999px;background:rgba(255,255,255,0.07);overflow:hidden}
+.ai-status-bar{height:100%;border-radius:9999px;background:linear-gradient(90deg,#10b981,#34d399);width:0;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+.ai-status-badge{font-size:0.6rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:9999px;flex-shrink:0}
+.ai-status-badge.green{background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3)}
+.ai-status-badge.yellow{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3)}
+.ai-status-badge.red{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3)}
+.ai-bar-item{display:flex;align-items:center;gap:0.5rem}
+.ai-bar-label{font-size:0.7rem;color:#94a3b8;width:5.5rem;flex-shrink:0}
+.ai-bar-track{flex:1;height:5px;border-radius:9999px;background:rgba(255,255,255,0.07);overflow:hidden}
+.ai-bar-fill{height:100%;border-radius:9999px;width:0;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+.ai-bar-pct{font-size:0.65rem;font-weight:700;color:#e2e8f0;width:2.2rem;text-align:right;flex-shrink:0}
+.ai-donut-seg{transform-origin:center;transition:stroke-dasharray 1.2s ease}
+.ai-clock-row{display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.ai-clock-row:last-child{border-bottom:none}
+.ai-clock-city{font-size:0.75rem;color:#94a3b8;font-weight:500}
+.ai-clock-time{font-size:0.8rem;font-weight:700;color:#e2e8f0;font-variant-numeric:tabular-nums;letter-spacing:0.04em}
+.ai-dash-icon{width:1.75rem;height:1.75rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid}
+.ai-preview-item{font-size:0.72rem;color:#94a3b8;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:space-between;gap:0.5rem}
+.ai-preview-item:last-child{border-bottom:none}
+.ai-preview-item strong{color:#e2e8f0;font-weight:600}
+</style>
+</head>
+<body class="grid-bg">
+
+<canvas id="three-canvas"></canvas>
+
+<!-- ===== ROBOT POPUP ===== -->
+<div class="robot-popup-overlay" id="robotPopup">
+  <div class="robot-popup">
+    <!-- Floating particles -->
+    <div class="robot-particle"></div>
+    <div class="robot-particle"></div>
+    <div class="robot-particle"></div>
+    <div class="robot-particle"></div>
+    <div class="robot-particle"></div>
+
+    <!-- Robot Character -->
+    <div class="robot-container">
+      <!-- Antenna -->
+      <div class="robot-antenna"></div>
+      <!-- Head -->
+      <div class="robot-head">
+        <div class="robot-eye robot-eye-left"><div class="robot-pupil"></div></div>
+        <div class="robot-eye robot-eye-right"><div class="robot-pupil"></div></div>
+        <div class="robot-mouth">
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+          <div class="robot-mouth-bar"></div>
+        </div>
+      </div>
+      <!-- Ears -->
+      <div class="robot-ear robot-ear-left"></div>
+      <div class="robot-ear robot-ear-right"></div>
+      <!-- Neck -->
+      <div class="robot-neck"></div>
+      <!-- Body -->
+      <div class="robot-body">
+        <div class="robot-chest-light"></div>
+      </div>
+      <!-- Arms -->
+      <div class="robot-arm robot-arm-left"><div class="robot-hand"></div></div>
+      <div class="robot-arm robot-arm-right"><div class="robot-hand"></div></div>
+    </div>
+
+    <!-- Shadow -->
+    <div class="robot-shadow"></div>
+
+    <!-- Chat Bubble -->
+    <div class="robot-bubble">
+      <div class="robot-bubble-text" id="robotMessage">
+        <span>Thanks for visiting!</span><span class="typing-dots" id="robotDots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="robot-bubble-sub">Feel free to reach out anytime ✨</div>
+    </div>
+
+    <!-- Close Button -->
+    <button class="robot-close-btn" id="robotCloseBtn">
+      <iconify-icon icon="lucide:heart" width="14" style="vertical-align:-2px;margin-right:4px"></iconify-icon>
+      Thank You!
+    </button>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:rgba(6,11,24,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,0.1)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#home" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);box-shadow:0 0 15px rgba(59,130,246,0.4)"><span class="text-white font-bold text-sm">MS</span></div>
+        <span class="text-white font-semibold text-lg hidden sm:block">Manoj S</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#home" class="nav-link active text-sm font-medium text-slate-300">Home</a>
+        <a href="#skills" class="nav-link text-sm font-medium text-slate-400">Skills</a>
+        <a href="#projects" class="nav-link text-sm font-medium text-slate-400">Projects</a>
+        <a href="#experience" class="nav-link text-sm font-medium text-slate-400">Experience</a>
+        <a href="#certifications" class="nav-link text-sm font-medium text-slate-400">Certifications</a>
+        <a href="#insights" class="nav-link text-sm font-medium text-slate-400">Insights</a>
+        <a href="#contact" class="nav-link text-sm font-medium text-slate-400">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105" style="background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 15px rgba(59,130,246,0.3)">
+          <iconify-icon icon="lucide:send" width="14"></iconify-icon>Hire Me
+        </a>
+        <button id="mobileToggle" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition"><iconify-icon icon="lucide:menu" width="22"></iconify-icon></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 z-50" style="background:rgba(10,22,40,0.98);backdrop-filter:blur(20px);border-left:1px solid rgba(59,130,246,0.15)">
+  <div class="p-5">
+    <div class="flex items-center justify-between mb-8"><span class="text-white font-semibold">Menu</span><button id="mobileClose" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition"><iconify-icon icon="lucide:x" width="20"></iconify-icon></button></div>
+    <div class="flex flex-col gap-1">
+      <a href="#home" class="mobile-link px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition text-sm font-medium">Home</a>
+      <a href="#skills" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Skills</a>
+      <a href="#projects" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Projects</a>
+      <a href="#experience" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Experience</a>
+      <a href="#certifications" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Certifications</a>
+      <a href="#insights" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Insights</a>
+      <a href="#contact" class="mobile-link px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition text-sm font-medium">Contact</a>
+    </div>
+  </div>
+</div>
+<div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen flex items-center hero-gradient pt-16 content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="order-2 lg:order-1">
+        <div class="flex items-center gap-2 mb-6"><span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span><span class="text-green-400 text-xs font-medium uppercase tracking-wider">Available for Opportunities</span></div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">Hi, I'm <span style="background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Manoj S</span></h1>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">Data Analyst & AI Engineer</h2>
+        <div class="h-8 mb-6 flex items-center">
+          <span id="typingRole" class="text-xl sm:text-2xl font-semibold text-cyan-400 whitespace-nowrap"></span>
+          <span class="typing-cursor"></span>
+        </div>
+        <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">Crafting <span class="text-blue-400 font-medium">AI-driven business intelligence</span> solutions that transform raw data into strategic insights. Specializing in predictive analytics, machine learning pipelines, and scalable data architecture.</p>
+        <div class="flex flex-wrap gap-8 mb-8" id="hero-stats">
+          <div class="stat-card text-center">
+            <div class="text-2xl font-bold text-white stat-number" id="hero-projects" data-target="10" data-suffix="+" data-decimals="0">0+</div>
+            <div class="text-xs text-slate-500 mt-1">Projects</div>
+          </div>
+          <div class="w-px h-12 bg-slate-700 hidden sm:block"></div>
+          <div class="stat-card text-center">
+            <div class="text-2xl font-bold text-white stat-number" id="hero-exp" data-suffix="+" data-decimals="1">0.0+</div>
+            <div class="text-xs text-slate-500 mt-1">Years Exp</div>
+          </div>
+          <div class="w-px h-12 bg-slate-700 hidden sm:block"></div>
+          <div class="stat-card text-center">
+            <div class="text-2xl font-bold text-white stat-number" id="hero-certs" data-target="4" data-suffix="+" data-decimals="0">0+</div>
+            <div class="text-xs text-slate-500 mt-1">Certifications</div>
+          </div>
+          <div class="w-px h-12 bg-slate-700 hidden sm:block"></div>
+          <div class="stat-card text-center">
+            <div class="text-xs text-slate-500 mb-1">More Than</div>
+            <div class="text-2xl font-bold stat-number-gradient" id="hero-automation" data-target="70" data-suffix="%" data-decimals="0">0%</div>
+            <div class="text-xs text-slate-500 mt-1">Automated Working</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105" style="background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 15px rgba(59,130,246,0.3)"><iconify-icon icon="lucide:folder-open" width="16"></iconify-icon>View Projects</a>
+          <a href="./Manoj_Data Analyst_AI Engineering.pdf" download="Manoj_S_Data_Analyst_AI_Engineer_Resume.pdf" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium text-blue-400 border border-blue-500/30 hover:bg-blue-500/10 transition-all duration-300"><iconify-icon icon="lucide:download" width="16"></iconify-icon>Download Resume</a>
+        </div>
+        <div class="flex items-center gap-4 mt-8">
+          <span class="text-xs text-slate-600 uppercase tracking-wider">Connect</span>
+          <div class="flex gap-3">
+            <a href="https://www.linkedin.com/in/manoj-s-73b278310" target="_blank" rel="noopener noreferrer" class="social-icon social-linkedin"><iconify-icon icon="logos:linkedin-icon" width="18"></iconify-icon></a>
+            <a href="https://github.com/manojvcm46-ai" target="_blank" rel="noopener noreferrer" class="social-icon social-github"><iconify-icon icon="logos:github-icon" width="18"></iconify-icon></a>
+            <a href="mailto:manojvcm46@gmail.com" class="social-icon social-gmail"><iconify-icon icon="logos:google-gmail" width="18"></iconify-icon></a>
+            <a href="https://wa.me/919597225586" target="_blank" rel="noopener noreferrer" class="social-icon social-whatsapp"><iconify-icon icon="logos:whatsapp-icon" width="18"></iconify-icon></a>
+          </div>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 flex justify-center">
+        <div class="relative" style="perspective:1000px">
+          <div class="absolute inset-0 flex items-center justify-center" style="transform-style:preserve-3d">
+            <div class="orbit" style="animation-duration:18s"><div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;backdrop-filter:blur(8px)"><iconify-icon icon="lucide:brain" width="14"></iconify-icon></div></div>
+            <div class="orbit-reverse" style="animation-duration:22s"><div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#a78bfa;backdrop-filter:blur(8px)"><iconify-icon icon="lucide:database" width="14"></iconify-icon></div></div>
+            <div class="orbit" style="animation-duration:26s;animation-delay:-8s"><div class="w-7 h-7 rounded-md flex items-center justify-center text-xs" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3);color:#22d3ee;backdrop-filter:blur(8px)"><iconify-icon icon="lucide:bar-chart-3" width="12"></iconify-icon></div></div>
+            <div class="orbit-reverse" style="animation-duration:30s;animation-delay:-12s"><div class="w-7 h-7 rounded-md flex items-center justify-center text-xs" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#34d399;backdrop-filter:blur(8px)"><iconify-icon icon="lucide:cpu" width="12"></iconify-icon></div></div>
+          </div>
+          <div class="float-3d relative">
+            <div class="w-72 h-72 sm:w-80 sm:h-80 rounded-full p-1" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6,#06b6d4);box-shadow:0 0 40px rgba(59,130,246,0.3),0 0 80px rgba(139,92,246,0.15)">
+              <div class="w-full h-full rounded-full overflow-hidden" style="background:#0d1b2a"><img src="./images/avatar.png" alt="Manoj S" class="w-full h-full object-cover"></div>
+            </div>
+            <div class="absolute -top-3 -right-3 px-3 py-1.5 rounded-lg text-xs font-medium text-cyan-300 border border-cyan-500/30 hex-float" style="background:rgba(6,182,212,0.15);backdrop-filter:blur(12px);box-shadow:0 0 15px rgba(6,182,212,0.2);animation-delay:-2s"><iconify-icon icon="lucide:brain" width="12" class="mr-1"></iconify-icon>AI/ML</div>
+            <div class="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-lg text-xs font-medium text-purple-300 border border-purple-500/30 hex-float" style="background:rgba(139,92,246,0.15);backdrop-filter:blur(12px);box-shadow:0 0 15px rgba(139,92,246,0.2);animation-delay:-5s"><iconify-icon icon="lucide:database" width="12" class="mr-1"></iconify-icon>Analytics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Me Section -->
+<section id="about" class="py-24 relative content-layer">
+  <div class="absolute inset-0 about-grid opacity-20"></div>
+  <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20" style="background:radial-gradient(circle,rgba(59,130,246,0.25) 0%,transparent 70%);filter:blur(60px)"></div>
+  <div class="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-20" style="background:radial-gradient(circle,rgba(139,92,246,0.25) 0%,transparent 70%);filter:blur(60px)"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Left Content -->
+      <div class="fade-up text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium text-blue-400 border border-blue-500/20 mb-4" style="background:rgba(59,130,246,0.05)">ABOUT ME</div>
+        <h2 class="text-4xl sm:text-5xl lg:text-[48px] font-bold text-white leading-tight mb-6">
+          Turning Data Into <span style="background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Decisions</span><br>
+          And Ideas Into <span style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Intelligent Solutions</span>
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+          I am a Data Analyst & AI Engineer passionate about transforming raw data into meaningful insights and building AI-powered solutions that solve real-world business challenges. I specialize in Python automation, SQL analytics, Power BI dashboards, Machine Learning, and Generative AI applications.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">ERP Analytics</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">Real-time Dashboards</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">Python Automation</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">SQL & Data Engineering</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">Generative AI & LLMs</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="feature-check"><iconify-icon icon="lucide:check" width="14"></iconify-icon></div>
+            <span class="text-sm text-slate-300">Business Intelligence</span>
+          </div>
+        </div>
+        <a href="#contact" class="about-btn inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium text-blue-400 border border-blue-500/40 relative z-0">
+          Know More About Me
+        </a>
+      </div>
+      <!-- Right Illustration -->
+      <div class="relative flex items-center justify-center min-h-[400px] lg:min-h-[500px] fade-up">
+        <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
+          <!-- Grid background -->
+          <div class="absolute inset-0 about-grid rounded-full opacity-30"></div>
+          <!-- Volumetric light behind hologram -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full opacity-30" style="background:radial-gradient(circle,rgba(139,92,246,0.25) 0%,transparent 70%);filter:blur(50px)"></div>
+          <!-- Hologram -->
+          <div class="about-hologram">
+            <!-- Energy beams -->
+            <svg class="holo-beams" viewBox="0 0 280 280">
+              <defs>
+                <linearGradient id="beamGrad" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="rgba(59,130,246,0.4)"/>
+                  <stop offset="100%" stop-color="rgba(139,92,246,0.05)"/>
+                </linearGradient>
+              </defs>
+              <line x1="60" y1="230" x2="95" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:0s"/>
+              <line x1="140" y1="230" x2="140" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:0.6s"/>
+              <line x1="220" y1="230" x2="185" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:1.2s"/>
+            </svg>
+            <!-- Shadow -->
+            <div class="holo-shadow"></div>
+            <!-- Platform -->
+            <div class="holo-platform"></div>
+            <!-- Rings -->
+            <div class="holo-ring holo-ring-1"></div>
+            <div class="holo-ring holo-ring-2"></div>
+            <div class="holo-ring holo-ring-3"></div>
+            <!-- Brain -->
+            <div class="brain-core">
+              <svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="brainGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.9"/>
+                    <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.75"/>
+                  </linearGradient>
+                  <filter id="brainGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="5" result="blur"/>
+                    <feMerge>
+                      <feMergeNode in="blur"/>
+                      <feMergeNode in="blur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g filter="url(#brainGlow)">
+                  <path d="M 100 25 C 70 25, 40 45, 40 80 C 40 110, 60 125, 85 125 C 90 125, 95 123, 100 120 C 100 120, 100 30, 100 25 Z" fill="url(#brainGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+                  <path d="M 100 25 C 130 25, 160 45, 160 80 C 160 110, 140 125, 115 125 C 110 125, 105 123, 100 120 C 100 120, 100 30, 100 25 Z" fill="url(#brainGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+                  <path d="M 75 35 Q 55 55 65 80 Q 55 105 75 115" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                  <path d="M 60 55 Q 50 75 60 95" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <path d="M 88 42 Q 78 70 88 108" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                  <path d="M 125 35 Q 145 55 135 80 Q 145 105 125 115" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                  <path d="M 140 55 Q 150 75 140 95" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <path d="M 112 42 Q 122 70 112 108" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                  <path d="M 100 30 Q 95 70 100 120" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+                </g>
+              </svg>
+            </div>
+            <!-- Particles -->
+            <div class="holo-particle" style="left:30%;top:60%;animation-delay:0s"></div>
+            <div class="holo-particle" style="left:70%;top:55%;animation-delay:1s"></div>
+            <div class="holo-particle" style="left:50%;top:45%;animation-delay:2s"></div>
+            <div class="holo-particle" style="left:25%;top:40%;animation-delay:3s"></div>
+            <div class="holo-particle" style="left:75%;top:35%;animation-delay:4s"></div>
+            <div class="holo-particle" style="left:45%;top:30%;animation-delay:0.5s"></div>
+            <div class="holo-particle" style="left:60%;top:65%;animation-delay:1.5s"></div>
+            <div class="holo-particle" style="left:35%;top:50%;animation-delay:2.5s"></div>
+            <!-- Orbiting icons -->
+            <div class="about-orbit-icon" style="--radius:150px;--duration:12s;animation-delay:-2s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="logos:python" width="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:140px;--duration:15s;animation-delay:-4s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="logos:mysql-icon" width="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:160px;--duration:18s;animation-delay:-6s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="logos:microsoft-power-bi" width="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:130px;--duration:10s;animation-delay:-8s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="logos:tensorflow" width="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:155px;--duration:14s;animation-delay:-10s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="logos:aws" width="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:145px;--duration:16s;animation-delay:-12s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="lucide:cpu" width="24" style="color:#8b5cf6"></iconify-icon>
+              </div>
+            </div>
+            <div class="about-orbit-icon" style="--radius:135px;--duration:11s;animation-delay:-14s">
+              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                <iconify-icon icon="lucide:brain-circuit" width="24" style="color:#06b6d4"></iconify-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Skills Section -->
+<section id="skills" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium text-blue-400 border border-blue-500/20 mb-4" style="background:rgba(59,130,246,0.05)"><iconify-icon icon="lucide:zap" width="12"></iconify-icon>TECH STACK</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Skills & <span style="background:linear-gradient(135deg,#06b6d4,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Technologies</span></h2>
+    </div>
+    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4">
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:python" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Python</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:mysql-icon" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">SQL</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:tensorflow" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">TensorFlow</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:microsoft-power-bi" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Power BI</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:aws" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">AWS</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:pandas-icon" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Pandas</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:scikit-learn" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Scikit-learn</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="lucide:brain" width="36" style="color:#8b5cf6"></iconify-icon><span class="text-xs font-medium text-slate-300">Deep Learning</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:git-icon" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Git</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="lucide:brain-circuit" width="36" style="color:#8b5cf6"></iconify-icon><span class="text-xs font-medium text-slate-300">NLP</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:streamlit" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">Streamlit</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:fastapi" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">FastAPI</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:openai" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">OpenAI API</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="logos:langchain" width="36"></iconify-icon><span class="text-xs font-medium text-slate-300">LangChain</span></div>
+      <div class="skill-icon gradient-border rounded-xl p-5 flex flex-col items-center gap-3 card-3d relative cursor-default shimmer"><div class="card-glow rounded-xl"></div><iconify-icon icon="lucide:sparkles" width="36" style="color:#06b6d4"></iconify-icon><span class="text-xs font-medium text-slate-300">Generative AI</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Projects Section -->
+<section id="projects" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium text-cyan-400 border border-cyan-500/20 mb-4" style="background:rgba(6,182,212,0.05)"><iconify-icon icon="lucide:layers" width="12"></iconify-icon>PORTFOLIO</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Featured <span style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Projects</span></h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6 items-stretch">
+      <!-- Project 01 -->
+      <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
+        <div class="card-glow rounded-2xl"></div>
+        <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_1.png">
+          <img src="./images/project_1.png" alt="ERP Analytics Dashboard" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <div class="project-img-overlay absolute inset-0"></div>
+          <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
+            <span class="tag-cyan px-2.5 py-1 rounded-md text-xs font-medium">Enterprise Analytics</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-medium text-white" style="background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.2)">2026</span>
+          </div>
+          <button class="project-img-expand" aria-label="View full image">
+            ⛶
+          </button>
+        </div>
+        <div class="p-6 flex flex-col">
+          <h3 class="text-xl font-bold text-white mb-1 break-words">ERP Analytics Dashboard</h3>
+          <p class="text-sm text-slate-400 mb-1 break-words">Sales, Finance, Supply Chain & Customer Support</p>
+          <button class="project-card-toggle" aria-expanded="false">
+            <span class="toggle-icon">▼</span>
+            <span class="toggle-text">View Details</span>
+          </button>
+          <div class="project-card-details">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="tag px-2 py-0.5 rounded text-xs">Python</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Streamlit</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">SQL</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Pandas</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Plotly</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">AG Grid</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">FTPS</span>
+            <span class="tag-cyan px-2 py-0.5 rounded text-xs">Power BI</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">DAX</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">REST API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Mail</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">WhatsApp</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 text-sm mb-6">
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Built a unified ERP analytics platform integrating Sales, Finance, Supply Chain, and Customer Support.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Developed real-time Power BI dashboards with DAX for business KPI monitoring.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Automated Email and WhatsApp business reports using Python.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Reduced reporting time by 70% through live Streamlit dashboards and ETL automation.</span></li>
+          </ul>
+          <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-700/50">
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Live Demo</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:github" width="12"></iconify-icon>GitHub</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:file-text" width="12"></iconify-icon>Case Study</button>
+          </div>
+          </div>
+        </div>
+      </div>
+      <!-- Project 02 -->
+      <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
+        <div class="card-glow rounded-2xl"></div>
+        <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_2.png">
+          <img src="./images/project_2.png" alt="Personal AI Chat Assistant" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <div class="project-img-overlay absolute inset-0"></div>
+          <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
+            <span class="tag-purple px-2.5 py-1 rounded-md text-xs font-medium">Generative AI</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-medium text-white" style="background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.2)">2026</span>
+          </div>
+          <button class="project-img-expand" aria-label="View full image">
+            ⛶
+          </button>
+        </div>
+        <div class="p-6 flex flex-col">
+          <h3 class="text-xl font-bold text-white mb-1 break-words">Personal AI Chat Assistant</h3>
+          <p class="text-sm text-slate-400 mb-1 break-words">Multi-LLM Routing Engine</p>
+          <button class="project-card-toggle" aria-expanded="false">
+            <span class="toggle-icon">▼</span>
+            <span class="toggle-text">View Details</span>
+          </button>
+          <div class="project-card-details">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="tag px-2 py-0.5 rounded text-xs">Python</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">FastAPI</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">OpenAI API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Claude API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Groq API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">HTML</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">CSS</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">JavaScript</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 text-sm mb-6">
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Built a Generative AI assistant integrating GPT, Claude, and Llama models.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Implemented intelligent model routing based on user tasks.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Developed streaming chat responses with conversation history.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Optimized API usage cost and response performance.</span></li>
+          </ul>
+          <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-700/50">
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Live Demo</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:github" width="12"></iconify-icon>GitHub</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:file-text" width="12"></iconify-icon>Case Study</button>
+          </div>
+          </div>
+        </div>
+      </div>
+      <!-- Project 03 -->
+      <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
+        <div class="card-glow rounded-2xl"></div>
+        <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_3.png">
+          <img src="./images/project_3.png" alt="Live Billing & Distributor Ordering System" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <div class="project-img-overlay absolute inset-0"></div>
+          <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
+            <span class="tag-green px-2.5 py-1 rounded-md text-xs font-medium">Enterprise Web Application</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-medium text-white" style="background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.2)">2026</span>
+          </div>
+          <button class="project-img-expand" aria-label="View full image">
+            ⛶
+          </button>
+        </div>
+        <div class="p-6 flex flex-col">
+          <h3 class="text-xl font-bold text-white mb-1 break-words">Live Billing & Distributor Ordering System</h3>
+          <p class="text-sm text-slate-400 mb-1 break-words">Enterprise Ordering & Billing Platform</p>
+          <button class="project-card-toggle" aria-expanded="false">
+            <span class="toggle-icon">▼</span>
+            <span class="toggle-text">View Details</span>
+          </button>
+          <div class="project-card-details">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="tag px-2 py-0.5 rounded text-xs">Python</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">PHP</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">JavaScript</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">MySQL</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">REST API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">HTML</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">CSS</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Parquet</span>
+            <span class="tag-cyan px-2 py-0.5 rounded text-xs">Power BI</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 text-sm mb-6">
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Developed a live distributor ordering and billing platform with role-based access.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Built Mix & Match schemes, NPD ordering, and real-time stock visibility.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Automated order processing, invoice generation, and dashboard reporting.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Integrated APIs for sales, inventory, and distributor performance analytics.</span></li>
+          </ul>
+          <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-700/50">
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Live Demo</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:github" width="12"></iconify-icon>GitHub</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:file-text" width="12"></iconify-icon>Case Study</button>
+          </div>
+          </div>
+        </div>
+      </div>
+      <!-- Project 04 -->
+      <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
+        <div class="card-glow rounded-2xl"></div>
+        <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_4.png">
+          <img src="./images/project_4.png" alt="Omnichannel AI Chatbot Platform" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <div class="project-img-overlay absolute inset-0"></div>
+          <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
+            <span class="tag-purple px-2.5 py-1 rounded-md text-xs font-medium">Generative AI</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-medium text-white" style="background:rgba(15,23,42,0.7);border:1px solid rgba(148,163,184,0.2)">2026</span>
+          </div>
+          <button class="project-img-expand" aria-label="View full image">
+            ⛶
+          </button>
+        </div>
+        <div class="p-6 flex flex-col">
+          <h3 class="text-xl font-bold text-white mb-1 break-words">Omnichannel AI Chatbot Platform</h3>
+          <p class="text-sm text-slate-400 mb-1 break-words">WhatsApp • Gmail • Telegram AI Assistant</p>
+          <button class="project-card-toggle" aria-expanded="false">
+            <span class="toggle-icon">▼</span>
+            <span class="toggle-text">View Details</span>
+          </button>
+          <div class="project-card-details">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="tag px-2 py-0.5 rounded text-xs">Python</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">FastAPI</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">OpenAI API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">LangChain</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">WhatsApp Cloud API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Gmail API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Telegram Bot API</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">Streamlit</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">SQLite</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">HTML</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">CSS</span>
+            <span class="tag px-2 py-0.5 rounded text-xs">JavaScript</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 text-sm mb-6">
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Built an AI-powered chatbot supporting WhatsApp, Gmail, and Telegram from a single platform.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Integrated OpenAI for intelligent conversations, email drafting, and automated customer support.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Developed a centralized dashboard for monitoring conversations, analytics, and bot performance.</span></li>
+            <li class="flex items-start gap-2"><iconify-icon icon="lucide:check-circle" width="16" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Automated message routing, notifications, and workflow execution using AI-powered automation.</span></li>
+          </ul>
+          <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-700/50">
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Live Demo</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:github" width="12"></iconify-icon>GitHub</button>
+            <button disabled aria-disabled="true" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 bg-slate-800/40 border border-slate-700 cursor-not-allowed"><iconify-icon icon="lucide:file-text" width="12"></iconify-icon>Case Study</button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Experience & Education Section -->
+<section id="experience" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium text-purple-400 border border-purple-500/20 mb-4" style="background:rgba(139,92,246,0.05)"><iconify-icon icon="lucide:briefcase" width="12"></iconify-icon>CAREER</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Professional Experience & <span style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Education</span></h2>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div class="space-y-10">
+      <!-- Professional Experience -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <iconify-icon icon="lucide:briefcase" width="20" style="color:#3b82f6"></iconify-icon>
+          <h3 class="text-xl font-bold text-white">Professional Experience</h3>
+        </div>
+        <div class="gradient-border rounded-2xl p-6 sm:p-8 card-3d relative group">
+          <div class="card-glow rounded-2xl"></div>
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2)">
+                <iconify-icon icon="lucide:building-2" width="24" style="color:#3b82f6"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-xl sm:text-2xl font-bold text-white mb-1">VVD & Sons Private Limited</h4>
+                <p class="text-lg font-semibold text-blue-400 mb-2">Data Analyst</p>
+                <div class="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+                  <span class="flex items-center gap-1.5"><iconify-icon icon="lucide:calendar" width="14"></iconify-icon> Mar 2025 – Present</span>
+                  <span class="flex items-center gap-1.5"><iconify-icon icon="lucide:map-pin" width="14"></iconify-icon> Chennai, India</span>
+                </div>
+              </div>
+            </div>
+            <span class="tag px-3 py-1 rounded-md text-xs font-medium self-start">Full-time</span>
+          </div>
+          <ul class="space-y-3 text-slate-300 text-sm sm:text-base leading-relaxed">
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Developed real-time Power BI dashboards for sales and business KPI monitoring.</span></li>
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Automated reporting using <span class="text-blue-400 font-medium">Python</span>, <span class="text-blue-400 font-medium">SQL</span>, and <span class="text-blue-400 font-medium">ETL</span>, reducing manual work by <span class="text-white font-semibold">90%</span>.</span></li>
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Performed <span class="text-blue-400 font-medium">Root Cause Analysis (RCA)</span>, improving operational efficiency by <span class="text-white font-semibold">15%</span>.</span></li>
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-blue-400 mt-0.5 shrink-0"></iconify-icon><span>Built inventory and SKU analytics to support business decision-making.</span></li>
+          </ul>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="tag-cyan px-2.5 py-1 rounded-md text-xs font-medium">Power BI</span>
+            <span class="tag px-2.5 py-1 rounded-md text-xs font-medium">Python</span>
+            <span class="tag-purple px-2.5 py-1 rounded-md text-xs font-medium">SQL</span>
+            <span class="tag-green px-2.5 py-1 rounded-md text-xs font-medium">ETL</span>
+            <span class="tag px-2.5 py-1 rounded-md text-xs font-medium">RCA</span>
+          </div>
+        </div>
+      </div>
+      <!-- Education -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <iconify-icon icon="lucide:graduation-cap" width="20" style="color:#8b5cf6"></iconify-icon>
+          <h3 class="text-xl font-bold text-white">Education</h3>
+        </div>
+        <div class="gradient-border rounded-2xl p-6 sm:p-8 card-3d relative group">
+          <div class="card-glow rounded-2xl"></div>
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2)">
+              <iconify-icon icon="lucide:school" width="24" style="color:#8b5cf6"></iconify-icon>
+            </div>
+            <div>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mb-1">Bachelor of Computer Applications (BCA)</h4>
+              <p class="text-lg font-semibold text-purple-400 mb-2">Thiruvallur University</p>
+              <div class="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+                <span class="flex items-center gap-1.5"><iconify-icon icon="lucide:calendar" width="14"></iconify-icon> 2021 – 2024</span>
+                <span class="flex items-center gap-1.5"><iconify-icon icon="lucide:award" width="14"></iconify-icon> CGPA: 6.8 (72%)</span>
+              </div>
+            </div>
+          </div>
+          <ul class="space-y-3 text-slate-300 text-sm sm:text-base leading-relaxed">
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-purple-400 mt-0.5 shrink-0"></iconify-icon><span>Completed Bachelor's in Computer Applications with a strong foundation in programming, databases, and analytics.</span></li>
+            <li class="flex items-start gap-3"><iconify-icon icon="lucide:check-circle" width="18" class="text-purple-400 mt-0.5 shrink-0"></iconify-icon><span>Led academic projects and actively participated in technical events.</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Career Growth Illustration -->
+      <div class="relative flex items-center justify-center">
+        <div class="exp-illustration">
+          <!-- Background grid -->
+          <div class="exp-grid"></div>
+          <!-- Volumetric lights -->
+          <div class="exp-vol top-0 left-1/4 w-80 h-80" style="background:radial-gradient(circle,rgba(59,130,246,0.35) 0%,transparent 70%)"></div>
+          <div class="exp-vol bottom-0 right-1/4 w-80 h-80" style="background:radial-gradient(circle,rgba(139,92,246,0.35) 0%,transparent 70%)"></div>
+          <!-- Fog -->
+          <div class="absolute bottom-0 left-0 right-0 h-1/2" style="background:radial-gradient(ellipse at center bottom,rgba(139,92,246,0.12) 0%,transparent 70%)"></div>
+          <!-- Circuit lines -->
+          <svg class="exp-circuit absolute inset-0 w-full h-full" preserveAspectRatio="none">
+            <line x1="0" y1="80%" x2="25%" y2="60%" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+            <line x1="100%" y1="85%" x2="75%" y2="55%" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
+            <line x1="10%" y1="40%" x2="30%" y2="50%" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
+          </svg>
+          <!-- Mountain -->
+          <div class="exp-mountain"></div>
+          <!-- Glowing pathway -->
+          <div class="exp-path">
+            <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="expPathGrad" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#3b82f6"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+              </defs>
+              <path d="M 800 900 C 700 820, 600 760, 720 700 C 840 640, 760 580, 800 500 C 840 420, 780 360, 800 252" stroke="url(#expPathGrad)" stroke-width="8" stroke-dasharray="24 12"/>
+            </svg>
+          </div>
+          <!-- Arrow -->
+          <div class="exp-arrow">
+            <iconify-icon icon="lucide:arrow-up" width="56"></iconify-icon>
+          </div>
+          <!-- Floating icons -->
+          <div class="exp-float-icon" style="top:8%;left:8%;animation-delay:0s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:graduation-cap" width="20" style="color:#a78bfa"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="top:12%;right:10%;animation-delay:0.7s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:scroll-text" width="20" style="color:#60a5fa"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="top:38%;left:4%;animation-delay:1.4s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:briefcase" width="20" style="color:#22d3ee"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="top:40%;right:6%;animation-delay:2.1s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:laptop" width="20" style="color:#34d399"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="bottom:30%;left:10%;animation-delay:2.8s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="logos:python" width="20"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="bottom:32%;right:8%;animation-delay:3.5s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="logos:mysql-icon" width="20"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="bottom:12%;left:22%;animation-delay:4.2s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:brain" width="20" style="color:#a78bfa"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="bottom:14%;right:20%;animation-delay:4.9s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:bar-chart-3" width="20" style="color:#60a5fa"></iconify-icon>
+            </div>
+          </div>
+          <div class="exp-float-icon" style="bottom:8%;left:calc(50% - 22px);animation-delay:5.6s">
+            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
+              <iconify-icon icon="lucide:award" width="20" style="color:#fbbf24"></iconify-icon>
+            </div>
+          </div>
+          <!-- Particles -->
+          <div class="exp-particle" style="left:15%;bottom:20%;animation-delay:0s"></div>
+          <div class="exp-particle" style="left:35%;bottom:30%;animation-delay:2s"></div>
+          <div class="exp-particle" style="left:55%;bottom:15%;animation-delay:4s"></div>
+          <div class="exp-particle" style="left:75%;bottom:25%;animation-delay:6s"></div>
+          <div class="exp-particle" style="left:85%;bottom:40%;animation-delay:1s"></div>
+          <div class="exp-particle" style="left:25%;bottom:50%;animation-delay:3s"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Certifications -->
+<section id="certifications" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium text-blue-400 border border-blue-500/20 mb-4" style="background:rgba(59,130,246,0.05)"><iconify-icon icon="lucide:award" width="12"></iconify-icon>CREDENTIALS</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Certifications</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+      <!-- Card 1 -->
+      <div class="cert-card p-6 sm:p-8 flex flex-col items-center text-center h-full">
+        <div class="cert-icon blue">
+          <iconify-icon icon="logos:python" width="44" class="cert-icon-float"></iconify-icon>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Python, SQL, Power BI & Data Science</h3>
+        <p class="text-sm text-slate-400 mb-4">360 DigiTMG</p>
+        <div class="mt-auto">
+          <span class="px-3 py-1 rounded-full text-xs font-medium" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);color:#60a5fa">2024</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="cert-card p-6 sm:p-8 flex flex-col items-center text-center h-full">
+        <div class="cert-icon purple">
+          <iconify-icon icon="simple-icons:tcs" width="40" class="cert-icon-float" style="color:#ffffff"></iconify-icon>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">TCS iON Young Professional Course</h3>
+        <p class="text-sm text-slate-400 mb-4">TCS iON</p>
+        <div class="mt-auto">
+          <span class="px-3 py-1 rounded-full text-xs font-medium" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.25);color:#a78bfa">2024</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="cert-card p-6 sm:p-8 flex flex-col items-center text-center h-full">
+        <div class="cert-icon cyan">
+          <iconify-icon icon="lucide:brain-circuit" width="44" class="cert-icon-float" style="color:#06b6d4"></iconify-icon>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Basics of Generative AI</h3>
+        <p class="text-sm text-slate-400 mb-4">Digital India</p>
+        <div class="mt-auto">
+          <span class="px-3 py-1 rounded-full text-xs font-medium" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.25);color:#22d3ee">2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Insights / AI Command Center -->
+<section id="insights" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-14 fade-up">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold text-blue-400 border border-blue-500/20 mb-5 tracking-widest" style="background:rgba(59,130,246,0.06)">
+        <span class="ai-live-dot"></span>LIVE AI COMMAND CENTER
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">Real-Time <span style="background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">AI Ecosystem</span> Dashboard</h2>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">Monitor the latest AI ecosystem, model releases, API health, research papers and open-source innovation in real time.</p>
+      <div class="flex items-center justify-center gap-3 mt-5">
+        <span class="text-xs text-slate-500">Last updated: <span id="ai-last-updated" class="text-blue-400 font-medium">Loading...</span></span>
+        <button id="ai-refresh-btn" class="ai-refresh-btn"><iconify-icon icon="lucide:refresh-cw" width="12" id="ai-refresh-icon"></iconify-icon>Refresh</button>
+      </div>
+    </div>
+    <!-- TOP 6 METRIC CARDS -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8 fade-up">
+
+      <!-- Card 1: AI Models -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3)">
+          <span style="font-size:1.1rem">🧠</span>
+        </div>
+        <div class="ai-metric-label">AI Models</div>
+        <div class="ai-metric-value" id="mc-models">1,200+</div>
+        <div class="ai-metric-sub">on OpenRouter</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:88%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div>
+      </div>
+
+      <!-- Card 2: Research Papers -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.3)">
+          <span style="font-size:1.1rem">📚</span>
+        </div>
+        <div class="ai-metric-label">Papers Today</div>
+        <div class="ai-metric-value" id="mc-papers">340+</div>
+        <div class="ai-metric-sub">arXiv AI/ML/LLM</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:72%;background:linear-gradient(90deg,#3b82f6,#06b6d4)"></div></div>
+      </div>
+
+      <!-- Card 3: GitHub Trending -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.3)">
+          <span style="font-size:1.1rem">🔥</span>
+        </div>
+        <div class="ai-metric-label">Trending Repos</div>
+        <div class="ai-metric-value" id="mc-repos">25</div>
+        <div class="ai-metric-sub">GitHub AI Today</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:60%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+      </div>
+
+      <!-- Card 4: HuggingFace -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(255,168,0,0.12);border-color:rgba(255,168,0,0.3)">
+          <span style="font-size:1.1rem">🤗</span>
+        </div>
+        <div class="ai-metric-label">HF Models</div>
+        <div class="ai-metric-value" id="mc-hf">900K+</div>
+        <div class="ai-metric-sub">Hugging Face</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:95%;background:linear-gradient(90deg,#f97316,#fb923c)"></div></div>
+      </div>
+
+      <!-- Card 5: API Health -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3)">
+          <span style="font-size:1.1rem">🟢</span>
+        </div>
+        <div class="ai-metric-label">API Health</div>
+        <div class="ai-metric-value" id="mc-health" style="color:#34d399">All OK</div>
+        <div class="ai-metric-sub">OAI · Claude · Gemini</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:100%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+      </div>
+
+      <!-- Card 6: AI News -->
+      <div class="ai-metric-card col-span-1">
+        <div class="ai-metric-icon" style="background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.3)">
+          <span style="font-size:1.1rem">📰</span>
+        </div>
+        <div class="ai-metric-label">AI Headlines</div>
+        <div class="ai-metric-value" id="mc-news">Live</div>
+        <div class="ai-metric-sub">OAI · Anthropic · Google</div>
+        <div class="ai-metric-bar-wrap"><div class="ai-metric-bar" style="width:80%;background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div></div>
+      </div>
+
+    </div>
+    <!-- MAIN DASHBOARD: 4 WIDGETS 2x2 -->
+    <div class="grid md:grid-cols-2 gap-5 mb-5 fade-up">
+
+      <!-- Widget 1: Recent AI Model Releases -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:cpu" width="14" style="color:#a78bfa"></iconify-icon></div>
+            <span class="ai-dash-title">Recent AI Model Releases</span>
+          </div>
+          <span class="ai-live-pill">LIVE</span>
+        </div>
+        <div id="widget-models" class="space-y-2.5 mt-3">
+          <div class="ai-model-row">
+            <div class="ai-model-dot" style="background:#10b981"></div>
+            <div class="flex-1"><span class="text-sm font-semibold text-white">GPT-4o</span><span class="ai-model-tag blue ml-2">OpenAI</span></div>
+            <span class="text-xs text-slate-500">Flagship</span>
+          </div>
+          <div class="ai-model-row">
+            <div class="ai-model-dot" style="background:#f97316"></div>
+            <div class="flex-1"><span class="text-sm font-semibold text-white">Claude 3.5 Sonnet</span><span class="ai-model-tag purple ml-2">Anthropic</span></div>
+            <span class="text-xs text-slate-500">Latest</span>
+          </div>
+          <div class="ai-model-row">
+            <div class="ai-model-dot" style="background:#3b82f6"></div>
+            <div class="flex-1"><span class="text-sm font-semibold text-white">Gemini 2.0 Flash</span><span class="ai-model-tag cyan ml-2">Google</span></div>
+            <span class="text-xs text-slate-500">Fast</span>
+          </div>
+          <div class="ai-model-row">
+            <div class="ai-model-dot" style="background:#8b5cf6"></div>
+            <div class="flex-1"><span class="text-sm font-semibold text-white">Llama 3.3 70B</span><span class="ai-model-tag green ml-2">Meta</span></div>
+            <span class="text-xs text-slate-500">Open</span>
+          </div>
+          <div class="ai-model-row">
+            <div class="ai-model-dot" style="background:#06b6d4"></div>
+            <div class="flex-1"><span class="text-sm font-semibold text-white">DeepSeek-R1</span><span class="ai-model-tag blue ml-2">DeepSeek</span></div>
+            <span class="text-xs text-slate-500">Reasoning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 2: Trending GitHub AI Repos -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(251,191,36,0.15);border-color:rgba(251,191,36,0.3)"><iconify-icon icon="mdi:github" width="14" style="color:#fbbf24"></iconify-icon></div>
+            <span class="ai-dash-title">Trending GitHub AI Repos</span>
+          </div>
+          <span class="ai-live-pill">TODAY</span>
+        </div>
+        <div id="widget-repos" class="space-y-2.5 mt-3">
+          <div class="ai-repo-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-white truncate">ollama/ollama</div>
+              <div class="text-xs text-slate-500 mt-0.5">Go · Updated 2h ago</div>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+1.2k</div>
+          </div>
+          <div class="ai-repo-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-white truncate">langchain-ai/langchain</div>
+              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 1h ago</div>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+890</div>
+          </div>
+          <div class="ai-repo-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-white truncate">microsoft/autogen</div>
+              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 3h ago</div>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+645</div>
+          </div>
+          <div class="ai-repo-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-white truncate">huggingface/transformers</div>
+              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 30m ago</div>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+520</div>
+          </div>
+          <div class="ai-repo-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-white truncate">vllm-project/vllm</div>
+              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 5h ago</div>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+410</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 3: Latest Research Papers -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:file-text" width="14" style="color:#60a5fa"></iconify-icon></div>
+            <span class="ai-dash-title">Latest Research Papers</span>
+          </div>
+          <span class="ai-live-pill">arXiv</span>
+        </div>
+        <div id="widget-papers" class="space-y-3 mt-3">
+          <div class="ai-paper-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Scaling Laws for Neural Language Models in Production Environments</div>
+              <div class="text-xs text-slate-500 mt-1">OpenAI Research · cs.AI</div>
+            </div>
+            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
+          </div>
+          <div class="ai-paper-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</div>
+              <div class="text-xs text-slate-500 mt-1">Google Brain · cs.CL</div>
+            </div>
+            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
+          </div>
+          <div class="ai-paper-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Mixture of Experts Meets Instruction Tuning: A Winning Combination</div>
+              <div class="text-xs text-slate-500 mt-1">DeepMind · cs.LG</div>
+            </div>
+            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
+          </div>
+          <div class="ai-paper-row">
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">RLHF Beyond Human Feedback: Self-Play Alignment for LLMs</div>
+              <div class="text-xs text-slate-500 mt-1">Anthropic · cs.AI</div>
+            </div>
+            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 4: AI Services Status -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3)"><iconify-icon icon="lucide:activity" width="14" style="color:#34d399"></iconify-icon></div>
+            <span class="ai-dash-title">AI Services Status</span>
+          </div>
+          <span class="ai-live-pill green">LIVE</span>
+        </div>
+        <div id="widget-status" class="space-y-2.5 mt-3">
+          <div class="ai-status-row"><span class="ai-status-name">OpenAI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:98%"></div></div><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-status-row"><span class="ai-status-name">Anthropic</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:100%"></div></div><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-status-row"><span class="ai-status-name">Google AI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:95%"></div></div><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-status-row"><span class="ai-status-name">Groq</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:99%"></div></div><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-status-row"><span class="ai-status-name">OpenRouter</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:97%"></div></div><span class="ai-status-badge green">Operational</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW EXTRA WIDGETS -->
+    <div class="grid md:grid-cols-3 gap-5 fade-up">
+
+      <!-- Extra 1: AI Framework Popularity -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:bar-chart-2" width="14" style="color:#60a5fa"></iconify-icon></div>
+            <span class="ai-dash-title">AI Framework Popularity</span>
+          </div>
+        </div>
+        <div class="space-y-3 mt-4">
+          <div class="ai-bar-item"><span class="ai-bar-label">Python</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="98" style="background:linear-gradient(90deg,#3b7af6,#06b6d4)"></div></div><span class="ai-bar-pct">98%</span></div>
+          <div class="ai-bar-item"><span class="ai-bar-label">PyTorch</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="87" style="background:linear-gradient(90deg,#f97316,#fb923c)"></div></div><span class="ai-bar-pct">87%</span></div>
+          <div class="ai-bar-item"><span class="ai-bar-label">LangChain</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="74" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="ai-bar-pct">74%</span></div>
+          <div class="ai-bar-item"><span class="ai-bar-label">TensorFlow</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="70" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="ai-bar-pct">70%</span></div>
+          <div class="ai-bar-item"><span class="ai-bar-label">FastAPI</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="65" style="background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div></div><span class="ai-bar-pct">65%</span></div>
+          <div class="ai-bar-item"><span class="ai-bar-label">OpenCV</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="52" style="background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="ai-bar-pct">52%</span></div>
+        </div>
+      </div>
+
+      <!-- Extra 2: LLM Usage Distribution (Donut) -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:pie-chart" width="14" style="color:#a78bfa"></iconify-icon></div>
+            <span class="ai-dash-title">LLM Usage Distribution</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-4 mt-4">
+          <div class="relative flex-shrink-0" style="width:110px;height:110px">
+            <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3.8"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3.8" stroke-dasharray="35 65" stroke-dashoffset="0" class="ai-donut-seg"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f97316" stroke-width="3.8" stroke-dasharray="22 78" stroke-dashoffset="-35" class="ai-donut-seg"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8b5cf6" stroke-width="3.8" stroke-dasharray="18 82" stroke-dashoffset="-57" class="ai-donut-seg"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#06b6d4" stroke-width="3.8" stroke-dasharray="14 86" stroke-dashoffset="-75" class="ai-donut-seg"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#10b981" stroke-width="3.8" stroke-dasharray="11 89" stroke-dashoffset="-89" class="ai-donut-seg"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center flex-col">
+              <span class="text-xs font-bold text-white">LLM</span>
+              <span class="text-xs text-slate-500">Usage</span>
+            </div>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#3b82f6"></span><span class="text-xs text-slate-300 flex-1">GPT</span><span class="text-xs font-semibold text-white">35%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#f97316"></span><span class="text-xs text-slate-300 flex-1">Claude</span><span class="text-xs font-semibold text-white">22%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#8b5cf6"></span><span class="text-xs text-slate-300 flex-1">Gemini</span><span class="text-xs font-semibold text-white">18%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#06b6d4"></span><span class="text-xs text-slate-300 flex-1">Llama</span><span class="text-xs font-semibold text-white">14%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#10b981"></span><span class="text-xs text-slate-300 flex-1">DeepSeek</span><span class="text-xs font-semibold text-white">11%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extra 3: Live World Clock -->
+      <div class="ai-dash-card">
+        <div class="ai-dash-card-header">
+          <div class="flex items-center gap-2">
+            <div class="ai-dash-icon" style="background:rgba(6,182,212,0.15);border-color:rgba(6,182,212,0.3)"><iconify-icon icon="lucide:clock" width="14" style="color:#22d3ee"></iconify-icon></div>
+            <span class="ai-dash-title">Live World Clock</span>
+          </div>
+          <span class="ai-live-pill cyan">LIVE</span>
+        </div>
+        <div class="space-y-2.5 mt-4">
+          <div class="ai-clock-row"><span class="ai-clock-city">🌐 UTC</span><span class="ai-clock-time" id="clk-utc">--:--:--</span></div>
+          <div class="ai-clock-row"><span class="ai-clock-city">🇮🇳 IST</span><span class="ai-clock-time" id="clk-ist">--:--:--</span></div>
+          <div class="ai-clock-row"><span class="ai-clock-city">🗽 New York</span><span class="ai-clock-time" id="clk-ny">--:--:--</span></div>
+          <div class="ai-clock-row"><span class="ai-clock-city">🇬🇧 London</span><span class="ai-clock-time" id="clk-lon">--:--:--</span></div>
+          <div class="ai-clock-row"><span class="ai-clock-city">🗼 Tokyo</span><span class="ai-clock-time" id="clk-tok">--:--:--</span></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end AI Command Center content --><p class="text-slate-500 text-xs mt-1">Real-time data stream simulation</p></div><div class="flex gap-4 text-xs"><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#3b82f6"></span> Revenue</span><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#8b5cf6"></span> Users</span><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#06b6d4"></span> Growth</span></div></div><div class="relative h-48 sm:h-64"><svg viewBox="0 0 800 250" class="w-full h-full" preserveAspectRatio="none"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/></linearGradient><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/></linearGradient></defs><line x1="0" y1="62" x2="800" y2="62" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="125" x2="800" y2="125" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="187" x2="800" y2="187" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25 L800,250 L0,250 Z" fill="url(#grad1)"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88 L800,250 L0,250 Z" fill="url(#grad2)"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-dasharray="6,4"/><path d="M0,230 C100,220 200,210 300,195 C400,180 500,175 600,155 C700,135 750,125 800,110" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2,4"/><circle cx="800" cy="25" r="4" fill="#3b82f6" stroke="#0a1628" stroke-width="2"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle></svg><div class="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium text-green-400" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"><span class="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot"></span>LIVE</div></div></div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto content-layer"></div>
+
+<!-- Contact -->
+<section id="contact" class="py-24 relative content-layer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-up">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold text-blue-400 border border-blue-500/20 mb-5 tracking-widest" style="background:rgba(59,130,246,0.06)"><iconify-icon icon="lucide:zap" width="11"></iconify-icon>CONTACT</div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">Let's Build Something <span style="background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Amazing Together</span></h2>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">I'm always open to discussing new opportunities, AI projects, Python development, Data Analytics, automation, and innovative ideas.</p>
+    </div>
+    <!-- Main 40/60 Grid -->
+    <div class="grid lg:grid-cols-5 gap-8">
+      <!-- LEFT SIDE 40% -->
+      <div class="lg:col-span-2 space-y-4 slide-left">
+        <!-- Gmail Card -->
+        <div class="contact-glass-card">
+          <div class="flex items-center gap-4">
+            <div class="contact-card-icon gmail"><iconify-icon icon="logos:google-gmail" width="22"></iconify-icon></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-0.5">Email</p>
+              <p class="text-sm font-medium text-white truncate">manojvcm46@gmail.com</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="mailto:manojvcm46@gmail.com" class="contact-action-btn gmail"><iconify-icon icon="lucide:send" width="11"></iconify-icon>Send Email</a>
+          </div>
+        </div>
+        <!-- WhatsApp Card -->
+        <div class="contact-glass-card">
+          <div class="flex items-center gap-4">
+            <div class="contact-card-icon whatsapp"><iconify-icon icon="logos:whatsapp-icon" width="22"></iconify-icon></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-0.5">WhatsApp</p>
+              <p class="text-sm font-medium text-white">+91 95972 25586</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="https://wa.me/919597225586" target="_blank" class="contact-action-btn whatsapp"><iconify-icon icon="lucide:message-circle" width="11"></iconify-icon>Chat Now</a>
+          </div>
+        </div>
+        <!-- LinkedIn Card -->
+        <div class="contact-glass-card">
+          <div class="flex items-center gap-4">
+            <div class="contact-card-icon linkedin"><iconify-icon icon="logos:linkedin-icon" width="22"></iconify-icon></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-0.5">LinkedIn</p>
+              <p class="text-sm font-medium text-white truncate">linkedin.com/in/manoj-s-73b278310</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="https://www.linkedin.com/in/manoj-s-73b278310" target="_blank" class="contact-action-btn linkedin"><iconify-icon icon="lucide:external-link" width="11"></iconify-icon>View Profile</a>
+          </div>
+        </div>
+        <!-- GitHub Card -->
+        <div class="contact-glass-card">
+          <div class="flex items-center gap-4">
+            <div class="contact-card-icon github"><iconify-icon icon="mdi:github" width="24" style="color:#fff"></iconify-icon></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-0.5">GitHub</p>
+              <p class="text-sm font-medium text-white truncate">github.com/manojvcm46-ai</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="https://github.com/manojvcm46-ai" target="_blank" class="contact-action-btn github"><iconify-icon icon="lucide:code-2" width="11"></iconify-icon>View Projects</a>
+          </div>
+        </div>
+        <!-- Location + Availability Row -->
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Location -->
+          <div class="contact-glass-card" style="padding:1rem">
+            <div class="flex items-center gap-2 mb-1">
+              <div class="contact-card-icon location" style="width:2rem;height:2rem;border-radius:0.5rem"><iconify-icon icon="lucide:map-pin" width="15" style="color:#60a5fa"></iconify-icon></div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Location</p>
+            </div>
+            <p class="text-sm font-semibold text-white">Chennai, India</p>
+            <p class="text-xs text-slate-500 mt-0.5">IST (UTC+5:30)</p>
+          </div>
+          <!-- Response Time -->
+          <div class="contact-glass-card" style="padding:1rem">
+            <div class="flex items-center gap-2 mb-1">
+              <div class="contact-card-icon" style="width:2rem;height:2rem;border-radius:0.5rem;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3)"><iconify-icon icon="lucide:zap" width="14" style="color:#fbbf24"></iconify-icon></div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Response</p>
+            </div>
+            <p class="text-sm font-semibold text-white">Within 24h</p>
+            <p class="text-xs text-slate-500 mt-0.5">Usually faster</p>
+          </div>
+        </div>
+        <!-- Availability Card -->
+        <div class="contact-glass-card" style="padding:1rem 1.25rem">
+          <div class="flex items-center justify-between mb-3">
+            <div class="avail-badge"><span class="avail-dot"></span>Available for</div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-3 py-1 rounded-full font-medium" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#34d399">Full-Time</span>
+            <span class="text-xs px-3 py-1 rounded-full font-medium" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:#93c5fd">Remote</span>
+            <span class="text-xs px-3 py-1 rounded-full font-medium" style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:#c4b5fd">Freelance</span>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT SIDE 60% -->
+      <div class="lg:col-span-3 slide-right">
+        <div class="contact-right-panel h-full">
+          <!-- AI Illustration Scene -->
+          <div class="contact-ai-scene">
+            <!-- Floating chips -->
+            <span class="contact-icon-chip chip-ai">🤖 AI Engineer</span>
+            <span class="contact-icon-chip chip-py">🐍 Python Dev</span>
+            <span class="contact-icon-chip chip-ml">📊 ML</span>
+            <!-- Orb with orbit rings -->
+            <div class="contact-ai-orb">
+              <div class="contact-orbit-ring contact-orbit-ring-1"></div>
+              <div class="contact-orbit-ring contact-orbit-ring-2"></div>
+              <div class="contact-float-dot d1"></div>
+              <div class="contact-float-dot d2"></div>
+              <div class="contact-float-dot d3"></div>
+              <div class="contact-float-dot d4"></div>
+              <div class="contact-ai-orb-inner"></div>
+              <div class="contact-ai-orb-core"></div>
+              <!-- Center Icon -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <iconify-icon icon="lucide:cpu" width="48" style="color:rgba(255,255,255,0.75);filter:drop-shadow(0 0 16px rgba(59,130,246,0.9))"></iconify-icon>
+              </div>
+            </div>
+          </div>
+          <!-- CTA Content -->
+          <div class="px-8 pb-8">
+            <div class="text-center mb-6">
+              <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">Let's <span style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Work Together</span></h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Whether you need AI-powered automation, business dashboards, Python applications, machine learning solutions, or enterprise web development, I'd love to help bring your ideas to life.</p>
+            </div>
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+              <a href="#" class="contact-cta-btn primary"><iconify-icon icon="lucide:download" width="16"></iconify-icon>Download Resume</a>
+              <a href="mailto:manojvcm46@gmail.com" class="contact-cta-btn secondary"><iconify-icon icon="lucide:briefcase" width="16"></iconify-icon>Hire Me</a>
+            </div>
+            <!-- Social Icons -->
+            <div class="border-t pt-6" style="border-color:rgba(59,130,246,0.15)">
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest text-center mb-4">Connect on Social</p>
+              <div class="flex items-center justify-center gap-4">
+                <a href="https://www.linkedin.com/in/manoj-s-73b278310" target="_blank" class="contact-social-icon si-linkedin" title="LinkedIn"><iconify-icon icon="logos:linkedin-icon" width="22"></iconify-icon></a>
+                <a href="https://github.com/manojvcm46-ai" target="_blank" class="contact-social-icon si-github" title="GitHub"><iconify-icon icon="mdi:github" width="24"></iconify-icon></a>
+                <a href="https://wa.me/919597225586" target="_blank" class="contact-social-icon si-whatsapp" title="WhatsApp"><iconify-icon icon="logos:whatsapp-icon" width="22"></iconify-icon></a>
+                <a href="mailto:manojvcm46@gmail.com" class="contact-social-icon si-gmail" title="Gmail"><iconify-icon icon="logos:google-gmail" width="22"></iconify-icon></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="py-8 border-t content-layer" style="border-color:rgba(59,130,246,0.1);background:rgba(6,11,24,0.8)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2"><div class="w-7 h-7 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)"><span class="text-white font-bold text-xs">MS</span></div><span class="text-slate-500 text-sm">© 2025 Manoj S. All rights reserved.</span></div>
+      <div class="flex items-center gap-4"><a href="#" class="text-slate-600 hover:text-blue-400 transition text-sm">Privacy</a><a href="#" class="text-slate-600 hover:text-blue-400 transition text-sm">Terms</a><span class="text-slate-700">|</span><span class="text-slate-600 text-xs flex items-center gap-1">Built with <iconify-icon icon="lucide:heart" width="12" style="color:#ef4444"></iconify-icon> & <iconify-icon icon="lucide:code" width="12" style="color:#3b82f6"></iconify-icon></span></div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" class="fixed bottom-6 right-6 w-10 h-10 rounded-lg flex items-center justify-center text-white z-40 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" style="background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 15px rgba(59,130,246,0.3)"><iconify-icon icon="lucide:arrow-up" width="18"></iconify-icon></button>
+
+<!-- Project Image Modal -->
+<div id="project-modal" class="project-modal" aria-hidden="true">
+  <button id="project-modal-close" class="project-modal-close" aria-label="Close image preview">
+    <iconify-icon icon="lucide:x" width="20"></iconify-icon>
+  </button>
+  <img id="project-modal-img" src="" alt="Project preview" class="project-modal-img">
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ===== THREE.JS 3D BACKGROUND =====
+(function(){
+  const canvas=document.getElementById('three-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const mouse={x:0,y:0,tx:0,ty:0};
+  document.addEventListener('mousemove',e=>{mouse.tx=(e.clientX/window.innerWidth-0.5)*2;mouse.ty=-(e.clientY/window.innerHeight-0.5)*2});
+
+  const pc=2500,pos=new Float32Array(pc*3),col=new Float32Array(pc*3);
+  const cp=[new THREE.Color(0x3b82f6),new THREE.Color(0x8b5cf6),new THREE.Color(0x06b6d4),new THREE.Color(0x10b981),new THREE.Color(0x60a5fa),new THREE.Color(0xa78bfa)];
+  for(let i=0;i<pc;i++){
+    const i3=i*3,r=Math.random()*12+0.5,sa=r*2.5,ba=((i%3)/3)*Math.PI*2;
+    pos[i3]=Math.cos(ba+sa)*r+(Math.random()-0.5)*Math.pow(Math.random(),3)*4;
+    pos[i3+1]=(Math.random()-0.5)*Math.pow(Math.random(),3)*2;
+    pos[i3+2]=Math.sin(ba+sa)*r+(Math.random()-0.5)*Math.pow(Math.random(),3)*4;
+    const c=cp[Math.floor(Math.random()*cp.length)];col[i3]=c.r;col[i3+1]=c.g;col[i3+2]=c.b;
+  }
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));pg.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const pm=new THREE.PointsMaterial({size:0.035,vertexColors:true,transparent:true,opacity:0.7,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
+  const particles=new THREE.Points(pg,pm);scene.add(particles);
+
+  const geos=[],gm=[new THREE.MeshBasicMaterial({color:0x3b82f6,wireframe:true,transparent:true,opacity:0.15}),new THREE.MeshBasicMaterial({color:0x8b5cf6,wireframe:true,transparent:true,opacity:0.12}),new THREE.MeshBasicMaterial({color:0x06b6d4,wireframe:true,transparent:true,opacity:0.1}),new THREE.MeshBasicMaterial({color:0x10b981,wireframe:true,transparent:true,opacity:0.08})];
+  const meshes=[
+    {m:new THREE.Mesh(new THREE.IcosahedronGeometry(0.8,1),gm[0]),p:[6,2,-5],rs:{x:.003,y:.005,z:.002},fs:.8,fa:.3},
+    {m:new THREE.Mesh(new THREE.OctahedronGeometry(0.6,0),gm[1]),p:[-7,-1,-4],rs:{x:.004,y:-.003,z:.005},fs:1.2,fa:.4},
+    {m:new THREE.Mesh(new THREE.TorusGeometry(0.5,0.15,8,20),gm[2]),p:[-5,3,-6],rs:{x:.005,y:.003,z:-.004},fs:.6,fa:.25},
+    {m:new THREE.Mesh(new THREE.TorusKnotGeometry(0.35,0.1,50,8,2,3),gm[3]),p:[8,-2,-7],rs:{x:-.002,y:.004,z:.003},fs:1,fa:.35},
+    {m:new THREE.Mesh(new THREE.DodecahedronGeometry(0.5,0),gm[0].clone()),p:[0,5,-8],rs:{x:.003,y:-.006,z:.002},fs:.9,fa:.3},
+  ];
+  meshes[4].m.material.opacity=0.1;
+  meshes.forEach(g=>{g.m.position.set(...g.p);scene.add(g.m);geos.push(g)});
+
+  const lp=[],lc=[];
+  for(let i=0;i<80;i++){
+    const a=Math.floor(Math.random()*pc),b=Math.floor(Math.random()*pc),a3=a*3,b3=b*3;
+    const d=Math.sqrt((pos[a3]-pos[b3])**2+(pos[a3+1]-pos[b3+1])**2+(pos[a3+2]-pos[b3+2])**2);
+    if(d<2.5){lp.push(pos[a3],pos[a3+1],pos[a3+2],pos[b3],pos[b3+1],pos[b3+2]);const c=cp[Math.floor(Math.random()*cp.length)];lc.push(c.r,c.g,c.b,c.r*.5,c.g*.5,c.b*.5)}
+  }
+  const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lp,3));lg.setAttribute('color',new THREE.Float32BufferAttribute(lc,3));
+  const lines=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.06,blending:THREE.AdditiveBlending}));scene.add(lines);
+
+  camera.position.z=5;const clock=new THREE.Clock();
+  (function anim(){
+    requestAnimationFrame(anim);const t=clock.getElapsedTime();
+    mouse.x+=(mouse.tx-mouse.x)*0.05;mouse.y+=(mouse.ty-mouse.y)*0.05;
+    particles.rotation.y=t*0.05+mouse.x*0.3;particles.rotation.x=mouse.y*0.15;
+    geos.forEach((g,i)=>{g.m.rotation.x+=g.rs.x;g.m.rotation.y+=g.rs.y;g.m.rotation.z+=g.rs.z;g.m.position.y+=Math.sin(t*g.fs+i)*0.002*g.fa});
+    lines.rotation.y=particles.rotation.y;lines.rotation.x=particles.rotation.x;
+    camera.position.x=mouse.x*0.5;camera.position.y=mouse.y*0.3;camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  })();
+  window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))});
+})();
+
+// ===== 3D CARD TILT =====
+document.querySelectorAll('.card-3d').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,cx=r.width/2,cy=r.height/2;c.style.transform=`perspective(1000px) rotateX(${(y-cy)/cy*-6}deg) rotateY(${(x-cx)/cx*6}deg) scale3d(1.02,1.02,1.02)`});
+  c.addEventListener('mouseleave',()=>{c.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'});
+});
+
+// ===== MOBILE MENU =====
+const mm=document.getElementById('mobileMenu'),mo=document.getElementById('mobileOverlay');
+document.getElementById('mobileToggle').addEventListener('click',()=>{mm.classList.add('open');mo.classList.remove('hidden');document.body.style.overflow='hidden'});
+document.getElementById('mobileClose').addEventListener('click',closeM);mo.addEventListener('click',closeM);
+document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',closeM));
+function closeM(){mm.classList.remove('open');mo.classList.add('hidden');document.body.style.overflow=''}
+
+// ===== ACTIVE NAV =====
+const secs=document.querySelectorAll('section[id]'),nl=document.querySelectorAll('.nav-link');
+window.addEventListener('scroll',()=>{const sy=window.scrollY+100;secs.forEach(s=>{if(sy>=s.offsetTop&&sy<s.offsetTop+s.offsetHeight){nl.forEach(l=>{l.classList.remove('active','text-slate-300');l.classList.add('text-slate-400');if(l.getAttribute('href')==='#'+s.id){l.classList.add('active','text-slate-300');l.classList.remove('text-slate-400')}})}})});
+
+// ===== BACK TO TOP =====
+const btt=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{if(window.scrollY>500){btt.classList.remove('opacity-0','translate-y-4','pointer-events-none');btt.classList.add('opacity-100','translate-y-0')}else{btt.classList.add('opacity-0','translate-y-4','pointer-events-none');btt.classList.remove('opacity-100','translate-y-0')}});
+btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+
+// ===== COUNTERS =====
+function ac(id,t,pre='',suf='',dur=2000){const el=document.getElementById(id),st=performance.now();(function u(n){const p=Math.min((n-st)/dur,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.floor(t*e).toLocaleString()+suf;if(p<1)requestAnimationFrame(u)})(st)}
+let cd=false;new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting&&!cd){cd=true;ac('revenue',2847500,'$','',2500);ac('users',48250,'','',2500);ac('conversion',12,'','%',2000);ac('efficiency',94,'','%',2000)}})},{threshold:0.3}).observe(document.getElementById('insights'));
+
+// ===== CONTACT SECTION SCROLL ANIMATIONS =====
+(function(){
+  const contactObs = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('is-visible');
+        contactObs.unobserve(en.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('#contact .fade-up, #contact .slide-left, #contact .slide-right').forEach(el=>contactObs.observe(el));
+})();
+
+// ===== NAVBAR SCROLL =====
+window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');n.style.background=window.scrollY>50?'rgba(6,11,24,0.95)':'rgba(6,11,24,0.8)';n.style.borderBottomColor=window.scrollY>50?'rgba(59,130,246,0.2)':'rgba(59,130,246,0.1)'});
+
+// ===== ROBOT POPUP LOGIC =====
+(function(){
+  const popup=document.getElementById('robotPopup');
+  const closeBtn=document.getElementById('robotCloseBtn');
+  const msgEl=document.getElementById('robotMessage');
+  const dotsEl=document.getElementById('robotDots');
+  let shown=false;
+
+  function showRobot(){
+    if(shown) return;
+    shown=true;
+    popup.classList.add('active');
+
+    // Typing effect in bubble
+    const fullMsg = '<span>Thanks for visiting!</span>';
+    let dotPhase = true;
+    // Show typing dots first for 1.5s
+    setTimeout(()=>{
+      dotsEl.style.display='none';
+      msgEl.innerHTML = fullMsg + '<br><span style="font-size:11px;color:#64748b;font-weight:400;margin-top:4px;display:inline-block">Feel free to reach out anytime ✨</span>';
+    }, 1800);
+  }
+
+  // Show after 8 seconds OR when user scrolls to bottom
+  let scrollTriggered = false;
+  window.addEventListener('scroll', ()=>{
+    if(scrollTriggered) return;
+    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if(scrollPercent > 0.85){
+      scrollTriggered = true;
+      setTimeout(showRobot, 500);
+    }
+  });
+
+  // Fallback: show after 12 seconds
+  setTimeout(()=>{
+    if(!shown) showRobot();
+  }, 12000);
+
+  // Close button
+  closeBtn.addEventListener('click', ()=>{
+    popup.classList.remove('active');
+    // Reset for potential re-show
+    setTimeout(()=>{
+      shown = false;
+      dotsEl.style.display = 'inline-flex';
+      msgEl.innerHTML = '<span>Thanks for visiting!</span>' + dotsEl.outerHTML;
+      // Re-grab dots reference after innerHTML reset
+    }, 600);
+  });
+
+  // Close on overlay click (but not on popup itself)
+  popup.addEventListener('click', (e)=>{
+    if(e.target === popup){
+      closeBtn.click();
+    }
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && shown) closeBtn.click();
+  });
+})();
+
+// ===== TYPING ROLE ANIMATION =====
+const roles=["Python Developer","Machine Learning Analyst","Business Analyst","AI Engineer"];
+const typingRole=document.getElementById('typingRole');
+if(typingRole){
+  const typeSpeed=90,deleteSpeed=45,pause=2000;
+  let roleIndex=0,charIndex=0,isDeleting=false;
+  function typeLoop(){
+    const role=roles[roleIndex];
+    if(isDeleting){
+      typingRole.textContent=role.substring(0,charIndex-1);
+      charIndex--;
+    }else{
+      typingRole.textContent=role.substring(0,charIndex+1);
+      charIndex++;
+    }
+    if(!isDeleting&&charIndex===role.length){
+      isDeleting=true;
+      setTimeout(typeLoop,pause);
+      return;
+    }else if(isDeleting&&charIndex===0){
+      isDeleting=false;
+      roleIndex=(roleIndex+1)%roles.length;
+    }
+    setTimeout(typeLoop,isDeleting?deleteSpeed:typeSpeed);
+  }
+  typeLoop();
+}
+
+// ===== HERO STATS COUNTER & EXPERIENCE =====
+(function(){
+  const joiningDate=new Date('2025-03-17');
+  const now=new Date();
+  const days=(now-joiningDate)/(1000*60*60*24);
+  const expYears=+(days/365.25).toFixed(1);
+
+  const statsContainer=document.getElementById('hero-stats');
+  if(!statsContainer) return;
+
+  const counters=[
+    {id:'hero-projects',target:10,suffix:'+',decimals:0},
+    {id:'hero-exp',target:expYears,suffix:'+',decimals:1},
+    {id:'hero-certs',target:4,suffix:'+',decimals:0},
+    {id:'hero-automation',target:70,suffix:'%',decimals:0}
+  ];
+
+  function animateCounter(el,target,suffix,decimals,duration){
+    const start=performance.now();
+    function step(now){
+      const elapsed=now-start;
+      const progress=Math.min(elapsed/duration,1);
+      const ease=1-Math.pow(1-progress,3);
+      const value=(target*ease).toFixed(decimals);
+      el.textContent=value+suffix;
+      if(progress<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  let animated=false;
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting&&!animated){
+        animated=true;
+        io.unobserve(entry.target);
+        counters.forEach(c=>{
+          const el=document.getElementById(c.id);
+          if(el) animateCounter(el,c.target,c.suffix,c.decimals,2000);
+        });
+      }
+    });
+  },{threshold:0.3});
+
+  io.observe(statsContainer);
+})();
+
+// ===== ABOUT ME FADE-UP ANIMATION =====
+(function(){
+  const fadeEls=document.querySelectorAll('.fade-up');
+  if(!fadeEls.length) return;
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('is-visible');
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.15});
+  fadeEls.forEach(el=>io.observe(el));
+})();
+
+// ===== PROJECT IMAGE MODAL =====
+(function(){
+  const modal=document.getElementById('project-modal');
+  const modalImg=document.getElementById('project-modal-img');
+  const closeBtn=document.getElementById('project-modal-close');
+  if(!modal||!modalImg) return;
+
+  function openModal(src){
+    modalImg.src=src;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+
+  document.querySelectorAll('.project-img-container').forEach(container=>{
+    const fullSrc=container.dataset.fullImg;
+    const btn=container.querySelector('.project-img-expand');
+    container.addEventListener('click',e=>{
+      if(e.target.closest('.project-img-expand')) return;
+      if(fullSrc) openModal(fullSrc);
+    });
+    if(btn) btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(fullSrc) openModal(fullSrc);
+    });
+  });
+
+  closeBtn.addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{
+    if(e.target===modal) closeModal();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&modal.classList.contains('active')) closeModal();
+  });
+})();
+
+// ===== COLLAPSIBLE PROJECT CARDS =====
+(function(){
+  document.querySelectorAll('.project-card-toggle').forEach(btn=>{
+    const card=btn.closest('.project-card');
+    const icon=btn.querySelector('.toggle-icon');
+    const text=btn.querySelector('.toggle-text');
+    if(!card) return;
+    btn.addEventListener('click',()=>{
+      const expanded=card.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded',expanded);
+      if(expanded){
+        if(icon) icon.textContent='▲';
+        if(text) text.textContent='Show Less';
+      } else {
+        if(icon) icon.textContent='▼';
+        if(text) text.textContent='View Details';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
