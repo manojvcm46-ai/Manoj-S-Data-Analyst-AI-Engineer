@@ -228,30 +228,56 @@ html{scroll-behavior:smooth}
 /* ===== ABOUT ME ===== */
 #about{background:#050816;position:relative;overflow:hidden}
 .about-grid{background-image:linear-gradient(rgba(59,130,246,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.05) 1px,transparent 1px);background-size:40px 40px}
-.about-hologram{position:relative;width:280px;height:280px;animation:brainFloat 6s ease-in-out infinite;transform-style:preserve-3d}
-@keyframes brainFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.brain-core{position:absolute;top:50px;left:50%;width:170px;height:130px;transform:translateX(-50%);transform-style:preserve-3d;animation:brainRotate 7s linear infinite, brainPulse 4s ease-in-out infinite}
+
+/* Scene container */
+.about-scene{position:relative;width:100%;max-width:520px;height:520px;display:flex;align-items:center;justify-content:center;perspective:900px}
+
+/* Hologram wrapper — floats */
+.about-hologram{position:relative;width:320px;height:320px;animation:brainFloat 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes brainFloat{0%,100%{transform:translateY(0) rotateY(-6deg)}50%{transform:translateY(-20px) rotateY(6deg)}}
+
+/* Premium brain SVG */
+.brain-core{position:absolute;top:36px;left:50%;width:200px;height:160px;transform:translateX(-50%);animation:brainPulse 4s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(59,130,246,0.7)) drop-shadow(0 0 40px rgba(139,92,246,0.4))}
 .brain-core svg{width:100%;height:100%;overflow:visible}
-@keyframes brainRotate{0%{transform:translateX(-50%) rotateY(0deg)}100%{transform:translateX(-50%) rotateY(360deg)}}
-@keyframes brainPulse{0%,100%{filter:drop-shadow(0 0 18px rgba(59,130,246,0.6))}50%{filter:drop-shadow(0 0 32px rgba(139,92,246,0.9))}}
-.holo-platform{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:180px;height:44px;border-radius:100%;background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(139,92,246,0.25));border:1px solid rgba(59,130,246,0.4);box-shadow:0 0 30px rgba(59,130,246,0.25),0 25px 40px rgba(0,0,0,0.5)}
-.holo-shadow{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:180px;height:44px;border-radius:100%;background:rgba(0,0,0,0.5);filter:blur(12px)}
-.holo-ring{position:absolute;left:50%;top:76%;transform:translate(-50%,-50%) rotateX(70deg);border-radius:50%;border-style:solid;transform-style:preserve-3d}
-.holo-ring-1{width:240px;height:70px;border-width:2px;border-color:rgba(59,130,246,0.4);box-shadow:0 0 20px rgba(59,130,246,0.3), inset 0 0 15px rgba(59,130,246,0.1);animation:ringSpin 10s linear infinite}
-.holo-ring-2{width:190px;height:55px;border-width:2px;border-color:rgba(139,92,246,0.4);box-shadow:0 0 20px rgba(139,92,246,0.3), inset 0 0 15px rgba(139,92,246,0.1);animation:ringSpin 14s linear infinite reverse}
-.holo-ring-3{width:290px;height:85px;border-width:1px;border-style:dashed;border-color:rgba(6,182,212,0.35);box-shadow:0 0 20px rgba(6,182,212,0.2);animation:ringSpin 18s linear infinite}
-@keyframes ringSpin{0%{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(360deg)}}
-.holo-beams{position:absolute;inset:0;pointer-events:none}
-.holo-beam{animation:beamPulse 2s ease-in-out infinite}
-@keyframes beamPulse{0%,100%{opacity:0.25}50%{opacity:0.7}}
-.holo-particle{position:absolute;width:3px;height:3px;border-radius:9999px;background:#60a5fa;box-shadow:0 0 10px #60a5fa;animation:particleRise 5s linear infinite}
-@keyframes particleRise{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(-100px) scale(0.4);opacity:0}}
+@keyframes brainPulse{0%,100%{filter:drop-shadow(0 0 22px rgba(59,130,246,0.7)) drop-shadow(0 0 40px rgba(139,92,246,0.4))}50%{filter:drop-shadow(0 0 40px rgba(139,92,246,0.9)) drop-shadow(0 0 60px rgba(59,130,246,0.5)) drop-shadow(0 0 80px rgba(6,182,212,0.3))}}
+
+/* Platform */
+.holo-shadow{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:200px;height:50px;border-radius:100%;background:rgba(0,0,0,0.6);filter:blur(16px)}
+.holo-platform{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:200px;height:50px;border-radius:100%;background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(139,92,246,0.3));border:1px solid rgba(59,130,246,0.5);box-shadow:0 0 40px rgba(59,130,246,0.3),0 0 80px rgba(139,92,246,0.15),inset 0 0 20px rgba(59,130,246,0.1)}
+.holo-platform::after{content:'';position:absolute;inset:4px;border-radius:100%;border:1px solid rgba(139,92,246,0.4);animation:platformPulse 3s ease-in-out infinite}
+@keyframes platformPulse{0%,100%{box-shadow:0 0 10px rgba(59,130,246,0.3)}50%{box-shadow:0 0 30px rgba(139,92,246,0.6)}}
+
+/* Energy beam from platform to brain */
+.holo-beam-center{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);width:3px;height:130px;background:linear-gradient(180deg,rgba(6,182,212,0.05),rgba(6,182,212,0.7),rgba(59,130,246,0.05));border-radius:9999px;animation:beamPulse 2.5s ease-in-out infinite;filter:blur(1px)}
+@keyframes beamPulse{0%,100%{opacity:0.3;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(2)}}
+
+/* Rings */
+.holo-ring{position:absolute;left:50%;top:80%;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border-style:solid;transform-style:preserve-3d}
+.holo-ring-1{width:260px;height:75px;border-width:2px;border-color:rgba(59,130,246,0.45);box-shadow:0 0 25px rgba(59,130,246,0.35),inset 0 0 20px rgba(59,130,246,0.1);animation:ringSpin 9s linear infinite}
+.holo-ring-2{width:200px;height:58px;border-width:2px;border-color:rgba(139,92,246,0.45);box-shadow:0 0 25px rgba(139,92,246,0.35),inset 0 0 15px rgba(139,92,246,0.1);animation:ringSpin 13s linear infinite reverse}
+.holo-ring-3{width:310px;height:90px;border-width:1px;border-style:dashed;border-color:rgba(6,182,212,0.4);box-shadow:0 0 20px rgba(6,182,212,0.2);animation:ringSpin 17s linear infinite}
+@keyframes ringSpin{0%{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg)}}
+
+/* Energy wave pulses from platform */
+.holo-wave{position:absolute;left:50%;top:80%;border-radius:50%;border:1px solid rgba(59,130,246,0.5);transform:translate(-50%,-50%) rotateX(72deg) scale(0);animation:wavePulse 3s ease-out infinite}
+.holo-wave:nth-child(2){animation-delay:1s;border-color:rgba(139,92,246,0.4)}
+.holo-wave:nth-child(3){animation-delay:2s;border-color:rgba(6,182,212,0.35)}
+@keyframes wavePulse{0%{width:180px;height:50px;opacity:0.9;transform:translate(-50%,-50%) rotateX(72deg) scale(1)}100%{width:400px;height:115px;opacity:0;transform:translate(-50%,-50%) rotateX(72deg) scale(1)}}
+
+/* Particles */
+.holo-particle{position:absolute;width:3px;height:3px;border-radius:9999px;background:#60a5fa;box-shadow:0 0 10px #60a5fa,0 0 20px #3b82f6;animation:particleRise 5s linear infinite}
+@keyframes particleRise{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:0.9}85%{opacity:0.9}100%{transform:translateY(-120px) scale(0.3);opacity:0}}
+
+/* Orbit icons */
 .about-orbit-icon{position:absolute;left:50%;top:50%;width:0;height:0;animation:orbit var(--duration,12s) linear infinite;transform-style:preserve-3d}
 .about-orbit-icon .glass-icon{position:absolute;left:0;top:0;transform:translate(-50%,-50%);transform-origin:center}
-.about-orbit-icon .glass-icon:hover{transform:translate(-50%,-50%) scale(1.15)}
 @keyframes orbit{0%{transform:rotate(0deg) translateX(var(--radius,120px)) rotate(0deg)}100%{transform:rotate(360deg) translateX(var(--radius,120px)) rotate(-360deg)}}
-.glass-icon{background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.2);backdrop-filter:blur(8px);box-shadow:0 0 15px rgba(59,130,246,0.15);transition:all 0.3s ease}
-.glass-icon:hover{transform:scale(1.15);box-shadow:0 0 25px rgba(59,130,246,0.4),0 0 10px rgba(139,92,246,0.3)}
+.glass-icon{background:rgba(10,18,40,0.7);border:1px solid rgba(59,130,246,0.3);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 0 18px rgba(59,130,246,0.15),inset 0 1px 0 rgba(255,255,255,0.06);transition:all 0.3s ease}
+.glass-icon:hover{transform:translate(-50%,-50%) scale(1.22) !important;box-shadow:0 0 30px rgba(59,130,246,0.55),0 0 15px rgba(139,92,246,0.4);border-color:rgba(59,130,246,0.6)}
+
+/* Circuit ambient lines */
+.about-circuit{position:absolute;inset:0;pointer-events:none;opacity:0.15}
+
 .about-btn{position:relative;overflow:hidden;transition:all 0.3s ease}
 .about-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#3b82f6,#8b5cf6);opacity:0;transition:opacity 0.3s ease;z-index:-1;border-radius:inherit}
 .about-btn:hover::before{opacity:1}
@@ -329,21 +355,20 @@ html{scroll-behavior:smooth}
 @keyframes coreGlow{0%,100%{box-shadow:0 0 30px rgba(59,130,246,0.5),inset 0 0 20px rgba(255,255,255,0.05)}50%{box-shadow:0 0 50px rgba(139,92,246,0.7),inset 0 0 30px rgba(255,255,255,0.08)}}
 
 /* ===== EXPERIENCE ILLUSTRATION ===== */
-.exp-illustration{position:relative;width:100%;max-width:600px;aspect-ratio:16/9;border-radius:1.5rem;overflow:hidden;background:linear-gradient(135deg,#050816 0%,#0a1628 100%);box-shadow:0 0 40px rgba(59,130,246,0.1),0 25px 50px rgba(0,0,0,0.4)}
-.exp-illustration .exp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.07) 1px,transparent 1px);background-size:32px 32px}
-.exp-vol{position:absolute;border-radius:9999px;filter:blur(50px);opacity:0.22}
-.exp-mountain{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:72%;background:linear-gradient(180deg,rgba(139,92,246,0.45) 0%,rgba(59,130,246,0.35) 60%,rgba(6,182,212,0.25) 100%);clip-path:polygon(50% 0%,0% 100%,100% 100%);filter:drop-shadow(0 0 25px rgba(59,130,246,0.4))}
-.exp-mountain::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent 40%);clip-path:polygon(50% 0%,0% 100%,100% 100%)}
-.exp-path{position:absolute;inset:0;pointer-events:none}
-.exp-path svg{width:100%;height:100%;overflow:visible}
-.exp-path path{fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(6,182,212,0.8))}
-.exp-arrow{position:absolute;top:22%;left:50%;transform:translateX(-50%);color:#60a5fa;filter:drop-shadow(0 0 18px rgba(59,130,246,0.9));animation:expArrow 3s ease-in-out infinite}
-@keyframes expArrow{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
-.exp-float-icon{position:absolute;animation:expFloat 5s ease-in-out infinite}
-@keyframes expFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(2deg)}}
-.exp-particle{position:absolute;width:3px;height:3px;border-radius:9999px;background:#60a5fa;box-shadow:0 0 10px #60a5fa;opacity:0;animation:particle 8s linear infinite}
-@keyframes particle{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:0.7}90%{opacity:0.7}100%{transform:translateY(-120px) scale(0);opacity:0}}
-.exp-circuit{position:absolute;pointer-events:none;opacity:0.25}
+.exp-sticky-col{position:sticky;top:120px;display:flex;align-items:center;justify-content:center}
+.exp-illustration{position:relative;width:100%;max-width:600px;aspect-ratio:4/3;border-radius:1.5rem;overflow:hidden;background:linear-gradient(180deg,#020510 0%,#05091a 50%,#060d1f 100%);box-shadow:0 0 60px rgba(59,130,246,0.18),0 0 80px rgba(139,92,246,0.12),0 25px 60px rgba(0,0,0,0.6);transition:transform 0.12s linear;transform-style:preserve-3d}
+@keyframes expIllFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+/* Floating particles */
+.exp-pt{position:absolute;border-radius:9999px;background:#60a5fa;box-shadow:0 0 6px #60a5fa,0 0 14px #3b82f6;opacity:0;animation:expPtRise var(--dur,7s) linear var(--del,0s) infinite}
+@keyframes expPtRise{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:0.85}88%{opacity:0.85}100%{transform:translateY(-110px) scale(0.3);opacity:0}}
+/* Summit pulse ring */
+.exp-summit-ring{position:absolute;border-radius:50%;border:1px solid rgba(59,130,246,0.6);transform:translate(-50%,-50%) scale(0);animation:expSummitRing 3.5s ease-out infinite}
+.exp-summit-ring:nth-child(2){animation-delay:1.17s;border-color:rgba(139,92,246,0.5)}
+.exp-summit-ring:nth-child(3){animation-delay:2.33s;border-color:rgba(6,182,212,0.4)}
+@keyframes expSummitRing{0%{width:0px;height:0px;opacity:0.9}100%{width:120px;height:120px;opacity:0}}
+/* Energy beam at summit */
+.exp-beam{position:absolute;left:50%;width:2px;border-radius:9999px;transform:translateX(-50%);background:linear-gradient(0deg,transparent,rgba(6,182,212,0.9),rgba(59,130,246,0.4),transparent);filter:blur(1.5px);animation:expBeam 2.2s ease-in-out infinite}
+@keyframes expBeam{0%,100%{opacity:0.25;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(2.5)}}
 
 /* ===== AI COMMAND CENTER ===== */
 .ai-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3b82f6;box-shadow:0 0 8px #3b82f6;animation:pulse-dot 2s infinite;flex-shrink:0}
@@ -659,112 +684,196 @@ html{scroll-behavior:smooth}
         </a>
       </div>
       <!-- Right Illustration -->
-      <div class="relative flex items-center justify-center min-h-[400px] lg:min-h-[500px] fade-up">
-        <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
-          <!-- Grid background -->
-          <div class="absolute inset-0 about-grid rounded-full opacity-30"></div>
-          <!-- Volumetric light behind hologram -->
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full opacity-30" style="background:radial-gradient(circle,rgba(139,92,246,0.25) 0%,transparent 70%);filter:blur(50px)"></div>
-          <!-- Hologram -->
-          <div class="about-hologram">
-            <!-- Energy beams -->
-            <svg class="holo-beams" viewBox="0 0 280 280">
-              <defs>
-                <linearGradient id="beamGrad" x1="0" y1="1" x2="0" y2="0">
-                  <stop offset="0%" stop-color="rgba(59,130,246,0.4)"/>
-                  <stop offset="100%" stop-color="rgba(139,92,246,0.05)"/>
-                </linearGradient>
-              </defs>
-              <line x1="60" y1="230" x2="95" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:0s"/>
-              <line x1="140" y1="230" x2="140" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:0.6s"/>
-              <line x1="220" y1="230" x2="185" y2="150" stroke="url(#beamGrad)" stroke-width="2" class="holo-beam" style="animation-delay:1.2s"/>
-            </svg>
-            <!-- Shadow -->
+      <div class="relative flex items-center justify-center min-h-[480px] lg:min-h-[540px] fade-up">
+        <div class="about-scene" id="about-scene">
+
+          <!-- Ambient volumetric glow layers -->
+          <div class="absolute inset-0 about-grid rounded-3xl opacity-20 pointer-events-none"></div>
+          <div class="absolute" style="top:5%;left:10%;width:80%;height:55%;background:radial-gradient(ellipse,rgba(59,130,246,0.22) 0%,transparent 65%);filter:blur(40px);pointer-events:none"></div>
+          <div class="absolute" style="bottom:5%;left:15%;width:70%;height:50%;background:radial-gradient(ellipse,rgba(139,92,246,0.2) 0%,transparent 65%);filter:blur(40px);pointer-events:none"></div>
+          <div class="absolute" style="top:30%;right:5%;width:40%;height:40%;background:radial-gradient(ellipse,rgba(6,182,212,0.12) 0%,transparent 70%);filter:blur(30px);pointer-events:none"></div>
+
+          <!-- Circuit ambient lines SVG -->
+          <svg class="about-circuit" viewBox="0 0 520 520" preserveAspectRatio="xMidYMid meet">
+            <line x1="0" y1="120" x2="100" y2="120" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+            <line x1="100" y1="120" x2="130" y2="90" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+            <circle cx="130" cy="90" r="3" fill="rgba(59,130,246,0.5)"/>
+            <line x1="520" y1="380" x2="400" y2="380" stroke="rgba(139,92,246,0.4)" stroke-width="1"/>
+            <line x1="400" y1="380" x2="370" y2="410" stroke="rgba(139,92,246,0.4)" stroke-width="1"/>
+            <circle cx="370" cy="410" r="3" fill="rgba(139,92,246,0.5)"/>
+            <line x1="60" y1="400" x2="60" y2="300" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+            <line x1="60" y1="300" x2="90" y2="270" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+            <circle cx="90" cy="270" r="2.5" fill="rgba(6,182,212,0.4)"/>
+            <line x1="460" y1="100" x2="460" y2="200" stroke="rgba(59,130,246,0.25)" stroke-width="1"/>
+            <line x1="460" y1="200" x2="430" y2="230" stroke="rgba(59,130,246,0.25)" stroke-width="1"/>
+            <circle cx="430" cy="230" r="2.5" fill="rgba(59,130,246,0.35)"/>
+          </svg>
+
+          <!-- HOLOGRAM -->
+          <div class="about-hologram" id="about-hologram">
+
+            <!-- Energy wave pulses from platform -->
+            <div class="holo-wave"></div>
+            <div class="holo-wave"></div>
+            <div class="holo-wave"></div>
+
+            <!-- Shadow + Platform -->
             <div class="holo-shadow"></div>
-            <!-- Platform -->
             <div class="holo-platform"></div>
+
+            <!-- Energy beam from platform to brain -->
+            <div class="holo-beam-center"></div>
+
             <!-- Rings -->
             <div class="holo-ring holo-ring-1"></div>
             <div class="holo-ring holo-ring-2"></div>
             <div class="holo-ring holo-ring-3"></div>
-            <!-- Brain -->
-            <div class="brain-core">
-              <svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet">
+
+            <!-- PREMIUM BRAIN -->
+            <div class="brain-core" id="about-brain">
+              <svg viewBox="0 0 220 175" preserveAspectRatio="xMidYMid meet">
                 <defs>
-                  <linearGradient id="brainGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.9"/>
-                    <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.85"/>
-                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.75"/>
+                  <!-- Glass gradient for brain halves -->
+                  <linearGradient id="brainGradL" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95"/>
+                    <stop offset="40%" stop-color="#60a5fa" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.6"/>
                   </linearGradient>
-                  <filter id="brainGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="5" result="blur"/>
-                    <feMerge>
-                      <feMergeNode in="blur"/>
-                      <feMergeNode in="blur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
+                  <linearGradient id="brainGradR" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.95"/>
+                    <stop offset="40%" stop-color="#3b82f6" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.55"/>
+                  </linearGradient>
+                  <!-- Glass highlight -->
+                  <linearGradient id="brainHighlight" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.35)"/>
+                    <stop offset="50%" stop-color="rgba(255,255,255,0.05)"/>
+                    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                  </linearGradient>
+                  <!-- Glow filter -->
+                  <filter id="brainGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
                   </filter>
+                  <!-- Soft inner glow -->
+                  <filter id="innerGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <clipPath id="brainClipL"><path d="M110 22 C80 22,44 44,42 82 C40 118,62 138,88 140 C97 141,104 138,110 133 Z"/></clipPath>
+                  <clipPath id="brainClipR"><path d="M110 22 C140 22,176 44,178 82 C180 118,158 138,132 140 C123 141,116 138,110 133 Z"/></clipPath>
                 </defs>
-                <g filter="url(#brainGlow)">
-                  <path d="M 100 25 C 70 25, 40 45, 40 80 C 40 110, 60 125, 85 125 C 90 125, 95 123, 100 120 C 100 120, 100 30, 100 25 Z" fill="url(#brainGrad)" stroke="#60a5fa" stroke-width="1.5"/>
-                  <path d="M 100 25 C 130 25, 160 45, 160 80 C 160 110, 140 125, 115 125 C 110 125, 105 123, 100 120 C 100 120, 100 30, 100 25 Z" fill="url(#brainGrad)" stroke="#60a5fa" stroke-width="1.5"/>
-                  <path d="M 75 35 Q 55 55 65 80 Q 55 105 75 115" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-                  <path d="M 60 55 Q 50 75 60 95" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-                  <path d="M 88 42 Q 78 70 88 108" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-                  <path d="M 125 35 Q 145 55 135 80 Q 145 105 125 115" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-                  <path d="M 140 55 Q 150 75 140 95" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-                  <path d="M 112 42 Q 122 70 112 108" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-                  <path d="M 100 30 Q 95 70 100 120" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+
+                <!-- Left hemisphere -->
+                <path d="M110 22 C80 22,44 44,42 82 C40 118,62 138,88 140 C97 141,104 138,110 133 Z"
+                  fill="url(#brainGradL)" stroke="rgba(139,92,246,0.7)" stroke-width="1.2" filter="url(#brainGlow)"/>
+                <!-- Left highlight -->
+                <path d="M110 22 C90 28,58 46,52 72 C62 52,80 34,110 28 Z" fill="url(#brainHighlight)" clip-path="url(#brainClipL)"/>
+
+                <!-- Right hemisphere -->
+                <path d="M110 22 C140 22,176 44,178 82 C180 118,158 138,132 140 C123 141,116 138,110 133 Z"
+                  fill="url(#brainGradR)" stroke="rgba(59,130,246,0.7)" stroke-width="1.2" filter="url(#brainGlow)"/>
+                <!-- Right highlight -->
+                <path d="M110 22 C130 28,162 46,168 72 C158 52,140 34,110 28 Z" fill="url(#brainHighlight)" clip-path="url(#brainClipR)"/>
+
+                <!-- Center divider -->
+                <line x1="110" y1="24" x2="110" y2="133" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                <!-- Neural network lines inside left -->
+                <g filter="url(#innerGlow)" clip-path="url(#brainClipL)">
+                  <path d="M78 32 Q60 55,68 85 Q56 110,70 130" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8"/>
+                  <path d="M62 56 Q52 80,62 104" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.3"/>
+                  <path d="M93 38 Q80 72,90 115" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.3"/>
+                  <!-- Neural nodes -->
+                  <circle cx="78" cy="32" r="2.5" fill="#c4b5fd" opacity="0.9"/>
+                  <circle cx="68" cy="85" r="2" fill="#60a5fa" opacity="0.8"/>
+                  <circle cx="62" cy="56" r="1.8" fill="#a78bfa" opacity="0.7"/>
+                  <circle cx="62" cy="104" r="2" fill="#06b6d4" opacity="0.8"/>
+                  <circle cx="93" cy="38" r="2" fill="#60a5fa" opacity="0.75"/>
+                  <!-- Neural connections -->
+                  <line x1="78" y1="32" x2="62" y2="56" stroke="rgba(196,181,253,0.4)" stroke-width="0.8"/>
+                  <line x1="62" y1="56" x2="68" y2="85" stroke="rgba(96,165,250,0.4)" stroke-width="0.8"/>
+                  <line x1="68" y1="85" x2="62" y2="104" stroke="rgba(6,182,212,0.4)" stroke-width="0.8"/>
+                  <line x1="93" y1="38" x2="78" y2="32" stroke="rgba(167,139,250,0.35)" stroke-width="0.8"/>
                 </g>
+
+                <!-- Neural network lines inside right -->
+                <g filter="url(#innerGlow)" clip-path="url(#brainClipR)">
+                  <path d="M142 32 Q160 55,152 85 Q164 110,150 130" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8"/>
+                  <path d="M158 56 Q168 80,158 104" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.3"/>
+                  <path d="M127 38 Q140 72,130 115" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.3"/>
+                  <!-- Neural nodes -->
+                  <circle cx="142" cy="32" r="2.5" fill="#a78bfa" opacity="0.9"/>
+                  <circle cx="152" cy="85" r="2" fill="#3b82f6" opacity="0.8"/>
+                  <circle cx="158" cy="56" r="1.8" fill="#c4b5fd" opacity="0.7"/>
+                  <circle cx="158" cy="104" r="2" fill="#06b6d4" opacity="0.8"/>
+                  <circle cx="127" cy="38" r="2" fill="#60a5fa" opacity="0.75"/>
+                  <!-- Neural connections -->
+                  <line x1="142" y1="32" x2="158" y2="56" stroke="rgba(167,139,250,0.4)" stroke-width="0.8"/>
+                  <line x1="158" y1="56" x2="152" y2="85" stroke="rgba(59,130,246,0.4)" stroke-width="0.8"/>
+                  <line x1="152" y1="85" x2="158" y2="104" stroke="rgba(6,182,212,0.4)" stroke-width="0.8"/>
+                  <line x1="127" y1="38" x2="142" y2="32" stroke="rgba(196,181,253,0.35)" stroke-width="0.8"/>
+                </g>
+
+                <!-- Cross-hemisphere neural connections (over center) -->
+                <g opacity="0.5">
+                  <path d="M93 68 Q110 60,127 68" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                  <path d="M80 95 Q110 85,140 95" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+                  <path d="M88 118 Q110 112,132 118" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+                </g>
+
+                <!-- Brain stem base -->
+                <path d="M103 133 Q100 148,105 158 Q110 162,115 158 Q120 148,117 133 Z"
+                  fill="url(#brainGradL)" stroke="rgba(139,92,246,0.5)" stroke-width="1" opacity="0.7"/>
               </svg>
             </div>
+
             <!-- Particles -->
-            <div class="holo-particle" style="left:30%;top:60%;animation-delay:0s"></div>
-            <div class="holo-particle" style="left:70%;top:55%;animation-delay:1s"></div>
-            <div class="holo-particle" style="left:50%;top:45%;animation-delay:2s"></div>
-            <div class="holo-particle" style="left:25%;top:40%;animation-delay:3s"></div>
-            <div class="holo-particle" style="left:75%;top:35%;animation-delay:4s"></div>
-            <div class="holo-particle" style="left:45%;top:30%;animation-delay:0.5s"></div>
-            <div class="holo-particle" style="left:60%;top:65%;animation-delay:1.5s"></div>
-            <div class="holo-particle" style="left:35%;top:50%;animation-delay:2.5s"></div>
-            <!-- Orbiting icons -->
-            <div class="about-orbit-icon" style="--radius:150px;--duration:12s;animation-delay:-2s">
+            <div class="holo-particle" style="left:28%;top:62%;animation-delay:0s"></div>
+            <div class="holo-particle" style="left:68%;top:58%;animation-delay:0.8s"></div>
+            <div class="holo-particle" style="left:50%;top:48%;animation-delay:1.6s"></div>
+            <div class="holo-particle" style="left:22%;top:42%;animation-delay:2.4s"></div>
+            <div class="holo-particle" style="left:76%;top:38%;animation-delay:3.2s"></div>
+            <div class="holo-particle" style="left:44%;top:32%;animation-delay:4s"></div>
+            <div class="holo-particle" style="left:60%;top:68%;animation-delay:1.2s"></div>
+            <div class="holo-particle" style="left:38%;top:52%;animation-delay:2s"></div>
+            <div class="holo-particle" style="left:55%;top:26%;animation-delay:0.4s"></div>
+            <div class="holo-particle" style="left:32%;top:74%;animation-delay:3.6s"></div>
+
+            <!-- Orbiting tech icons — 6 official logos evenly spaced -->
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:0s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="logos:python" width="24"></iconify-icon>
+                <iconify-icon icon="logos:python" width="26"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:140px;--duration:15s;animation-delay:-4s">
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:-3.33s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="logos:mysql-icon" width="24"></iconify-icon>
+                <iconify-icon icon="logos:mysql-icon" width="26"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:160px;--duration:18s;animation-delay:-6s">
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:-6.67s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="logos:microsoft-power-bi" width="24"></iconify-icon>
+                <iconify-icon icon="logos:microsoft-power-bi" width="26"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:130px;--duration:10s;animation-delay:-8s">
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:-10s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="logos:tensorflow" width="24"></iconify-icon>
+                <iconify-icon icon="logos:tensorflow" width="26"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:155px;--duration:14s;animation-delay:-10s">
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:-13.33s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="logos:aws" width="24"></iconify-icon>
+                <iconify-icon icon="logos:aws" width="26"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:145px;--duration:16s;animation-delay:-12s">
+            <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:-16.67s">
               <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="lucide:cpu" width="24" style="color:#8b5cf6"></iconify-icon>
+                <iconify-icon icon="simple-icons:streamlit" width="22" style="color:#ff4b4b"></iconify-icon>
               </div>
             </div>
-            <div class="about-orbit-icon" style="--radius:135px;--duration:11s;animation-delay:-14s">
-              <div class="glass-icon w-12 h-12 rounded-xl flex items-center justify-center">
-                <iconify-icon icon="lucide:brain-circuit" width="24" style="color:#06b6d4"></iconify-icon>
-              </div>
-            </div>
-          </div>
-        </div>
+
+          </div><!-- end hologram -->
+        </div><!-- end about-scene -->
       </div>
     </div>
   </div>
@@ -1016,6 +1125,7 @@ html{scroll-behavior:smooth}
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Professional Experience & <span style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Education</span></h2>
     </div>
     <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- LEFT: Cards -->
       <div class="space-y-10">
       <!-- Professional Experience -->
       <div>
@@ -1083,93 +1193,323 @@ html{scroll-behavior:smooth}
           </ul>
         </div>
       </div>
-      <!-- Career Growth Illustration -->
-      <div class="relative flex items-center justify-center">
-        <div class="exp-illustration">
-          <!-- Background grid -->
-          <div class="exp-grid"></div>
-          <!-- Volumetric lights -->
-          <div class="exp-vol top-0 left-1/4 w-80 h-80" style="background:radial-gradient(circle,rgba(59,130,246,0.35) 0%,transparent 70%)"></div>
-          <div class="exp-vol bottom-0 right-1/4 w-80 h-80" style="background:radial-gradient(circle,rgba(139,92,246,0.35) 0%,transparent 70%)"></div>
-          <!-- Fog -->
-          <div class="absolute bottom-0 left-0 right-0 h-1/2" style="background:radial-gradient(ellipse at center bottom,rgba(139,92,246,0.12) 0%,transparent 70%)"></div>
-          <!-- Circuit lines -->
-          <svg class="exp-circuit absolute inset-0 w-full h-full" preserveAspectRatio="none">
-            <line x1="0" y1="80%" x2="25%" y2="60%" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
-            <line x1="100%" y1="85%" x2="75%" y2="55%" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
-            <line x1="10%" y1="40%" x2="30%" y2="50%" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
+      </div><!-- end left col -->
+      <!-- RIGHT: Career Growth Illustration (sticky) -->
+      <div class="exp-sticky-col">
+        <div style="animation:expIllFloat 6s ease-in-out infinite;width:100%;max-width:600px">
+        <div class="exp-illustration" id="exp-illustration">
+
+          <!-- Full-scene premium SVG -->
+          <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;width:100%;height:100%">
+            <defs>
+              <!-- Sky gradient -->
+              <linearGradient id="eSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#020510"/>
+                <stop offset="60%" stop-color="#05091a"/>
+                <stop offset="100%" stop-color="#080e22"/>
+              </linearGradient>
+              <!-- Main mountain fill -->
+              <linearGradient id="eMtnMain" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#1a2040"/>
+                <stop offset="45%" stop-color="#0e1830"/>
+                <stop offset="100%" stop-color="#080d1c"/>
+              </linearGradient>
+              <!-- Left peak fill -->
+              <linearGradient id="eMtnL" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#111830"/>
+                <stop offset="100%" stop-color="#070b18"/>
+              </linearGradient>
+              <!-- Right peak fill -->
+              <linearGradient id="eMtnR" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#131a35"/>
+                <stop offset="100%" stop-color="#070c1a"/>
+              </linearGradient>
+              <!-- Far bg peaks -->
+              <linearGradient id="eMtnBg" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#0c1228" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#05081a" stop-opacity="0.9"/>
+              </linearGradient>
+              <!-- Pathway neon blue -->
+              <linearGradient id="ePath" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.9"/>
+                <stop offset="50%" stop-color="#06b6d4" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.95"/>
+              </linearGradient>
+              <!-- Arrow gradient -->
+              <linearGradient id="eArrow" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#3b82f6"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+              <!-- Energy beam -->
+              <linearGradient id="eBeam" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="rgba(6,182,212,0)" />
+                <stop offset="40%" stop-color="rgba(6,182,212,0.95)" />
+                <stop offset="100%" stop-color="rgba(59,130,246,0)" />
+              </linearGradient>
+              <!-- Purple ambient glow -->
+              <radialGradient id="eGlowPurple" cx="50%" cy="55%" r="50%">
+                <stop offset="0%" stop-color="rgba(139,92,246,0.22)"/>
+                <stop offset="100%" stop-color="rgba(139,92,246,0)"/>
+              </radialGradient>
+              <!-- Blue ambient glow -->
+              <radialGradient id="eGlowBlue" cx="50%" cy="25%" r="45%">
+                <stop offset="0%" stop-color="rgba(59,130,246,0.18)"/>
+                <stop offset="100%" stop-color="rgba(59,130,246,0)"/>
+              </radialGradient>
+              <!-- Summit halo -->
+              <radialGradient id="eSummitHalo" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(6,182,212,0.55)"/>
+                <stop offset="60%" stop-color="rgba(59,130,246,0.2)"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+              <!-- Fog gradient -->
+              <linearGradient id="eFog" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(59,130,246,0)" />
+                <stop offset="100%" stop-color="rgba(59,130,246,0.08)" />
+              </linearGradient>
+              <!-- Crystal face highlight -->
+              <linearGradient id="eCrystalHL" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+              <!-- Glow filter -->
+              <filter id="eGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Strong glow -->
+              <filter id="eGlowStrong" x="-80%" y="-80%" width="360%" height="360%">
+                <feGaussianBlur stdDeviation="10" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Soft blur -->
+              <filter id="eSoft" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3"/>
+              </filter>
+              <!-- Path glow -->
+              <filter id="ePathGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="4" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- Sky -->
+            <rect width="600" height="450" fill="url(#eSky)"/>
+
+            <!-- Stars -->
+            <g opacity="0.7">
+              <circle cx="42" cy="18" r="1" fill="#fff" opacity="0.6"/>
+              <circle cx="110" cy="35" r="1.2" fill="#fff" opacity="0.8"/>
+              <circle cx="180" cy="12" r="0.9" fill="#a78bfa" opacity="0.9"/>
+              <circle cx="240" cy="28" r="1" fill="#fff" opacity="0.5"/>
+              <circle cx="310" cy="8" r="1.3" fill="#60a5fa" opacity="0.9"/>
+              <circle cx="370" cy="22" r="0.8" fill="#fff" opacity="0.6"/>
+              <circle cx="430" cy="14" r="1.1" fill="#fff" opacity="0.7"/>
+              <circle cx="500" cy="30" r="1" fill="#a78bfa" opacity="0.8"/>
+              <circle cx="558" cy="10" r="1.2" fill="#fff" opacity="0.5"/>
+              <circle cx="68" cy="55" r="0.7" fill="#fff" opacity="0.4"/>
+              <circle cx="155" cy="48" r="0.8" fill="#60a5fa" opacity="0.6"/>
+              <circle cx="275" cy="44" r="0.9" fill="#fff" opacity="0.5"/>
+              <circle cx="480" cy="50" r="0.7" fill="#fff" opacity="0.45"/>
+              <circle cx="540" cy="42" r="1" fill="#a78bfa" opacity="0.55"/>
+              <!-- Twinkling dots (animated) -->
+              <circle cx="90" cy="25" r="1.1" fill="#60a5fa">
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="2.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="340" cy="18" r="1" fill="#a78bfa">
+                <animate attributeName="opacity" values="0.2;0.9;0.2" dur="3.5s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="510" cy="20" r="1.2" fill="#06b6d4">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="2.1s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+
+            <!-- Ambient purple glow behind mountains -->
+            <ellipse cx="300" cy="280" rx="280" ry="160" fill="url(#eGlowPurple)"/>
+            <!-- Ambient blue glow top -->
+            <ellipse cx="300" cy="100" rx="260" ry="130" fill="url(#eGlowBlue)"/>
+
+            <!-- ===== MOUNTAIN RANGE ===== -->
+            <!-- Far distant silhouette peaks (deepest layer) -->
+            <g opacity="0.5">
+              <polygon points="-20,370 80,200 180,370" fill="#05081a"/>
+              <polygon points="120,370 210,230 300,370" fill="#060a1c"/>
+              <polygon points="280,370 360,210 440,370" fill="#05091a"/>
+              <polygon points="400,370 490,220 580,370" fill="#06091c"/>
+            </g>
+
+            <!-- Mid-layer peaks with neon edge glow -->
+            <!-- Left mid peak -->
+            <path d="M 0,440 L 60,310 L 120,370 L 160,280 L 220,380 L 260,440 Z"
+              fill="url(#eMtnL)" stroke="rgba(59,130,246,0.25)" stroke-width="1"/>
+            <!-- Crystal face highlight left peak -->
+            <path d="M 160,280 L 195,340 L 160,340 Z" fill="url(#eCrystalHL)"/>
+
+            <!-- Right mid peak -->
+            <path d="M 340,440 L 380,350 L 420,290 L 470,370 L 510,310 L 560,360 L 600,440 Z"
+              fill="url(#eMtnR)" stroke="rgba(139,92,246,0.25)" stroke-width="1"/>
+            <!-- Crystal face highlight right peak -->
+            <path d="M 420,290 L 445,340 L 420,355 Z" fill="url(#eCrystalHL)"/>
+
+            <!-- MAIN CENTER MOUNTAIN (foreground hero) -->
+            <path d="M 80,450 L 160,360 L 200,390 L 240,310 L 270,340 L 300,178 L 330,340 L 360,310 L 400,390 L 440,360 L 520,450 Z"
+              fill="url(#eMtnMain)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+
+            <!-- Crystal facets on main mountain -->
+            <path d="M 300,178 L 270,340 L 300,300 Z" fill="rgba(59,130,246,0.12)"/>
+            <path d="M 300,178 L 330,340 L 300,300 Z" fill="rgba(139,92,246,0.1)"/>
+            <path d="M 270,340 L 240,310 L 300,300 Z" fill="rgba(255,255,255,0.04)"/>
+            <path d="M 330,340 L 360,310 L 300,300 Z" fill="rgba(255,255,255,0.03)"/>
+            <!-- Snow cap highlight -->
+            <path d="M 300,178 L 285,220 L 300,210 L 315,220 Z" fill="rgba(255,255,255,0.18)"/>
+
+            <!-- Neon edge outlines on main peak (subtle glow lines) -->
+            <path d="M 300,178 L 270,340" fill="none" stroke="rgba(59,130,246,0.45)" stroke-width="1"
+              filter="url(#eGlow)"/>
+            <path d="M 300,178 L 330,340" fill="none" stroke="rgba(139,92,246,0.45)" stroke-width="1"
+              filter="url(#eGlow)"/>
+
+            <!-- ===== FOG LAYERS ===== -->
+            <ellipse cx="300" cy="420" rx="320" ry="55" fill="rgba(59,130,246,0.07)"/>
+            <ellipse cx="300" cy="400" rx="280" ry="40" fill="rgba(139,92,246,0.06)"/>
+            <ellipse cx="300" cy="380" rx="240" ry="30" fill="rgba(6,182,212,0.04)"/>
+
+            <!-- ===== NEON PATHWAY ===== -->
+            <!-- Glow shadow below path -->
+            <path d="M 300,450 C 290,430 270,400 265,370 C 258,335 278,318 272,290
+                     C 266,262 252,248 262,222 C 272,196 287,186 300,178"
+              fill="none" stroke="rgba(6,182,212,0.25)" stroke-width="14" stroke-linecap="round"
+              filter="url(#eSoft)"/>
+            <!-- Main pathway -->
+            <path d="M 300,450 C 290,430 270,400 265,370 C 258,335 278,318 272,290
+                     C 266,262 252,248 262,222 C 272,196 287,186 300,178"
+              fill="none" stroke="url(#ePath)" stroke-width="3.5" stroke-linecap="round"
+              stroke-dasharray="14 8" filter="url(#ePathGlow)">
+              <animate attributeName="stroke-dashoffset" from="0" to="-66" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+            <!-- Path center bright line -->
+            <path d="M 300,450 C 290,430 270,400 265,370 C 258,335 278,318 272,290
+                     C 266,262 252,248 262,222 C 272,196 287,186 300,178"
+              fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1" stroke-linecap="round"
+              stroke-dasharray="14 8">
+              <animate attributeName="stroke-dashoffset" from="0" to="-66" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- ===== SUMMIT ENERGY BEAM ===== -->
+            <rect x="298" y="60" width="4" height="118" fill="url(#eBeam)" rx="2" filter="url(#eGlow)">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+              <animate attributeName="width" values="3;7;3" dur="2.2s" repeatCount="indefinite"/>
+              <animate attributeName="x" values="299;297;299" dur="2.2s" repeatCount="indefinite"/>
+            </rect>
+
+            <!-- Summit halo orb -->
+            <circle cx="300" cy="178" r="38" fill="url(#eSummitHalo)" filter="url(#eSoft)">
+              <animate attributeName="r" values="32;42;32" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Summit pulse rings -->
+            <circle cx="300" cy="178" r="5" fill="none" stroke="rgba(6,182,212,0.9)" stroke-width="1.5">
+              <animate attributeName="r" values="5;55;5" dur="3.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0;0.9" dur="3.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="300" cy="178" r="5" fill="none" stroke="rgba(139,92,246,0.7)" stroke-width="1.5">
+              <animate attributeName="r" values="5;55;5" dur="3.5s" begin="1.17s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0;0.9" dur="3.5s" begin="1.17s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="300" cy="178" r="5" fill="none" stroke="rgba(59,130,246,0.6)" stroke-width="1.5">
+              <animate attributeName="r" values="5;55;5" dur="3.5s" begin="2.33s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0;0.9" dur="3.5s" begin="2.33s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- ===== HOLOGRAPHIC RINGS near summit ===== -->
+            <ellipse cx="300" cy="155" rx="50" ry="12" fill="none"
+              stroke="rgba(59,130,246,0.55)" stroke-width="1.5"
+              filter="url(#eGlow)">
+              <animateTransform attributeName="transform" type="rotate"
+                from="0 300 155" to="360 300 155" dur="8s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="300" cy="155" rx="38" ry="9" fill="none"
+              stroke="rgba(139,92,246,0.5)" stroke-width="1" stroke-dasharray="5 4"
+              filter="url(#eGlow)">
+              <animateTransform attributeName="transform" type="rotate"
+                from="360 300 155" to="0 300 155" dur="11s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="300" cy="155" rx="62" ry="15" fill="none"
+              stroke="rgba(6,182,212,0.35)" stroke-width="1" stroke-dasharray="3 6"
+              filter="url(#eGlow)">
+              <animateTransform attributeName="transform" type="rotate"
+                from="0 300 155" to="360 300 155" dur="15s" repeatCount="indefinite"/>
+            </ellipse>
+
+            <!-- ===== ARROW at summit (floating) ===== -->
+            <g filter="url(#eGlowStrong)">
+              <animateTransform attributeName="transform" type="translate"
+                values="0,0;0,-10;0,0" dur="3s" calcMode="spline"
+                keySplines="0.45 0 0.55 1;0.45 0 0.55 1"
+                repeatCount="indefinite"/>
+              <!-- Arrowhead -->
+              <polygon points="300,62 285,90 315,90" fill="url(#eArrow)">
+                <animate attributeName="opacity" values="0.75;1;0.75" dur="4s" repeatCount="indefinite"/>
+              </polygon>
+              <!-- Arrow shaft -->
+              <rect x="295" y="90" width="10" height="32" fill="url(#eArrow)" rx="3">
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+
+            <!-- ===== FLOATING PARTICLES ===== -->
+            <!-- Left side rising -->
+            <circle cx="190" cy="380" r="1.8" fill="#60a5fa" opacity="0">
+              <animate attributeName="cy" values="380;260;380" dur="6s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="165" cy="340" r="1.2" fill="#a78bfa" opacity="0">
+              <animate attributeName="cy" values="340;230;340" dur="8s" begin="1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.7;0" dur="8s" begin="1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="225" cy="400" r="2" fill="#06b6d4" opacity="0">
+              <animate attributeName="cy" values="400;290;400" dur="5.5s" begin="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.75;0" dur="5.5s" begin="2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Right side rising -->
+            <circle cx="405" cy="370" r="1.8" fill="#60a5fa" opacity="0">
+              <animate attributeName="cy" values="370;250;370" dur="7s" begin="0.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.8;0" dur="7s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="430" cy="350" r="1.3" fill="#a78bfa" opacity="0">
+              <animate attributeName="cy" values="350;240;350" dur="6.5s" begin="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.7;0" dur="6.5s" begin="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="380" cy="400" r="1.6" fill="#3b82f6" opacity="0">
+              <animate attributeName="cy" values="400;300;400" dur="9s" begin="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.65;0" dur="9s" begin="3s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Center rising near path -->
+            <circle cx="275" cy="360" r="2.2" fill="#06b6d4" opacity="0">
+              <animate attributeName="cy" values="360;200;360" dur="5s" begin="0.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="5s" begin="0.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="320" cy="350" r="1.5" fill="#60a5fa" opacity="0">
+              <animate attributeName="cy" values="350;210;350" dur="5.5s" begin="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.8;0" dur="5.5s" begin="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Tiny scattered sparkles -->
+            <circle cx="245" cy="300" r="1" fill="#fff" opacity="0">
+              <animate attributeName="opacity" values="0;0.6;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="355" cy="280" r="1" fill="#fff" opacity="0">
+              <animate attributeName="opacity" values="0;0.6;0" dur="4s" begin="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="300" cy="250" r="1.2" fill="#a78bfa" opacity="0">
+              <animate attributeName="opacity" values="0;0.8;0" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Ground base neon line -->
+            <line x1="80" y1="450" x2="520" y2="450" stroke="rgba(59,130,246,0.3)" stroke-width="1" filter="url(#eGlow)"/>
           </svg>
-          <!-- Mountain -->
-          <div class="exp-mountain"></div>
-          <!-- Glowing pathway -->
-          <div class="exp-path">
-            <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="expPathGrad" x1="0" y1="1" x2="0" y2="0">
-                  <stop offset="0%" stop-color="#3b82f6"/>
-                  <stop offset="100%" stop-color="#06b6d4"/>
-                </linearGradient>
-              </defs>
-              <path d="M 800 900 C 700 820, 600 760, 720 700 C 840 640, 760 580, 800 500 C 840 420, 780 360, 800 252" stroke="url(#expPathGrad)" stroke-width="8" stroke-dasharray="24 12"/>
-            </svg>
-          </div>
-          <!-- Arrow -->
-          <div class="exp-arrow">
-            <iconify-icon icon="lucide:arrow-up" width="56"></iconify-icon>
-          </div>
-          <!-- Floating icons -->
-          <div class="exp-float-icon" style="top:8%;left:8%;animation-delay:0s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:graduation-cap" width="20" style="color:#a78bfa"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="top:12%;right:10%;animation-delay:0.7s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:scroll-text" width="20" style="color:#60a5fa"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="top:38%;left:4%;animation-delay:1.4s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:briefcase" width="20" style="color:#22d3ee"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="top:40%;right:6%;animation-delay:2.1s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:laptop" width="20" style="color:#34d399"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="bottom:30%;left:10%;animation-delay:2.8s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="logos:python" width="20"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="bottom:32%;right:8%;animation-delay:3.5s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="logos:mysql-icon" width="20"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="bottom:12%;left:22%;animation-delay:4.2s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:brain" width="20" style="color:#a78bfa"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="bottom:14%;right:20%;animation-delay:4.9s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:bar-chart-3" width="20" style="color:#60a5fa"></iconify-icon>
-            </div>
-          </div>
-          <div class="exp-float-icon" style="bottom:8%;left:calc(50% - 22px);animation-delay:5.6s">
-            <div class="glass-icon w-11 h-11 rounded-xl flex items-center justify-center">
-              <iconify-icon icon="lucide:award" width="20" style="color:#fbbf24"></iconify-icon>
-            </div>
-          </div>
-          <!-- Particles -->
-          <div class="exp-particle" style="left:15%;bottom:20%;animation-delay:0s"></div>
-          <div class="exp-particle" style="left:35%;bottom:30%;animation-delay:2s"></div>
-          <div class="exp-particle" style="left:55%;bottom:15%;animation-delay:4s"></div>
-          <div class="exp-particle" style="left:75%;bottom:25%;animation-delay:6s"></div>
-          <div class="exp-particle" style="left:85%;bottom:40%;animation-delay:1s"></div>
-          <div class="exp-particle" style="left:25%;bottom:50%;animation-delay:3s"></div>
+
+        </div>
         </div>
       </div>
     </div>
@@ -1310,230 +1650,230 @@ html{scroll-behavior:smooth}
       </div>
 
     </div>
-    <!-- MAIN DASHBOARD: 4 WIDGETS 2x2 -->
-    <div class="grid md:grid-cols-2 gap-5 mb-5 fade-up">
+    <!-- ACCORDION WIDGET GRID -->
+    <div class="ai-accordion-grid fade-up" id="ai-accordion">
 
-      <!-- Widget 1: Recent AI Model Releases -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:cpu" width="14" style="color:#a78bfa"></iconify-icon></div>
-            <span class="ai-dash-title">Recent AI Model Releases</span>
+      <!-- W1: Recent AI Model Releases -->
+      <div class="ai-widget" data-widget="models">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:cpu" width="13" style="color:#a78bfa"></iconify-icon></div>
+            <span class="ai-widget-title">Recent AI Model Releases</span>
           </div>
-          <span class="ai-live-pill">LIVE</span>
+          <div class="ai-widget-right">
+            <span class="ai-live-pill">LIVE</span>
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
         </div>
-        <div id="widget-models" class="space-y-2.5 mt-3">
-          <div class="ai-model-row">
-            <div class="ai-model-dot" style="background:#10b981"></div>
-            <div class="flex-1"><span class="text-sm font-semibold text-white">GPT-4o</span><span class="ai-model-tag blue ml-2">OpenAI</span></div>
-            <span class="text-xs text-slate-500">Flagship</span>
-          </div>
-          <div class="ai-model-row">
-            <div class="ai-model-dot" style="background:#f97316"></div>
-            <div class="flex-1"><span class="text-sm font-semibold text-white">Claude 3.5 Sonnet</span><span class="ai-model-tag purple ml-2">Anthropic</span></div>
-            <span class="text-xs text-slate-500">Latest</span>
-          </div>
-          <div class="ai-model-row">
-            <div class="ai-model-dot" style="background:#3b82f6"></div>
-            <div class="flex-1"><span class="text-sm font-semibold text-white">Gemini 2.0 Flash</span><span class="ai-model-tag cyan ml-2">Google</span></div>
-            <span class="text-xs text-slate-500">Fast</span>
-          </div>
-          <div class="ai-model-row">
-            <div class="ai-model-dot" style="background:#8b5cf6"></div>
-            <div class="flex-1"><span class="text-sm font-semibold text-white">Llama 3.3 70B</span><span class="ai-model-tag green ml-2">Meta</span></div>
-            <span class="text-xs text-slate-500">Open</span>
-          </div>
-          <div class="ai-model-row">
-            <div class="ai-model-dot" style="background:#06b6d4"></div>
-            <div class="flex-1"><span class="text-sm font-semibold text-white">DeepSeek-R1</span><span class="ai-model-tag blue ml-2">DeepSeek</span></div>
-            <span class="text-xs text-slate-500">Reasoning</span>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span><strong>GPT-4o</strong> · OpenAI</span><span class="ai-model-tag blue">Flagship</span></div>
+          <div class="ai-preview-item"><span><strong>Claude 3.5 Sonnet</strong> · Anthropic</span><span class="ai-model-tag purple">Latest</span></div>
+          <div class="ai-preview-item"><span><strong>Gemini 2.0 Flash</strong> · Google</span><span class="ai-model-tag cyan">Fast</span></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner space-y-1">
+            <div class="ai-model-row"><div class="ai-model-dot" style="background:#10b981;color:#10b981"></div><div class="flex-1"><span class="text-sm font-semibold text-white">GPT-4o</span><span class="ai-model-tag blue ml-2">OpenAI</span></div><span class="text-xs text-slate-500">Flagship</span></div>
+            <div class="ai-model-row"><div class="ai-model-dot" style="background:#f97316;color:#f97316"></div><div class="flex-1"><span class="text-sm font-semibold text-white">Claude 3.5 Sonnet</span><span class="ai-model-tag purple ml-2">Anthropic</span></div><span class="text-xs text-slate-500">Latest</span></div>
+            <div class="ai-model-row"><div class="ai-model-dot" style="background:#3b82f6;color:#3b82f6"></div><div class="flex-1"><span class="text-sm font-semibold text-white">Gemini 2.0 Flash</span><span class="ai-model-tag cyan ml-2">Google</span></div><span class="text-xs text-slate-500">Fast</span></div>
+            <div class="ai-model-row"><div class="ai-model-dot" style="background:#8b5cf6;color:#8b5cf6"></div><div class="flex-1"><span class="text-sm font-semibold text-white">Llama 3.3 70B</span><span class="ai-model-tag green ml-2">Meta</span></div><span class="text-xs text-slate-500">Open</span></div>
+            <div class="ai-model-row"><div class="ai-model-dot" style="background:#06b6d4;color:#06b6d4"></div><div class="flex-1"><span class="text-sm font-semibold text-white">DeepSeek-R1</span><span class="ai-model-tag blue ml-2">DeepSeek</span></div><span class="text-xs text-slate-500">Reasoning</span></div>
           </div>
         </div>
       </div>
 
-      <!-- Widget 2: Trending GitHub AI Repos -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(251,191,36,0.15);border-color:rgba(251,191,36,0.3)"><iconify-icon icon="mdi:github" width="14" style="color:#fbbf24"></iconify-icon></div>
-            <span class="ai-dash-title">Trending GitHub AI Repos</span>
+      <!-- W2: Trending GitHub AI Repos -->
+      <div class="ai-widget" data-widget="repos">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(251,191,36,0.15);border-color:rgba(251,191,36,0.3)"><iconify-icon icon="mdi:github" width="13" style="color:#fbbf24"></iconify-icon></div>
+            <span class="ai-widget-title">Trending GitHub AI Repos</span>
           </div>
-          <span class="ai-live-pill">TODAY</span>
+          <div class="ai-widget-right">
+            <span class="ai-live-pill">TODAY</span>
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
         </div>
-        <div id="widget-repos" class="space-y-2.5 mt-3">
-          <div class="ai-repo-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold text-white truncate">ollama/ollama</div>
-              <div class="text-xs text-slate-500 mt-0.5">Go · Updated 2h ago</div>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+1.2k</div>
-          </div>
-          <div class="ai-repo-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold text-white truncate">langchain-ai/langchain</div>
-              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 1h ago</div>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+890</div>
-          </div>
-          <div class="ai-repo-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold text-white truncate">microsoft/autogen</div>
-              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 3h ago</div>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+645</div>
-          </div>
-          <div class="ai-repo-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold text-white truncate">huggingface/transformers</div>
-              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 30m ago</div>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+520</div>
-          </div>
-          <div class="ai-repo-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-semibold text-white truncate">vllm-project/vllm</div>
-              <div class="text-xs text-slate-500 mt-0.5">Python · Updated 5h ago</div>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+410</div>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span><strong>ollama/ollama</strong></span><span class="text-yellow-400 text-xs font-semibold">⭐ +1.2k</span></div>
+          <div class="ai-preview-item"><span><strong>langchain-ai/langchain</strong></span><span class="text-yellow-400 text-xs font-semibold">⭐ +890</span></div>
+          <div class="ai-preview-item"><span><strong>microsoft/autogen</strong></span><span class="text-yellow-400 text-xs font-semibold">⭐ +645</span></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner space-y-1">
+            <div class="ai-repo-row"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-white truncate">ollama/ollama</div><div class="text-xs text-slate-500 mt-0.5">Go · Updated 2h ago</div></div><div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+1.2k</div></div>
+            <div class="ai-repo-row"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-white truncate">langchain-ai/langchain</div><div class="text-xs text-slate-500 mt-0.5">Python · Updated 1h ago</div></div><div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+890</div></div>
+            <div class="ai-repo-row"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-white truncate">microsoft/autogen</div><div class="text-xs text-slate-500 mt-0.5">Python · Updated 3h ago</div></div><div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+645</div></div>
+            <div class="ai-repo-row"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-white truncate">huggingface/transformers</div><div class="text-xs text-slate-500 mt-0.5">Python · Updated 30m ago</div></div><div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+520</div></div>
+            <div class="ai-repo-row"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-white truncate">vllm-project/vllm</div><div class="text-xs text-slate-500 mt-0.5">Python · Updated 5h ago</div></div><div class="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0"><iconify-icon icon="lucide:star" width="11"></iconify-icon>+410</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Widget 3: Latest Research Papers -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:file-text" width="14" style="color:#60a5fa"></iconify-icon></div>
-            <span class="ai-dash-title">Latest Research Papers</span>
+      <!-- W3: Latest Research Papers -->
+      <div class="ai-widget" data-widget="papers">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:file-text" width="13" style="color:#60a5fa"></iconify-icon></div>
+            <span class="ai-widget-title">Latest Research Papers</span>
           </div>
-          <span class="ai-live-pill">arXiv</span>
+          <div class="ai-widget-right">
+            <span class="ai-live-pill">arXiv</span>
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
         </div>
-        <div id="widget-papers" class="space-y-3 mt-3">
-          <div class="ai-paper-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Scaling Laws for Neural Language Models in Production Environments</div>
-              <div class="text-xs text-slate-500 mt-1">OpenAI Research · cs.AI</div>
-            </div>
-            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
-          </div>
-          <div class="ai-paper-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</div>
-              <div class="text-xs text-slate-500 mt-1">Google Brain · cs.CL</div>
-            </div>
-            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
-          </div>
-          <div class="ai-paper-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">Mixture of Experts Meets Instruction Tuning: A Winning Combination</div>
-              <div class="text-xs text-slate-500 mt-1">DeepMind · cs.LG</div>
-            </div>
-            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
-          </div>
-          <div class="ai-paper-row">
-            <div class="flex-1 min-w-0">
-              <div class="text-xs font-semibold text-white leading-snug line-clamp-2">RLHF Beyond Human Feedback: Self-Play Alignment for LLMs</div>
-              <div class="text-xs text-slate-500 mt-1">Anthropic · cs.AI</div>
-            </div>
-            <a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span class="truncate" style="max-width:85%"><strong>Scaling Laws for Neural LMs</strong> · cs.AI</span><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn" style="margin-top:0">PDF</a></div>
+          <div class="ai-preview-item"><span class="truncate" style="max-width:85%"><strong>Chain-of-Thought Prompting</strong> · cs.CL</span><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn" style="margin-top:0">PDF</a></div>
+          <div class="ai-preview-item"><span class="truncate" style="max-width:85%"><strong>Mixture of Experts + Tuning</strong> · cs.LG</span><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn" style="margin-top:0">PDF</a></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner space-y-1">
+            <div class="ai-paper-row"><div class="flex-1 min-w-0"><div class="text-xs font-semibold text-white leading-snug">Scaling Laws for Neural Language Models in Production Environments</div><div class="text-xs text-slate-500 mt-1">OpenAI Research · cs.AI</div></div><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a></div>
+            <div class="ai-paper-row"><div class="flex-1 min-w-0"><div class="text-xs font-semibold text-white leading-snug">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</div><div class="text-xs text-slate-500 mt-1">Google Brain · cs.CL</div></div><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a></div>
+            <div class="ai-paper-row"><div class="flex-1 min-w-0"><div class="text-xs font-semibold text-white leading-snug">Mixture of Experts Meets Instruction Tuning: A Winning Combination</div><div class="text-xs text-slate-500 mt-1">DeepMind · cs.LG</div></div><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a></div>
+            <div class="ai-paper-row"><div class="flex-1 min-w-0"><div class="text-xs font-semibold text-white leading-snug">RLHF Beyond Human Feedback: Self-Play Alignment for LLMs</div><div class="text-xs text-slate-500 mt-1">Anthropic · cs.AI</div></div><a href="https://arxiv.org/abs/" target="_blank" class="ai-paper-btn shrink-0">PDF</a></div>
           </div>
         </div>
       </div>
 
-      <!-- Widget 4: AI Services Status -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3)"><iconify-icon icon="lucide:activity" width="14" style="color:#34d399"></iconify-icon></div>
-            <span class="ai-dash-title">AI Services Status</span>
+      <!-- W4: AI Services Status -->
+      <div class="ai-widget" data-widget="status">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3)"><iconify-icon icon="lucide:activity" width="13" style="color:#34d399"></iconify-icon></div>
+            <span class="ai-widget-title">AI Services Status</span>
           </div>
-          <span class="ai-live-pill green">LIVE</span>
+          <div class="ai-widget-right">
+            <span class="ai-live-pill green">LIVE</span>
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
         </div>
-        <div id="widget-status" class="space-y-2.5 mt-3">
-          <div class="ai-status-row"><span class="ai-status-name">OpenAI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:98%"></div></div><span class="ai-status-badge green">Operational</span></div>
-          <div class="ai-status-row"><span class="ai-status-name">Anthropic</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:100%"></div></div><span class="ai-status-badge green">Operational</span></div>
-          <div class="ai-status-row"><span class="ai-status-name">Google AI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:95%"></div></div><span class="ai-status-badge green">Operational</span></div>
-          <div class="ai-status-row"><span class="ai-status-name">Groq</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:99%"></div></div><span class="ai-status-badge green">Operational</span></div>
-          <div class="ai-status-row"><span class="ai-status-name">OpenRouter</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" style="width:97%"></div></div><span class="ai-status-badge green">Operational</span></div>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span><strong>OpenAI</strong></span><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-preview-item"><span><strong>Anthropic</strong></span><span class="ai-status-badge green">Operational</span></div>
+          <div class="ai-preview-item"><span><strong>Google AI</strong></span><span class="ai-status-badge green">Operational</span></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner space-y-1" id="widget-status">
+            <div class="ai-status-row"><span class="ai-status-name">OpenAI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" data-w="98"></div></div><span class="ai-status-badge green">Operational</span></div>
+            <div class="ai-status-row"><span class="ai-status-name">Anthropic</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" data-w="100"></div></div><span class="ai-status-badge green">Operational</span></div>
+            <div class="ai-status-row"><span class="ai-status-name">Google AI</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" data-w="95"></div></div><span class="ai-status-badge green">Operational</span></div>
+            <div class="ai-status-row"><span class="ai-status-name">Groq</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" data-w="99"></div></div><span class="ai-status-badge green">Operational</span></div>
+            <div class="ai-status-row"><span class="ai-status-name">OpenRouter</span><div class="ai-status-bar-wrap"><div class="ai-status-bar" data-w="97"></div></div><span class="ai-status-badge green">Operational</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W5: AI Framework Popularity -->
+      <div class="ai-widget" data-widget="frameworks">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:bar-chart-2" width="13" style="color:#60a5fa"></iconify-icon></div>
+            <span class="ai-widget-title">AI Framework Popularity</span>
+          </div>
+          <div class="ai-widget-right">
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span><strong>Python</strong></span><span class="text-blue-400 text-xs font-bold">98%</span></div>
+          <div class="ai-preview-item"><span><strong>PyTorch</strong></span><span class="text-orange-400 text-xs font-bold">87%</span></div>
+          <div class="ai-preview-item"><span><strong>LangChain</strong></span><span class="text-purple-400 text-xs font-bold">74%</span></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner space-y-3">
+            <div class="ai-bar-item"><span class="ai-bar-label">Python</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="98" style="background:linear-gradient(90deg,#3b7af6,#06b6d4)"></div></div><span class="ai-bar-pct">98%</span></div>
+            <div class="ai-bar-item"><span class="ai-bar-label">PyTorch</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="87" style="background:linear-gradient(90deg,#f97316,#fb923c)"></div></div><span class="ai-bar-pct">87%</span></div>
+            <div class="ai-bar-item"><span class="ai-bar-label">LangChain</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="74" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="ai-bar-pct">74%</span></div>
+            <div class="ai-bar-item"><span class="ai-bar-label">TensorFlow</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="70" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="ai-bar-pct">70%</span></div>
+            <div class="ai-bar-item"><span class="ai-bar-label">FastAPI</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="65" style="background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div></div><span class="ai-bar-pct">65%</span></div>
+            <div class="ai-bar-item"><span class="ai-bar-label">OpenCV</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="52" style="background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="ai-bar-pct">52%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W6: LLM Usage Distribution -->
+      <div class="ai-widget" data-widget="llm">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:pie-chart" width="13" style="color:#a78bfa"></iconify-icon></div>
+            <span class="ai-widget-title">LLM Usage Distribution</span>
+          </div>
+          <div class="ai-widget-right">
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="ai-widget-preview">
+          <div class="ai-preview-item"><span>🔵 <strong>GPT</strong></span><span class="text-white text-xs font-bold">35%</span></div>
+          <div class="ai-preview-item"><span>🟠 <strong>Claude</strong></span><span class="text-white text-xs font-bold">22%</span></div>
+          <div class="ai-preview-item"><span>🟣 <strong>Gemini</strong></span><span class="text-white text-xs font-bold">18%</span></div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner">
+            <div class="flex items-center justify-between gap-4">
+              <div class="relative flex-shrink-0" style="width:100px;height:100px">
+                <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3.8"/>
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3.8" stroke-dasharray="35 65" stroke-dashoffset="0" class="ai-donut-seg"/>
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f97316" stroke-width="3.8" stroke-dasharray="22 78" stroke-dashoffset="-35" class="ai-donut-seg"/>
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8b5cf6" stroke-width="3.8" stroke-dasharray="18 82" stroke-dashoffset="-57" class="ai-donut-seg"/>
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#06b6d4" stroke-width="3.8" stroke-dasharray="14 86" stroke-dashoffset="-75" class="ai-donut-seg"/>
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#10b981" stroke-width="3.8" stroke-dasharray="11 89" stroke-dashoffset="-89" class="ai-donut-seg"/>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                  <span class="text-xs font-bold text-white">LLM</span>
+                  <span class="text-xs text-slate-500">Share</span>
+                </div>
+              </div>
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#3b82f6"></span><span class="text-xs text-slate-300 flex-1">GPT</span><span class="text-xs font-bold text-white">35%</span></div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#f97316"></span><span class="text-xs text-slate-300 flex-1">Claude</span><span class="text-xs font-bold text-white">22%</span></div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#8b5cf6"></span><span class="text-xs text-slate-300 flex-1">Gemini</span><span class="text-xs font-bold text-white">18%</span></div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#06b6d4"></span><span class="text-xs text-slate-300 flex-1">Llama</span><span class="text-xs font-bold text-white">14%</span></div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#10b981"></span><span class="text-xs text-slate-300 flex-1">DeepSeek</span><span class="text-xs font-bold text-white">11%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W7: Live World Clock -->
+      <div class="ai-widget" data-widget="clock" style="grid-column:1/-1">
+        <div class="ai-widget-header" onclick="aiToggle(this)">
+          <div class="ai-widget-left">
+            <div class="ai-widget-icon" style="background:rgba(6,182,212,0.15);border-color:rgba(6,182,212,0.3)"><iconify-icon icon="lucide:clock" width="13" style="color:#22d3ee"></iconify-icon></div>
+            <span class="ai-widget-title">Live World Clock</span>
+          </div>
+          <div class="ai-widget-right">
+            <span class="ai-live-pill cyan">LIVE</span>
+            <div class="ai-widget-chevron"><iconify-icon icon="lucide:chevron-down" width="12" style="color:#60a5fa"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="ai-widget-preview">
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+            <div class="text-center"><div class="text-xs text-slate-500 mb-0.5">🇮🇳 IST</div><div class="text-sm font-bold text-white font-mono" id="clk-ist-prev">--:--</div></div>
+            <div class="text-center"><div class="text-xs text-slate-500 mb-0.5">🌐 UTC</div><div class="text-sm font-bold text-white font-mono" id="clk-utc-prev">--:--</div></div>
+            <div class="text-center"><div class="text-xs text-slate-500 mb-0.5">🗽 NY</div><div class="text-sm font-bold text-white font-mono" id="clk-ny-prev">--:--</div></div>
+            <div class="text-center hidden sm:block"><div class="text-xs text-slate-500 mb-0.5">🇬🇧 London</div><div class="text-sm font-bold text-white font-mono" id="clk-lon-prev">--:--</div></div>
+            <div class="text-center hidden sm:block"><div class="text-xs text-slate-500 mb-0.5">🗼 Tokyo</div><div class="text-sm font-bold text-white font-mono" id="clk-tok-prev">--:--</div></div>
+          </div>
+        </div>
+        <div class="ai-widget-body">
+          <div class="ai-widget-body-inner">
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+              <div class="text-center p-3 rounded-xl" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15)"><div class="text-xs text-slate-500 mb-1">🇮🇳 IST</div><div class="text-base font-bold text-white font-mono" id="clk-ist">--:--:--</div><div class="text-xs text-slate-600 mt-0.5">UTC+5:30</div></div>
+              <div class="text-center p-3 rounded-xl" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15)"><div class="text-xs text-slate-500 mb-1">🌐 UTC</div><div class="text-base font-bold text-white font-mono" id="clk-utc">--:--:--</div><div class="text-xs text-slate-600 mt-0.5">UTC+0</div></div>
+              <div class="text-center p-3 rounded-xl" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15)"><div class="text-xs text-slate-500 mb-1">🗽 New York</div><div class="text-base font-bold text-white font-mono" id="clk-ny">--:--:--</div><div class="text-xs text-slate-600 mt-0.5">UTC-5</div></div>
+              <div class="text-center p-3 rounded-xl" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15)"><div class="text-xs text-slate-500 mb-1">🇬🇧 London</div><div class="text-base font-bold text-white font-mono" id="clk-lon">--:--:--</div><div class="text-xs text-slate-600 mt-0.5">UTC+1</div></div>
+              <div class="text-center p-3 rounded-xl" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15)"><div class="text-xs text-slate-500 mb-1">🗼 Tokyo</div><div class="text-base font-bold text-white font-mono" id="clk-tok">--:--:--</div><div class="text-xs text-slate-600 mt-0.5">UTC+9</div></div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
-
-    <!-- BOTTOM ROW EXTRA WIDGETS -->
-    <div class="grid md:grid-cols-3 gap-5 fade-up">
-
-      <!-- Extra 1: AI Framework Popularity -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3)"><iconify-icon icon="lucide:bar-chart-2" width="14" style="color:#60a5fa"></iconify-icon></div>
-            <span class="ai-dash-title">AI Framework Popularity</span>
-          </div>
-        </div>
-        <div class="space-y-3 mt-4">
-          <div class="ai-bar-item"><span class="ai-bar-label">Python</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="98" style="background:linear-gradient(90deg,#3b7af6,#06b6d4)"></div></div><span class="ai-bar-pct">98%</span></div>
-          <div class="ai-bar-item"><span class="ai-bar-label">PyTorch</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="87" style="background:linear-gradient(90deg,#f97316,#fb923c)"></div></div><span class="ai-bar-pct">87%</span></div>
-          <div class="ai-bar-item"><span class="ai-bar-label">LangChain</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="74" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="ai-bar-pct">74%</span></div>
-          <div class="ai-bar-item"><span class="ai-bar-label">TensorFlow</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="70" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="ai-bar-pct">70%</span></div>
-          <div class="ai-bar-item"><span class="ai-bar-label">FastAPI</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="65" style="background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div></div><span class="ai-bar-pct">65%</span></div>
-          <div class="ai-bar-item"><span class="ai-bar-label">OpenCV</span><div class="ai-bar-track"><div class="ai-bar-fill" data-w="52" style="background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="ai-bar-pct">52%</span></div>
-        </div>
-      </div>
-
-      <!-- Extra 2: LLM Usage Distribution (Donut) -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3)"><iconify-icon icon="lucide:pie-chart" width="14" style="color:#a78bfa"></iconify-icon></div>
-            <span class="ai-dash-title">LLM Usage Distribution</span>
-          </div>
-        </div>
-        <div class="flex items-center justify-between gap-4 mt-4">
-          <div class="relative flex-shrink-0" style="width:110px;height:110px">
-            <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3.8"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3.8" stroke-dasharray="35 65" stroke-dashoffset="0" class="ai-donut-seg"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f97316" stroke-width="3.8" stroke-dasharray="22 78" stroke-dashoffset="-35" class="ai-donut-seg"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8b5cf6" stroke-width="3.8" stroke-dasharray="18 82" stroke-dashoffset="-57" class="ai-donut-seg"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#06b6d4" stroke-width="3.8" stroke-dasharray="14 86" stroke-dashoffset="-75" class="ai-donut-seg"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#10b981" stroke-width="3.8" stroke-dasharray="11 89" stroke-dashoffset="-89" class="ai-donut-seg"/>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center flex-col">
-              <span class="text-xs font-bold text-white">LLM</span>
-              <span class="text-xs text-slate-500">Usage</span>
-            </div>
-          </div>
-          <div class="flex-1 space-y-1.5">
-            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#3b82f6"></span><span class="text-xs text-slate-300 flex-1">GPT</span><span class="text-xs font-semibold text-white">35%</span></div>
-            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#f97316"></span><span class="text-xs text-slate-300 flex-1">Claude</span><span class="text-xs font-semibold text-white">22%</span></div>
-            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#8b5cf6"></span><span class="text-xs text-slate-300 flex-1">Gemini</span><span class="text-xs font-semibold text-white">18%</span></div>
-            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#06b6d4"></span><span class="text-xs text-slate-300 flex-1">Llama</span><span class="text-xs font-semibold text-white">14%</span></div>
-            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#10b981"></span><span class="text-xs text-slate-300 flex-1">DeepSeek</span><span class="text-xs font-semibold text-white">11%</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Extra 3: Live World Clock -->
-      <div class="ai-dash-card">
-        <div class="ai-dash-card-header">
-          <div class="flex items-center gap-2">
-            <div class="ai-dash-icon" style="background:rgba(6,182,212,0.15);border-color:rgba(6,182,212,0.3)"><iconify-icon icon="lucide:clock" width="14" style="color:#22d3ee"></iconify-icon></div>
-            <span class="ai-dash-title">Live World Clock</span>
-          </div>
-          <span class="ai-live-pill cyan">LIVE</span>
-        </div>
-        <div class="space-y-2.5 mt-4">
-          <div class="ai-clock-row"><span class="ai-clock-city">🌐 UTC</span><span class="ai-clock-time" id="clk-utc">--:--:--</span></div>
-          <div class="ai-clock-row"><span class="ai-clock-city">🇮🇳 IST</span><span class="ai-clock-time" id="clk-ist">--:--:--</span></div>
-          <div class="ai-clock-row"><span class="ai-clock-city">🗽 New York</span><span class="ai-clock-time" id="clk-ny">--:--:--</span></div>
-          <div class="ai-clock-row"><span class="ai-clock-city">🇬🇧 London</span><span class="ai-clock-time" id="clk-lon">--:--:--</span></div>
-          <div class="ai-clock-row"><span class="ai-clock-city">🗼 Tokyo</span><span class="ai-clock-time" id="clk-tok">--:--:--</span></div>
-        </div>
-      </div>
-
-    </div>
-    <!-- end AI Command Center content --><p class="text-slate-500 text-xs mt-1">Real-time data stream simulation</p></div><div class="flex gap-4 text-xs"><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#3b82f6"></span> Revenue</span><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#8b5cf6"></span> Users</span><span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm" style="background:#06b6d4"></span> Growth</span></div></div><div class="relative h-48 sm:h-64"><svg viewBox="0 0 800 250" class="w-full h-full" preserveAspectRatio="none"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/></linearGradient><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/></linearGradient></defs><line x1="0" y1="62" x2="800" y2="62" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="125" x2="800" y2="125" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="187" x2="800" y2="187" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25 L800,250 L0,250 Z" fill="url(#grad1)"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88 L800,250 L0,250 Z" fill="url(#grad2)"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-dasharray="6,4"/><path d="M0,230 C100,220 200,210 300,195 C400,180 500,175 600,155 C700,135 750,125 800,110" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2,4"/><circle cx="800" cy="25" r="4" fill="#3b82f6" stroke="#0a1628" stroke-width="2"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle></svg><div class="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium text-green-400" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"><span class="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot"></span>LIVE</div></div></div>
+    <!-- end AI Command Center -->
+    <div style="display:none"><div><svg viewBox="0 0 800 250" class="w-full h-full" preserveAspectRatio="none"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/></linearGradient><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/></linearGradient></defs><line x1="0" y1="62" x2="800" y2="62" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="125" x2="800" y2="125" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><line x1="0" y1="187" x2="800" y2="187" stroke="rgba(148,163,184,0.06)" stroke-width="1"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25 L800,250 L0,250 Z" fill="url(#grad1)"/><path d="M0,200 C50,180 100,150 150,160 C200,170 250,120 300,100 C350,80 400,110 450,90 C500,70 550,85 600,60 C650,35 700,50 750,30 L800,25" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88 L800,250 L0,250 Z" fill="url(#grad2)"/><path d="M0,220 C50,210 100,190 150,195 C200,200 250,170 300,155 C350,140 400,160 450,145 C500,130 550,140 600,120 C650,100 700,115 750,95 L800,88" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-dasharray="6,4"/><path d="M0,230 C100,220 200,210 300,195 C400,180 500,175 600,155 C700,135 750,125 800,110" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2,4"/><circle cx="800" cy="25" r="4" fill="#3b82f6" stroke="#0a1628" stroke-width="2"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle></svg><div class="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium text-green-400" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"><span class="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot"></span>LIVE</div></div></div>
   </div>
 </section>
 
@@ -1793,9 +2133,163 @@ window.addEventListener('scroll',()=>{if(window.scrollY>500){btt.classList.remov
 btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
 
-// ===== COUNTERS =====
-function ac(id,t,pre='',suf='',dur=2000){const el=document.getElementById(id),st=performance.now();(function u(n){const p=Math.min((n-st)/dur,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.floor(t*e).toLocaleString()+suf;if(p<1)requestAnimationFrame(u)})(st)}
-let cd=false;new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting&&!cd){cd=true;ac('revenue',2847500,'$','',2500);ac('users',48250,'','',2500);ac('conversion',12,'','%',2000);ac('efficiency',94,'','%',2000)}})},{threshold:0.3}).observe(document.getElementById('insights'));
+// ===== AI COMMAND CENTER =====
+
+// --- Accordion ---
+function aiToggle(header) {
+  const widget = header.closest('.ai-widget');
+  const body = widget.querySelector('.ai-widget-body');
+  const isOpen = widget.classList.contains('open');
+
+  // Close all others (accordion behaviour)
+  document.querySelectorAll('.ai-widget.open').forEach(w => {
+    if (w !== widget) {
+      w.classList.remove('open');
+      w.querySelector('.ai-widget-body').style.maxHeight = '0';
+    }
+  });
+
+  if (isOpen) {
+    widget.classList.remove('open');
+    body.style.maxHeight = '0';
+  } else {
+    widget.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    // Animate bars/status inside when opening
+    setTimeout(() => animateBarsInWidget(widget), 50);
+  }
+}
+
+// Animate progress bars inside a widget
+function animateBarsInWidget(widget) {
+  widget.querySelectorAll('.ai-bar-fill[data-w], .ai-status-bar[data-w]').forEach(bar => {
+    bar.style.width = bar.dataset.w + '%';
+  });
+  // Animate metric bars (top cards) once on section entry
+  animateMetricBars();
+}
+
+function animateMetricBars() {
+  document.querySelectorAll('.ai-metric-bar').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    requestAnimationFrame(() => { bar.style.width = w; });
+  });
+}
+
+// --- Live Clock ---
+function updateClocks() {
+  const now = new Date();
+  const fmt = (tz) => now.toLocaleTimeString('en-GB', {timeZone: tz, hour12: false});
+  const fmtShort = (tz) => now.toLocaleTimeString('en-GB', {timeZone: tz, hour12: false, hour:'2-digit', minute:'2-digit'});
+
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+
+  set('clk-ist',  fmt('Asia/Kolkata'));
+  set('clk-utc',  fmt('UTC'));
+  set('clk-ny',   fmt('America/New_York'));
+  set('clk-lon',  fmt('Europe/London'));
+  set('clk-tok',  fmt('Asia/Tokyo'));
+
+  set('clk-ist-prev', fmtShort('Asia/Kolkata'));
+  set('clk-utc-prev', fmtShort('UTC'));
+  set('clk-ny-prev',  fmtShort('America/New_York'));
+  set('clk-lon-prev', fmtShort('Europe/London'));
+  set('clk-tok-prev', fmtShort('Asia/Tokyo'));
+}
+setInterval(updateClocks, 1000);
+updateClocks();
+
+// --- Last Updated timestamp ---
+function updateTimestamp() {
+  const el = document.getElementById('ai-last-updated');
+  if (el) el.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+}
+updateTimestamp();
+setInterval(updateTimestamp, 60000);
+
+// --- Refresh button ---
+(function() {
+  const btn = document.getElementById('ai-refresh-btn');
+  const icon = document.getElementById('ai-refresh-icon');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    icon.style.animation = 'spin 0.8s linear infinite';
+    btn.disabled = true;
+    updateTimestamp();
+    animateMetricBars();
+    setTimeout(() => {
+      icon.style.animation = '';
+      btn.disabled = false;
+    }, 900);
+  });
+})();
+
+// --- Intersection Observer: animate metric bars & fade-up on section entry ---
+(function() {
+  let triggered = false;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting && !triggered) {
+        triggered = true;
+        // Animate top metric bars
+        document.querySelectorAll('.ai-metric-bar').forEach(bar => {
+          const target = bar.style.width;
+          bar.style.width = '0';
+          requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = target; }));
+        });
+        // Fade-up children
+        document.querySelectorAll('#insights .fade-up').forEach((el, i) => {
+          setTimeout(() => el.classList.add('is-visible'), i * 120);
+        });
+      }
+    });
+  }, {threshold: 0.1});
+  const section = document.getElementById('insights');
+  if (section) obs.observe(section);
+})();
+
+// ===== ABOUT BRAIN PARALLAX =====
+(function(){
+  const scene = document.getElementById('about-scene');
+  if (!scene) return;
+  let rx = 0, ry = 0, tx = 0, ty = 0;
+  scene.style.transformStyle = 'preserve-3d';
+  document.addEventListener('mousemove', e => {
+    const r = scene.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    tx = (e.clientX - cx) / (r.width  / 2) * 8;
+    ty = (e.clientY - cy) / (r.height / 2) * 5;
+  });
+  document.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
+  (function loop() {
+    rx += (tx - rx) * 0.06;
+    ry += (ty - ry) * 0.06;
+    scene.style.transform = `perspective(900px) rotateY(${rx}deg) rotateX(${-ry}deg)`;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// ===== EXPERIENCE ILLUSTRATION PARALLAX =====
+(function(){
+  const ill = document.getElementById('exp-illustration');
+  if (!ill) return;
+  let rx = 0, ry = 0, tx = 0, ty = 0;
+  document.addEventListener('mousemove', e => {
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    tx = (e.clientX - cx) / cx * 8;
+    ty = (e.clientY - cy) / cy * 5;
+  });
+  (function loop() {
+    rx += (tx - rx) * 0.08;
+    ry += (ty - ry) * 0.08;
+    ill.style.transform = `rotateY(${rx}deg) rotateX(${-ry}deg)`;
+    requestAnimationFrame(loop);
+  })();
+  ill.style.transformStyle = 'preserve-3d';
+  ill.style.perspective = '800px';
+})();
 
 // ===== CONTACT SECTION SCROLL ANIMATIONS =====
 (function(){
