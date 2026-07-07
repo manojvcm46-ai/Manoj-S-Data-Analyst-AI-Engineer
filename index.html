@@ -2011,7 +2011,7 @@ html{scroll-behavior:smooth}
             </div>
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-              <a href="#" class="contact-cta-btn primary"><iconify-icon icon="lucide:download" width="16"></iconify-icon>Download Resume</a>
+              <a href="./Manoj_Data Analyst_AI Engineering.pdf" download="Manoj_S_Data_Analyst_AI_Engineer_Resume.pdf" class="contact-cta-btn primary"><iconify-icon icon="lucide:download" width="16"></iconify-icon>Download Resume</a>
               <a href="mailto:manojvcm46@gmail.com" class="contact-cta-btn secondary"><iconify-icon icon="lucide:briefcase" width="16"></iconify-icon>Hire Me</a>
             </div>
             <!-- Social Icons -->
@@ -2331,21 +2331,16 @@ window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');
     }, 1800);
   }
 
-  // Show after 8 seconds OR when user scrolls to bottom
+  // Show only when the user reaches the end of the page
   let scrollTriggered = false;
   window.addEventListener('scroll', ()=>{
     if(scrollTriggered) return;
     const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
-    if(scrollPercent > 0.85){
+    if(scrollPercent > 0.98){
       scrollTriggered = true;
       setTimeout(showRobot, 500);
     }
   });
-
-  // Fallback: show after 12 seconds
-  setTimeout(()=>{
-    if(!shown) showRobot();
-  }, 12000);
 
   // Close button
   closeBtn.addEventListener('click', ()=>{
@@ -2369,6 +2364,24 @@ window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');
   // ESC to close
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape' && shown) closeBtn.click();
+  });
+})();
+
+// ===== PAGE LOAD RESET =====
+(function(){
+  if('scrollRestoration' in history){
+    history.scrollRestoration='manual';
+  }
+
+  const resetToTop=()=>{
+    window.scrollTo(0,0);
+  };
+
+  window.addEventListener('load', resetToTop);
+  window.addEventListener('pageshow', (event)=>{
+    if(event.persisted){
+      resetToTop();
+    }
   });
 })();
 
