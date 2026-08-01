@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manoj S | Data Analyst & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://code.iconify.design">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+<link rel="preload" as="image" href="./images/avatar.webp" fetchpriority="high">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -38,11 +45,11 @@ body{font-family:'Inter',sans-serif;background:#060b18;color:#e2e8f0;overflow-x:
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
 .typing-cursor::after{content:'|';animation:blink 1s infinite;color:#3b82f6}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.float-3d{animation:float3d 6s ease-in-out infinite;transform-style:preserve-3d}
+.float-3d{animation:float3d 6s ease-in-out infinite;transform-style:preserve-3d;will-change:transform}
 @keyframes float3d{0%,100%{transform:translateY(0px) rotateY(0deg) rotateX(0deg)}25%{transform:translateY(-12px) rotateY(5deg) rotateX(3deg)}50%{transform:translateY(-8px) rotateY(-3deg) rotateX(-2deg)}75%{transform:translateY(-14px) rotateY(2deg) rotateX(4deg)}}
-.orbit{animation:orbit 20s linear infinite;transform-style:preserve-3d}
+.orbit{animation:orbit 20s linear infinite;transform-style:preserve-3d;will-change:transform}
 @keyframes orbit{0%{transform:rotate(0deg) translateX(140px) rotate(0deg)}100%{transform:rotate(360deg) translateX(140px) rotate(-360deg)}}
-.orbit-reverse{animation:orbit-r 25s linear infinite}
+.orbit-reverse{animation:orbit-r 25s linear infinite;will-change:transform}
 @keyframes orbit-r{0%{transform:rotate(0deg) translateX(110px) rotate(0deg)}100%{transform:rotate(-360deg) translateX(110px) rotate(360deg)}}
 .insight-bar{animation:grow-width 2s ease-out forwards;transform-origin:left}
 @keyframes grow-width{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -60,9 +67,10 @@ html{scroll-behavior:smooth}
 .shimmer{position:relative;overflow:hidden}
 .shimmer::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);animation:shimmer 3s infinite}
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-.hex-float{animation:hex-float 8s ease-in-out infinite}
+.hex-float{animation:hex-float 8s ease-in-out infinite;will-change:transform}
 @keyframes hex-float{0%,100%{transform:translateY(0) rotateZ(0deg)}33%{transform:translateY(-20px) rotateZ(60deg)}66%{transform:translateY(10px) rotateZ(-30deg)}}
 .content-layer{position:relative;z-index:1}
+#skills,#projects,#certifications,#insights,#contact{content-visibility:auto;contain-intrinsic-size:0 1200px}
 @media(max-width:768px){.orbit,.orbit-reverse{display:none}}
 
 /* ===== ROBOT POPUP ===== */
@@ -234,13 +242,13 @@ html{scroll-behavior:smooth}
 .about-scene{position:relative;width:100%;max-width:520px;height:520px;display:flex;align-items:center;justify-content:center;perspective:900px}
 
 /* Hologram wrapper — floats */
-.about-hologram{position:relative;width:320px;height:320px;animation:brainFloat 6s ease-in-out infinite;transform-style:preserve-3d}
+.about-hologram{position:relative;width:320px;height:320px;animation:brainFloat 6s ease-in-out infinite;transform-style:preserve-3d;will-change:transform}
 @keyframes brainFloat{0%,100%{transform:translateY(0) rotateY(-6deg)}50%{transform:translateY(-20px) rotateY(6deg)}}
 
 /* Premium brain SVG */
-.brain-core{position:absolute;top:36px;left:50%;width:200px;height:160px;transform:translateX(-50%);animation:brainPulse 4s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(59,130,246,0.7)) drop-shadow(0 0 40px rgba(139,92,246,0.4))}
+.brain-core{position:absolute;top:36px;left:50%;width:200px;height:160px;transform:translateX(-50%);animation:brainPulse 4s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(59,130,246,0.7))}
 .brain-core svg{width:100%;height:100%;overflow:visible}
-@keyframes brainPulse{0%,100%{filter:drop-shadow(0 0 22px rgba(59,130,246,0.7)) drop-shadow(0 0 40px rgba(139,92,246,0.4))}50%{filter:drop-shadow(0 0 40px rgba(139,92,246,0.9)) drop-shadow(0 0 60px rgba(59,130,246,0.5)) drop-shadow(0 0 80px rgba(6,182,212,0.3))}}
+@keyframes brainPulse{0%,100%{filter:drop-shadow(0 0 20px rgba(59,130,246,0.7))}50%{filter:drop-shadow(0 0 32px rgba(139,92,246,0.8))}}
 
 /* Platform */
 .holo-shadow{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:200px;height:50px;border-radius:100%;background:rgba(0,0,0,0.6);filter:blur(16px)}
@@ -253,10 +261,10 @@ html{scroll-behavior:smooth}
 @keyframes beamPulse{0%,100%{opacity:0.3;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(2)}}
 
 /* Rings */
-.holo-ring{position:absolute;left:50%;top:80%;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border-style:solid;transform-style:preserve-3d}
-.holo-ring-1{width:260px;height:75px;border-width:2px;border-color:rgba(59,130,246,0.45);box-shadow:0 0 25px rgba(59,130,246,0.35),inset 0 0 20px rgba(59,130,246,0.1);animation:ringSpin 9s linear infinite}
-.holo-ring-2{width:200px;height:58px;border-width:2px;border-color:rgba(139,92,246,0.45);box-shadow:0 0 25px rgba(139,92,246,0.35),inset 0 0 15px rgba(139,92,246,0.1);animation:ringSpin 13s linear infinite reverse}
-.holo-ring-3{width:310px;height:90px;border-width:1px;border-style:dashed;border-color:rgba(6,182,212,0.4);box-shadow:0 0 20px rgba(6,182,212,0.2);animation:ringSpin 17s linear infinite}
+.holo-ring{position:absolute;left:50%;top:80%;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border-style:solid;transform-style:preserve-3d;will-change:transform}
+.holo-ring-1{width:260px;height:75px;border-width:2px;border-color:rgba(59,130,246,0.45);box-shadow:0 0 18px rgba(59,130,246,0.3);animation:ringSpin 9s linear infinite}
+.holo-ring-2{width:200px;height:58px;border-width:2px;border-color:rgba(139,92,246,0.45);box-shadow:0 0 18px rgba(139,92,246,0.3);animation:ringSpin 13s linear infinite reverse}
+.holo-ring-3{width:310px;height:90px;border-width:1px;border-style:dashed;border-color:rgba(6,182,212,0.4);box-shadow:0 0 14px rgba(6,182,212,0.2);animation:ringSpin 17s linear infinite}
 @keyframes ringSpin{0%{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg)}}
 
 /* Energy wave pulses from platform */
@@ -270,9 +278,9 @@ html{scroll-behavior:smooth}
 @keyframes particleRise{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:0.9}85%{opacity:0.9}100%{transform:translateY(-120px) scale(0.3);opacity:0}}
 
 /* Orbit icons */
-.about-orbit-icon{position:absolute;left:50%;top:50%;width:0;height:0;animation:orbit var(--duration,12s) linear infinite;transform-style:preserve-3d}
+.about-orbit-icon{position:absolute;left:50%;top:50%;width:0;height:0;animation:orbitIcon var(--duration,12s) linear infinite;transform-style:preserve-3d;will-change:transform}
 .about-orbit-icon .glass-icon{position:absolute;left:0;top:0;transform:translate(-50%,-50%);transform-origin:center}
-@keyframes orbit{0%{transform:rotate(0deg) translateX(var(--radius,120px)) rotate(0deg)}100%{transform:rotate(360deg) translateX(var(--radius,120px)) rotate(-360deg)}}
+@keyframes orbitIcon{0%{transform:rotate(0deg) translateX(var(--radius,120px)) rotate(0deg)}100%{transform:rotate(360deg) translateX(var(--radius,120px)) rotate(-360deg)}}
 .glass-icon{background:rgba(10,18,40,0.7);border:1px solid rgba(59,130,246,0.3);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 0 18px rgba(59,130,246,0.15),inset 0 1px 0 rgba(255,255,255,0.06);transition:all 0.3s ease}
 .glass-icon:hover{transform:translate(-50%,-50%) scale(1.22) !important;box-shadow:0 0 30px rgba(59,130,246,0.55),0 0 15px rgba(139,92,246,0.4);border-color:rgba(59,130,246,0.6)}
 
@@ -284,10 +292,10 @@ html{scroll-behavior:smooth}
 .about-btn:hover::before{opacity:1}
 .about-btn:hover{color:#fff;border-color:transparent;box-shadow:0 0 25px rgba(59,130,246,0.5),0 0 40px rgba(139,92,246,0.25)}
 .feature-check{width:1.5rem;height:1.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(59,130,246,0.15);box-shadow:0 0 10px rgba(59,130,246,0.35);color:#60a5fa}
-.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out;will-change:opacity,transform}
 .fade-up.is-visible{opacity:1;transform:translateY(0)}
-.slide-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
-.slide-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+.slide-left{opacity:0;transform:translateX(-40px);transition:opacity 0.6s ease-out,transform 0.6s ease-out;will-change:opacity,transform}
+.slide-right{opacity:0;transform:translateX(40px);transition:opacity 0.6s ease-out,transform 0.6s ease-out;will-change:opacity,transform}
 .slide-left.is-visible,.slide-right.is-visible{opacity:1;transform:translateX(0)}
 .delay-100{transition-delay:0.1s}
 .delay-200{transition-delay:0.2s}
@@ -626,7 +634,10 @@ html{scroll-behavior:smooth}
           </div>
           <div class="float-3d relative">
             <div class="w-72 h-72 sm:w-80 sm:h-80 rounded-full p-1" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6,#06b6d4);box-shadow:0 0 40px rgba(59,130,246,0.3),0 0 80px rgba(139,92,246,0.15)">
-              <div class="w-full h-full rounded-full overflow-hidden" style="background:#0d1b2a"><img src="./images/avatar.png" alt="Manoj S" class="w-full h-full object-cover"></div>
+              <div class="w-full h-full rounded-full overflow-hidden" style="background:#0d1b2a"><picture>
+                <source srcset="./images/avatar.webp" type="image/webp">
+                <img src="./images/avatar.png" alt="Manoj S" width="500" height="500" fetchpriority="high" decoding="async" class="w-full h-full object-cover">
+              </picture></div>
             </div>
             <div class="absolute -top-3 -right-3 px-3 py-1.5 rounded-lg text-xs font-medium text-cyan-300 border border-cyan-500/30 hex-float" style="background:rgba(6,182,212,0.15);backdrop-filter:blur(12px);box-shadow:0 0 15px rgba(6,182,212,0.2);animation-delay:-2s"><iconify-icon icon="lucide:brain" width="12" class="mr-1"></iconify-icon>AI/ML</div>
             <div class="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-lg text-xs font-medium text-purple-300 border border-purple-500/30 hex-float" style="background:rgba(139,92,246,0.15);backdrop-filter:blur(12px);box-shadow:0 0 15px rgba(139,92,246,0.2);animation-delay:-5s"><iconify-icon icon="lucide:database" width="12" class="mr-1"></iconify-icon>Analytics</div>
@@ -835,11 +846,6 @@ html{scroll-behavior:smooth}
             <div class="holo-particle" style="left:50%;top:48%;animation-delay:1.6s"></div>
             <div class="holo-particle" style="left:22%;top:42%;animation-delay:2.4s"></div>
             <div class="holo-particle" style="left:76%;top:38%;animation-delay:3.2s"></div>
-            <div class="holo-particle" style="left:44%;top:32%;animation-delay:4s"></div>
-            <div class="holo-particle" style="left:60%;top:68%;animation-delay:1.2s"></div>
-            <div class="holo-particle" style="left:38%;top:52%;animation-delay:2s"></div>
-            <div class="holo-particle" style="left:55%;top:26%;animation-delay:0.4s"></div>
-            <div class="holo-particle" style="left:32%;top:74%;animation-delay:3.6s"></div>
 
             <!-- Orbiting tech icons — 6 official logos evenly spaced -->
             <div class="about-orbit-icon" style="--radius:155px;--duration:20s;animation-delay:0s">
@@ -923,7 +929,10 @@ html{scroll-behavior:smooth}
       <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
         <div class="card-glow rounded-2xl"></div>
         <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_1.png">
-          <img src="./images/project_1.png" alt="ERP Analytics Dashboard" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <picture>
+            <source srcset="./images/project_1.webp" type="image/webp">
+            <img src="./images/project_1.png" alt="ERP Analytics Dashboard" loading="lazy" decoding="async" width="1536" height="1024" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          </picture>
           <div class="project-img-overlay absolute inset-0"></div>
           <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
             <span class="tag-cyan px-2.5 py-1 rounded-md text-xs font-medium">Enterprise Analytics</span>
@@ -973,7 +982,10 @@ html{scroll-behavior:smooth}
       <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
         <div class="card-glow rounded-2xl"></div>
         <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_2.png">
-          <img src="./images/project_2.png" alt="Personal AI Chat Assistant" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <picture>
+            <source srcset="./images/project_2.webp" type="image/webp">
+            <img src="./images/project_2.png" alt="Personal AI Chat Assistant" loading="lazy" decoding="async" width="1717" height="916" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          </picture>
           <div class="project-img-overlay absolute inset-0"></div>
           <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
             <span class="tag-purple px-2.5 py-1 rounded-md text-xs font-medium">Generative AI</span>
@@ -1019,7 +1031,10 @@ html{scroll-behavior:smooth}
       <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
         <div class="card-glow rounded-2xl"></div>
         <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_3.png">
-          <img src="./images/project_3.png" alt="Live Billing & Distributor Ordering System" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <picture>
+            <source srcset="./images/project_3.webp" type="image/webp">
+            <img src="./images/project_3.png" alt="Live Billing & Distributor Ordering System" loading="lazy" decoding="async" width="1535" height="1024" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          </picture>
           <div class="project-img-overlay absolute inset-0"></div>
           <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
             <span class="tag-green px-2.5 py-1 rounded-md text-xs font-medium">Enterprise Web Application</span>
@@ -1066,7 +1081,10 @@ html{scroll-behavior:smooth}
       <div class="gradient-border rounded-2xl overflow-hidden card-3d relative group project-card">
         <div class="card-glow rounded-2xl"></div>
         <div class="relative w-full overflow-hidden shrink-0 rounded-2xl project-img-container project-card-img" data-full-img="./images/project_4.png">
-          <img src="./images/project_4.png" alt="Omnichannel AI Chatbot Platform" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          <picture>
+            <source srcset="./images/project_4.webp" type="image/webp">
+            <img src="./images/project_4.png" alt="Omnichannel AI Chatbot Platform" loading="lazy" decoding="async" width="1672" height="941" class="w-full h-full object-cover transition-transform duration-300 ease-out">
+          </picture>
           <div class="project-img-overlay absolute inset-0"></div>
           <div class="absolute top-4 left-4 right-12 flex items-center justify-between z-10">
             <span class="tag-purple px-2.5 py-1 rounded-md text-xs font-medium">Generative AI</span>
@@ -1317,9 +1335,6 @@ html{scroll-behavior:smooth}
               <circle cx="90" cy="25" r="1.1" fill="#60a5fa">
                 <animate attributeName="opacity" values="0.3;1;0.3" dur="2.8s" repeatCount="indefinite"/>
               </circle>
-              <circle cx="340" cy="18" r="1" fill="#a78bfa">
-                <animate attributeName="opacity" values="0.2;0.9;0.2" dur="3.5s" repeatCount="indefinite"/>
-              </circle>
               <circle cx="510" cy="20" r="1.2" fill="#06b6d4">
                 <animate attributeName="opacity" values="0.4;1;0.4" dur="2.1s" repeatCount="indefinite"/>
               </circle>
@@ -1459,15 +1474,11 @@ html{scroll-behavior:smooth}
               </rect>
             </g>
 
-            <!-- ===== FLOATING PARTICLES ===== -->
+            <!-- ===== FLOATING PARTICLES (reduced ~50% for performance) ===== -->
             <!-- Left side rising -->
             <circle cx="190" cy="380" r="1.8" fill="#60a5fa" opacity="0">
               <animate attributeName="cy" values="380;260;380" dur="6s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="165" cy="340" r="1.2" fill="#a78bfa" opacity="0">
-              <animate attributeName="cy" values="340;230;340" dur="8s" begin="1s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0;0.7;0" dur="8s" begin="1s" repeatCount="indefinite"/>
             </circle>
             <circle cx="225" cy="400" r="2" fill="#06b6d4" opacity="0">
               <animate attributeName="cy" values="400;290;400" dur="5.5s" begin="2s" repeatCount="indefinite"/>
@@ -1478,10 +1489,6 @@ html{scroll-behavior:smooth}
               <animate attributeName="cy" values="370;250;370" dur="7s" begin="0.5s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0;0.8;0" dur="7s" begin="0.5s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="430" cy="350" r="1.3" fill="#a78bfa" opacity="0">
-              <animate attributeName="cy" values="350;240;350" dur="6.5s" begin="1.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0;0.7;0" dur="6.5s" begin="1.5s" repeatCount="indefinite"/>
-            </circle>
             <circle cx="380" cy="400" r="1.6" fill="#3b82f6" opacity="0">
               <animate attributeName="cy" values="400;300;400" dur="9s" begin="3s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0;0.65;0" dur="9s" begin="3s" repeatCount="indefinite"/>
@@ -1491,17 +1498,7 @@ html{scroll-behavior:smooth}
               <animate attributeName="cy" values="360;200;360" dur="5s" begin="0.8s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0;0.9;0" dur="5s" begin="0.8s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="320" cy="350" r="1.5" fill="#60a5fa" opacity="0">
-              <animate attributeName="cy" values="350;210;350" dur="5.5s" begin="2.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0;0.8;0" dur="5.5s" begin="2.5s" repeatCount="indefinite"/>
-            </circle>
-            <!-- Tiny scattered sparkles -->
-            <circle cx="245" cy="300" r="1" fill="#fff" opacity="0">
-              <animate attributeName="opacity" values="0;0.6;0" dur="3s" begin="1s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="355" cy="280" r="1" fill="#fff" opacity="0">
-              <animate attributeName="opacity" values="0;0.6;0" dur="4s" begin="2s" repeatCount="indefinite"/>
-            </circle>
+            <!-- Tiny scattered sparkle -->
             <circle cx="300" cy="250" r="1.2" fill="#a78bfa" opacity="0">
               <animate attributeName="opacity" values="0;0.8;0" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
             </circle>
@@ -2037,7 +2034,7 @@ html{scroll-behavior:smooth}
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2"><div class="w-7 h-7 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)"><span class="text-white font-bold text-xs">MS</span></div><span class="text-slate-500 text-sm">© 2025 Manoj S. All rights reserved.</span></div>
-      <div class="flex items-center gap-4"><a href="#" class="text-slate-600 hover:text-blue-400 transition text-sm">Privacy</a><a href="#" class="text-slate-600 hover:text-blue-400 transition text-sm">Terms</a><span class="text-slate-700">|</span><span class="text-slate-600 text-xs flex items-center gap-1">Built with <iconify-icon icon="lucide:heart" width="12" style="color:#ef4444"></iconify-icon> & <iconify-icon icon="lucide:code" width="12" style="color:#3b82f6"></iconify-icon></span></div>
+      <div class="flex items-center gap-4"><a href="javascript:void(0)" class="text-slate-600 hover:text-blue-400 transition text-sm" aria-disabled="true">Privacy</a><a href="javascript:void(0)" class="text-slate-600 hover:text-blue-400 transition text-sm" aria-disabled="true">Terms</a><span class="text-slate-700">|</span><span class="text-slate-600 text-xs flex items-center gap-1">Built with <iconify-icon icon="lucide:heart" width="12" style="color:#ef4444"></iconify-icon> & <iconify-icon icon="lucide:code" width="12" style="color:#3b82f6"></iconify-icon></span></div>
     </div>
   </div>
 </footer>
@@ -2054,6 +2051,17 @@ html{scroll-behavior:smooth}
 
 <!-- ==================== SCRIPTS ==================== -->
 <script>
+// ===== SHARED PERF UTILITIES =====
+// Single passive pointer tracker used by every parallax effect on the page
+// instead of each effect registering its own 'mousemove' listener.
+const __pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+document.addEventListener('mousemove', e => { __pointer.x = e.clientX; __pointer.y = e.clientY; }, { passive: true });
+
+function debounce(fn, wait) {
+  let t;
+  return function(...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), wait); };
+}
+
 // ===== THREE.JS 3D BACKGROUND =====
 (function(){
   const canvas=document.getElementById('three-canvas');
@@ -2061,11 +2069,10 @@ html{scroll-behavior:smooth}
   const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
   renderer.setSize(window.innerWidth,window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
   const mouse={x:0,y:0,tx:0,ty:0};
-  document.addEventListener('mousemove',e=>{mouse.tx=(e.clientX/window.innerWidth-0.5)*2;mouse.ty=-(e.clientY/window.innerHeight-0.5)*2});
 
-  const pc=2500,pos=new Float32Array(pc*3),col=new Float32Array(pc*3);
+  const pc=1200,pos=new Float32Array(pc*3),col=new Float32Array(pc*3);
   const cp=[new THREE.Color(0x3b82f6),new THREE.Color(0x8b5cf6),new THREE.Color(0x06b6d4),new THREE.Color(0x10b981),new THREE.Color(0x60a5fa),new THREE.Color(0xa78bfa)];
   for(let i=0;i<pc;i++){
     const i3=i*3,r=Math.random()*12+0.5,sa=r*2.5,ba=((i%3)/3)*Math.PI*2;
@@ -2090,7 +2097,7 @@ html{scroll-behavior:smooth}
   meshes.forEach(g=>{g.m.position.set(...g.p);scene.add(g.m);geos.push(g)});
 
   const lp=[],lc=[];
-  for(let i=0;i<80;i++){
+  for(let i=0;i<40;i++){
     const a=Math.floor(Math.random()*pc),b=Math.floor(Math.random()*pc),a3=a*3,b3=b*3;
     const d=Math.sqrt((pos[a3]-pos[b3])**2+(pos[a3+1]-pos[b3+1])**2+(pos[a3+2]-pos[b3+2])**2);
     if(d<2.5){lp.push(pos[a3],pos[a3+1],pos[a3+2],pos[b3],pos[b3+1],pos[b3+2]);const c=cp[Math.floor(Math.random()*cp.length)];lc.push(c.r,c.g,c.b,c.r*.5,c.g*.5,c.b*.5)}
@@ -2099,16 +2106,22 @@ html{scroll-behavior:smooth}
   const lines=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.06,blending:THREE.AdditiveBlending}));scene.add(lines);
 
   camera.position.z=5;const clock=new THREE.Clock();
-  (function anim(){
-    requestAnimationFrame(anim);const t=clock.getElapsedTime();
+  let rafId=null,tabHidden=false;
+  function anim(){
+    rafId=requestAnimationFrame(anim);
+    if(tabHidden) return; // skip work while the tab is in the background
+    const t=clock.getElapsedTime();
+    mouse.tx=(__pointer.x/window.innerWidth-0.5)*2;mouse.ty=-(__pointer.y/window.innerHeight-0.5)*2;
     mouse.x+=(mouse.tx-mouse.x)*0.05;mouse.y+=(mouse.ty-mouse.y)*0.05;
     particles.rotation.y=t*0.05+mouse.x*0.3;particles.rotation.x=mouse.y*0.15;
     geos.forEach((g,i)=>{g.m.rotation.x+=g.rs.x;g.m.rotation.y+=g.rs.y;g.m.rotation.z+=g.rs.z;g.m.position.y+=Math.sin(t*g.fs+i)*0.002*g.fa});
     lines.rotation.y=particles.rotation.y;lines.rotation.x=particles.rotation.x;
     camera.position.x=mouse.x*0.5;camera.position.y=mouse.y*0.3;camera.lookAt(0,0,0);
     renderer.render(scene,camera);
-  })();
-  window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))});
+  }
+  rafId=requestAnimationFrame(anim);
+  document.addEventListener('visibilitychange',()=>{tabHidden=document.hidden;});
+  window.addEventListener('resize',debounce(()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5))},150));
 })();
 
 // ===== 3D CARD TILT =====
@@ -2124,14 +2137,54 @@ document.getElementById('mobileClose').addEventListener('click',closeM);mo.addEv
 document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',closeM));
 function closeM(){mm.classList.remove('open');mo.classList.add('hidden');document.body.style.overflow=''}
 
-// ===== ACTIVE NAV =====
+// ===== ACTIVE NAV + BACK TO TOP + NAVBAR BG (single passive, rAF-batched scroll handler) =====
 const secs=document.querySelectorAll('section[id]'),nl=document.querySelectorAll('.nav-link');
-window.addEventListener('scroll',()=>{const sy=window.scrollY+100;secs.forEach(s=>{if(sy>=s.offsetTop&&sy<s.offsetTop+s.offsetHeight){nl.forEach(l=>{l.classList.remove('active','text-slate-300');l.classList.add('text-slate-400');if(l.getAttribute('href')==='#'+s.id){l.classList.add('active','text-slate-300');l.classList.remove('text-slate-400')}})}})});
-
-// ===== BACK TO TOP =====
 const btt=document.getElementById('backToTop');
-window.addEventListener('scroll',()=>{if(window.scrollY>500){btt.classList.remove('opacity-0','translate-y-4','pointer-events-none');btt.classList.add('opacity-100','translate-y-0')}else{btt.classList.add('opacity-0','translate-y-4','pointer-events-none');btt.classList.remove('opacity-100','translate-y-0')}});
+const navbarEl=document.getElementById('navbar');
 btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+let __scrollTicking=false;
+function __onScrollTick(){
+  __scrollTicking=false;
+  const y=window.scrollY;
+  const sy=y+100;
+
+  // Active nav link
+  secs.forEach(s=>{
+    if(sy>=s.offsetTop&&sy<s.offsetTop+s.offsetHeight){
+      nl.forEach(l=>{
+        l.classList.remove('active','text-slate-300');
+        l.classList.add('text-slate-400');
+        if(l.getAttribute('href')==='#'+s.id){
+          l.classList.add('active','text-slate-300');
+          l.classList.remove('text-slate-400');
+        }
+      });
+    }
+  });
+
+  // Back to top button
+  if(y>500){
+    btt.classList.remove('opacity-0','translate-y-4','pointer-events-none');
+    btt.classList.add('opacity-100','translate-y-0');
+  }else{
+    btt.classList.add('opacity-0','translate-y-4','pointer-events-none');
+    btt.classList.remove('opacity-100','translate-y-0');
+  }
+
+  // Navbar background
+  navbarEl.style.background=y>50?'rgba(6,11,24,0.95)':'rgba(6,11,24,0.8)';
+  navbarEl.style.borderBottomColor=y>50?'rgba(59,130,246,0.2)':'rgba(59,130,246,0.1)';
+
+  // Robot popup end-of-page trigger
+  __checkRobotScrollTrigger();
+}
+window.addEventListener('scroll',()=>{
+  if(!__scrollTicking){
+    __scrollTicking=true;
+    requestAnimationFrame(__onScrollTick);
+  }
+},{passive:true});
 
 
 // ===== AI COMMAND CENTER =====
@@ -2251,45 +2304,85 @@ setInterval(updateTimestamp, 60000);
 })();
 
 // ===== ABOUT BRAIN PARALLAX =====
+// Reads the shared passive __pointer + computes layout once per rAF tick
+// (not once per mousemove event), and fully stops the loop while the
+// scene is scrolled out of view or the tab is hidden.
 (function(){
   const scene = document.getElementById('about-scene');
   if (!scene) return;
-  let rx = 0, ry = 0, tx = 0, ty = 0;
+  let rx = 0, ry = 0, running = false, rafId = null;
   scene.style.transformStyle = 'preserve-3d';
-  document.addEventListener('mousemove', e => {
+  scene.style.willChange = 'transform';
+
+  function loop() {
+    if (!running) { rafId = null; return; }
     const r = scene.getBoundingClientRect();
     const cx = r.left + r.width / 2;
     const cy = r.top + r.height / 2;
-    tx = (e.clientX - cx) / (r.width  / 2) * 8;
-    ty = (e.clientY - cy) / (r.height / 2) * 5;
-  });
-  document.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
-  (function loop() {
+    const tx = (__pointer.x - cx) / (r.width  / 2) * 8;
+    const ty = (__pointer.y - cy) / (r.height / 2) * 5;
     rx += (tx - rx) * 0.06;
     ry += (ty - ry) * 0.06;
     scene.style.transform = `perspective(900px) rotateY(${rx}deg) rotateX(${-ry}deg)`;
-    requestAnimationFrame(loop);
-  })();
+    rafId = requestAnimationFrame(loop);
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      running = en.isIntersecting && !document.hidden;
+      if (running && rafId === null) rafId = requestAnimationFrame(loop);
+    });
+  }, { threshold: 0.05 });
+  io.observe(scene);
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden && running;
+    if (!document.hidden && rafId === null) {
+      // Re-check intersection state indirectly by restarting; IO will correct it.
+      rafId = requestAnimationFrame(loop);
+    }
+  });
 })();
 
 // ===== EXPERIENCE ILLUSTRATION PARALLAX =====
 (function(){
   const ill = document.getElementById('exp-illustration');
   if (!ill) return;
-  let rx = 0, ry = 0, tx = 0, ty = 0;
-  document.addEventListener('mousemove', e => {
+  const illSvg = ill.querySelector('svg'); // the 30+ SMIL <animate>/<animateTransform> elements live here
+  let rx = 0, ry = 0, running = false, rafId = null, svgPaused = false;
+  ill.style.transformStyle = 'preserve-3d';
+  ill.style.perspective = '800px';
+  ill.style.willChange = 'transform';
+
+  function setSvgPaused(paused){
+    if (!illSvg || paused === svgPaused) return;
+    svgPaused = paused;
+    try { paused ? illSvg.pauseAnimations() : illSvg.unpauseAnimations(); } catch(e) {}
+  }
+
+  function loop() {
+    if (!running) { rafId = null; return; }
     const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-    tx = (e.clientX - cx) / cx * 8;
-    ty = (e.clientY - cy) / cy * 5;
-  });
-  (function loop() {
+    const tx = (__pointer.x - cx) / cx * 8;
+    const ty = (__pointer.y - cy) / cy * 5;
     rx += (tx - rx) * 0.08;
     ry += (ty - ry) * 0.08;
     ill.style.transform = `rotateY(${rx}deg) rotateX(${-ry}deg)`;
-    requestAnimationFrame(loop);
-  })();
-  ill.style.transformStyle = 'preserve-3d';
-  ill.style.perspective = '800px';
+    rafId = requestAnimationFrame(loop);
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      running = en.isIntersecting && !document.hidden;
+      setSvgPaused(!running);
+      if (running && rafId === null) rafId = requestAnimationFrame(loop);
+    });
+  }, { threshold: 0.05 });
+  io.observe(ill);
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden && running;
+    setSvgPaused(!running);
+    if (!document.hidden && rafId === null) {
+      rafId = requestAnimationFrame(loop);
+    }
+  });
 })();
 
 // ===== CONTACT SECTION SCROLL ANIMATIONS =====
@@ -2305,10 +2398,9 @@ setInterval(updateTimestamp, 60000);
   document.querySelectorAll('#contact .fade-up, #contact .slide-left, #contact .slide-right').forEach(el=>contactObs.observe(el));
 })();
 
-// ===== NAVBAR SCROLL =====
-window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');n.style.background=window.scrollY>50?'rgba(6,11,24,0.95)':'rgba(6,11,24,0.8)';n.style.borderBottomColor=window.scrollY>50?'rgba(59,130,246,0.2)':'rgba(59,130,246,0.1)'});
-
 // ===== ROBOT POPUP LOGIC =====
+// (Navbar background is now handled inside the consolidated scroll handler above.)
+function __checkRobotScrollTrigger(){} // reassigned below once the popup IIFE runs
 (function(){
   const popup=document.getElementById('robotPopup');
   const closeBtn=document.getElementById('robotCloseBtn');
@@ -2331,16 +2423,17 @@ window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');
     }, 1800);
   }
 
-  // Show only when the user reaches the end of the page
+  // Show only when the user reaches the end of the page.
+  // Checked from the single shared scroll handler instead of a dedicated listener.
   let scrollTriggered = false;
-  window.addEventListener('scroll', ()=>{
+  __checkRobotScrollTrigger = function(){
     if(scrollTriggered) return;
     const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
     if(scrollPercent > 0.98){
       scrollTriggered = true;
       setTimeout(showRobot, 500);
     }
-  });
+  };
 
   // Close button
   closeBtn.addEventListener('click', ()=>{
@@ -2534,6 +2627,75 @@ if(typingRole){
         if(text) text.textContent='View Details';
       }
     });
+  });
+})();
+
+// ===== SMOOTH NAVBAR SCROLL (correct fixed-navbar offset, ~600ms) =====
+(function(){
+  const NAVBAR_OFFSET = 80; // fixed navbar (h-16 = 64px) + breathing room
+  const DURATION = 600;
+
+  function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+
+  function smoothScrollTo(targetY){
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+    function step(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / DURATION, 1);
+      // behavior:'instant' avoids the global CSS scroll-behavior:smooth from
+      // additionally interpolating each frame update (which would fight this
+      // custom cubic easing and cause jank).
+      window.scrollTo({ top: startY + distance * easeInOutCubic(progress), behavior: 'instant' });
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('a.nav-link, a.mobile-link').forEach(link=>{
+    const href = link.getAttribute('href');
+    if (!href || href.charAt(0) !== '#' || href.length < 2) return;
+    link.addEventListener('click', e=>{
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET);
+      smoothScrollTo(targetY);
+      history.pushState(null, '', href);
+    });
+  });
+})();
+
+// ===== PAUSE OFFSCREEN DECORATIVE ANIMATIONS =====
+// Reduces "multiple infinite animations running simultaneously" by only
+// animating elements that are actually visible in the viewport.
+(function(){
+  const selectors = [
+    '.about-hologram', '.holo-ring', '.holo-wave',
+    '.orbit', '.orbit-reverse',
+    '.contact-ai-orb', '.contact-ai-orb-inner',
+    '.contact-orbit-ring-1', '.contact-orbit-ring-2',
+    '.hex-float'
+  ];
+  const els = document.querySelectorAll(selectors.join(','));
+  if (!els.length) return;
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      en.target.style.animationPlayState = (en.isIntersecting && !document.hidden) ? 'running' : 'paused';
+    });
+  }, { threshold: 0.05 });
+  els.forEach(el=>io.observe(el));
+
+  document.addEventListener('visibilitychange', ()=>{
+    if (document.hidden){
+      els.forEach(el=>{ el.style.animationPlayState = 'paused'; });
+    } else {
+      // Let the IntersectionObserver resolve correct per-element visibility again
+      io.disconnect();
+      els.forEach(el=>io.observe(el));
+    }
   });
 })();
 </script>
