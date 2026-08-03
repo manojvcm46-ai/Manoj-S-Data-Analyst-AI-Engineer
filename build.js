@@ -45,18 +45,25 @@ async function main() {
     try {
       const obfuscated = JavaScriptObfuscator.obfuscate(trimmed, {
         compact: true,
-        controlFlowFlattening: false, // keep true perf impact low for a portfolio site
-        deadCodeInjection: false,
+        controlFlowFlattening: true,
+        controlFlowFlatteningThreshold: 0.75,
+        deadCodeInjection: true,
+        deadCodeInjectionThreshold: 0.4,
         debugProtection: false,
-        disableConsoleOutput: true, // strips console.* calls at runtime
-        identifierNamesGenerator: 'hexadecimal',
+        disableConsoleOutput: true,
+        identifierNamesGenerator: 'mangled',
+        numbersToExpressions: true,
         renameGlobals: false,
-        selfDefending: false,
+        rotateStringArray: true,
+        selfDefending: true,
+        shuffleStringArray: true,
+        splitStrings: true,
+        splitStringsChunkLength: 5,
         stringArray: true,
-        stringArrayEncoding: ['base64'],
-        stringArrayThreshold: 0.6,
-        splitStrings: false,
-        target: 'browser'
+        stringArrayEncoding: ['rc4', 'base64'],
+        stringArrayThreshold: 1,
+        target: 'browser',
+        transformObjectKeys: false
       }).getObfuscatedCode();
       return `<script${attrs}>${obfuscated}</script>`;
     } catch (err) {
